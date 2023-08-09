@@ -1,6 +1,6 @@
 :root {
     --warning_color_red: #EF5634;
-    
+
     --text: white;
     --text_reading: black;
     --background: white;
@@ -9,7 +9,7 @@
     --hover: #57C2AE;
 }
 
-[data-theme ='dark'] {
+[data-theme='dark'] {
     --warning_color_red: #EF5634;
 
     --text: white;
@@ -18,4 +18,9 @@
     --background-01: #333333;
     --background-02: #515151;
     --hover: #727273;
+}
+
+.click {
+    color: var(--text);
+    background-color: var(--background-02);
 }

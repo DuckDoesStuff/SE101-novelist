@@ -20,7 +20,17 @@
     --hover: #727273;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
+
 .click {
     color: var(--text);
     background-color: var(--background-02);
+    font-family: 'REM';
+    font-style: italic;
+}
+
+.click:hover {
+    color: var(--text);
+    background-color: var(--hover);
+    cursor: pointer;
 }

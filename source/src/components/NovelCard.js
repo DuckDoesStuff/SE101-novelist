@@ -3,7 +3,7 @@ import React from 'react';
 const NovelCard = () => {
     return (
         <div>
-            <p> Something dumb </p>
+            <p className='click'> Something dumb </p>
         </div>
     );
 };

@@ -1,0 +1,15 @@
+:root {
+    --black: black;
+    --white: white;
+    --warning_color_red: #EF5634;
+
+    --lightmode_green_01_bg: #0B886D;
+    --lightmode_green_02_bg: #1EAE91;
+    --lightmode_green_03_hover: #57C2AE;
+
+    --darkmode_dark_gray_bg: #383535;
+    --darkmode_gray_bg: #565756;
+    --darkmode_light_gray: #727273;
+
+    --radius: 9px;
+}

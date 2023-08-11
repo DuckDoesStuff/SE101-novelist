@@ -3,26 +3,16 @@ import React from 'react';
 import './App.css';
 import './styles/styles.css';
 // import NovelCard from './components/NovelCard';
+import NovelDropImage from './components/NovelDropImage';
 
 
 // Backend API
-import {test} from './backend-api/API'
+//import {test} from './backend-api/API'
 
 function App() {
-  // const [isDark, setTheme] = useState(false);
-  // const switchTheme = () => {
-  //   setTheme(prevTheme => !prevTheme)
-  // }
-
-  // const [isLiked, setIsLiked] = useState(false);
-  // const inCreaseLike = () => {
-  //   setIsLiked(prevLiked => !prevLiked);
-  // }
-
   return (
     <div>
-      <button onClick={test} className="click"> Run test </button>
-      <UploadZone/>
+      <NovelDropImage/>
     </div>
   );
 }

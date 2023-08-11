@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import './App.css';
 import './styles/styles.css';
 import NovelCard from './components/NovelCard';
+import Header from './components/Header/Header';
+import HorNovelCard from './components/HorNovelCard';
 
 function App() {
   const [isDark, setTheme] = useState(false);
@@ -16,10 +18,16 @@ function App() {
   }
 
   return (
+
     <div data-theme={isDark ? 'dark' : 'light'}>
-      <p onClick={switchTheme} className="click"> hahaha </p>
-      <button onClick={inCreaseLike} className="click" id='heart'> {isLiked ? <i className="fa-solid fa-heart"> </i> : <i className="fa-regular fa-heart"></i>} </button>
-      <button onClick={switchTheme} className="click"> click </button>
+      <Header/>
+      <HorNovelCard
+      thumbnailSrc="author1.jpg"
+      name="Mộng Cầm"
+      genres={["Hài", "Tình cảm"]} // Truyền mảng các thể loại
+      author="Lan Hồ Điệp"
+      script="This is the script for the novel."
+/>
     </div>
   );
 }

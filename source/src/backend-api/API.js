@@ -1,6 +1,7 @@
 // Backend api
-import {ref, push, set, child, get} from 'firebase/database'
-import {database} from './FirebaseConfig'
+import {ref, push, set, child, get} from 'firebase/database';
+import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
+import {database, storage} from './FirebaseConfig';
 
 const emptyNovel = () => {
 	return {
@@ -12,7 +13,8 @@ const emptyNovel = () => {
 		content: [""],
 		like: 0,
 		view: 0,
-		comment_section: ""
+		comment_section: "",
+		description: ""
 	}
 }
 
@@ -26,16 +28,54 @@ const pushNovel = (novel) => {
 	//push(novelRef, novel)
 }
 
-const getNovel = async (id) => {
+const getNovel = (id) => {
 	const novelRef = ref(database, 'novels/' + id)
-	const snapshot = await get(novelRef)
-	
-    if (snapshot.exists()) {
-		const data = snapshot.val();
-		return data
-	} else {
-		console.log('No data available');
-		return emptyNovel()
+	return new Promise((resolve, reject) => {
+		get(novelRef)
+		.then((snapshot) => {
+			if (snapshot.exists()) {
+				const data = snapshot.val();
+				resolve(data)
+			}
+		})
+		.catch((error) => {
+			console.error("An error occured while fetching data: ", error)
+			reject(error)
+		})
+	})
+}
+
+//TODO: getNovels(string) a function to return multiple novels with titles contain the string
+
+//TODO: uploadImage(file) returns a promise which can resolve to a file URL
+
+export const uploadImage = (selectedFile) => {
+	if (selectedFile) {
+		const novelThumbsRef = sRef(storage, selectedFile.name);
+		const uploadTask = uploadBytesResumable(novelThumbsRef, selectedFile)
+
+		return new Promise((resolve, reject) => {
+			uploadTask.on('state_changed',
+			(snapshot) => {
+				// We can check for current state of the upload in here
+				// Check if it's paused, canceled, running and handle them in here
+				// Or even check their progress
+			}, 
+			(error) => {
+				console.error("Error uploading file: ", error)
+				reject(error)
+			}, 
+			async () => {
+				try {
+					const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+					resolve(downloadURL)
+				}
+				catch (error) {
+					console.error("Error while fetching URL: ", error)
+					reject(error)
+				}
+			})
+		})
 	}
 }
 
@@ -61,5 +101,7 @@ export const test = () => {
 		
 		console.log(novelData)
 	})
-	// We might need to handle errors here
+	.catch((error) => {
+		// Cry
+	})
 }

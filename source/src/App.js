@@ -8,7 +8,6 @@ import './styles/styles.css';
 // Backend API
 import {test} from './backend-api/API'
 
-
 function App() {
   // const [isDark, setTheme] = useState(false);
   // const switchTheme = () => {
@@ -22,7 +21,8 @@ function App() {
 
   return (
     <div>
-      <button onClick={test} className="click"> Click to test </button>
+      <button onClick={test} className="click"> Run test </button>
+      <UploadZone/>
     </div>
   );
 }

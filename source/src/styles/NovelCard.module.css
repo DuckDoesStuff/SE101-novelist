@@ -1,0 +1,89 @@
+.novel-card {
+    display: flex;
+    width: 12vw;
+    height:35vh;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2vh;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border-style: solid;
+    border-color: var(--background-02);
+    border-width: 0.7px;
+    box-shadow: 2px 2px 4px rgba(100, 100, 100, 0.5);
+    margin: 1.5vw;
+}
+
+.novel-card:hover {
+    cursor: pointer;
+    background: var(--background-02);
+}
+
+/* .novel-card .thumbnail {
+    width: 10vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  } */
+  
+  .novel-card img {
+    max-height: 100%;
+    object-fit: contain; /* Sử dụng object-fit: contain; */
+    align-self: center;
+    justify-items: center;
+  }
+  
+
+.novel-card .tag {
+    position: absolute;
+    display: flex;
+    padding: 1px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    align-self: stretch;
+    background-color: var(--background);
+    color: var(--text-name);
+    font-size: auto;
+    border-radius: 0 0 9px 9px;
+    bottom: 0;
+}
+
+.novel-card:hover .tag {
+    background-color: var(--background-02);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.novel-card .genre {
+    color: var(--text);
+    background-color: var(--background-02);
+    font-family: 'REM';
+    font-size: 12px;
+    border-radius: 7px;
+    border: none;
+    padding: 5px 10px;
+    align-items: center;
+    justify-self: center;
+    text-align: center;
+}
+
+.novel-card:hover .genre{
+    color: var(--background-02);
+    background-color: var(--text);
+}
+
+.product-name {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    font-size: 16px;
+    font-style: bold;
+    text-align: left;
+}

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import "./styles/styles.css";
 import NovelCard from "./components/NovelCard.js";
+import Carousel from "./components/Carousel";
 
 function App() {
   const [isDark, setTheme] = useState(false);
@@ -10,26 +11,129 @@ function App() {
     setTheme((prevTheme) => !prevTheme);
   };
 
-  const [isLiked, setIsLiked] = useState(false);
-  const inCreaseLike = () => {
-    setIsLiked((prevLiked) => !prevLiked);
-  };
-  const test = () => {
-    console.log("ok");
+  const test = (novel) => {
+    console.log(novel.id);
   };
 
+  const novel = [
+    {
+      id: "1",
+		  title: "Con ga trong lang thang nhieu mau that ngo",
+		  thumbnail: "image.jpg",
+		  genre: ["Dammy"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "2",
+		  title: "Lan Ho Diep 123",
+		  thumbnail: "image.jpg",
+		  genre: ["Tinh yeu"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "3",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "4",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "5",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "6",
+		  title: "Con ga trong lang thang nhieu mau that ngo",
+		  thumbnail: "image.jpg",
+		  genre: ["Dammy"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "7",
+		  title: "Lan Ho Diep 123",
+		  thumbnail: "image.jpg",
+		  genre: ["Tinh yeu"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "8",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "9",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    },
+    {
+      id: "10",
+		  title: "Mot cau chuyen gi do",
+		  thumbnail: "image.jpg",
+		  genre: ["Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: ""
+    }
+  ];
   return (
     <div
-      data-theme={isDark ? "dark" : "light"}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-        boxSizing: "100px",
-      }}
+      data-theme={isDark ? "dark" : "light"} className="app"
     >
-      <NovelCard read={test} like={test}> </NovelCard>
+      <Carousel title="Top" novel={novel} onClick={test}/>
+      <button onClick={switchTheme}> haha </button>
+      <i className="fa-solid fa-arrow-right" color="blue"></i>
     </div>
   );
 }

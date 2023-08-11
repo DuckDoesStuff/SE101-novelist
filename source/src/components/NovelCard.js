@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import ButtonReaction from "./ButtonReaction.js";
-import Button from "./Button.js";
+import styles from "../styles/NovelCard.module.css";
 
-const NovelCard = ({ read, like }) => {
+const NovelCard = ({ novel, onClick }) => {
   return (
-    <div>
-      <Button doSomething={read} className="read">
-        READ
-      </Button>
-      <ButtonReaction
-        prevIcon="fa-regular fa-heart"
-        postIcon="fa-solid fa-heart"
-        doSomething={like}
-        className="reaction"
-      >
-        Like
-      </ButtonReaction>
+    <div className={styles["novel-card"]} title={novel.title} onClick={onClick}>
+      <img src={novel.thumbnail} alt={novel.title} />
+      <div className={styles["tag"]}>
+        <p className={styles["genre"]}> {novel.genre[0]} </p>
+        <p className={styles["product-name"]}> {novel.title} </p>
+      </div>
     </div>
   );
 };

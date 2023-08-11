@@ -6,8 +6,7 @@ const NovelCard = ({ read, like }) => {
   return (
     <div>
       <Button doSomething={read} className="read">
-        {" "}
-        READ{" "}
+        READ
       </Button>
       <ButtonReaction
         prevIcon="fa-regular fa-heart"
@@ -15,8 +14,7 @@ const NovelCard = ({ read, like }) => {
         doSomething={like}
         className="reaction"
       >
-        {" "}
-        Like{" "}
+        Like
       </ButtonReaction>
     </div>
   );

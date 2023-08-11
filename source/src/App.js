@@ -5,6 +5,7 @@ import "./styles/styles.css";
 import NovelCard from "./components/NovelCard.js";
 import Carousel from "./components/Carousel";
 
+
 function App() {
   const [isDark, setTheme] = useState(false);
   const switchTheme = () => {
@@ -87,39 +88,6 @@ function App() {
 		  title: "Lan Ho Diep 123",
 		  thumbnail: "image.jpg",
 		  genre: ["Tinh yeu"],
-		  status: "",
-		  content: [""],
-		  like: 0,
-		  view: 0,
-		  comment_section: ""
-    },
-    {
-      id: "8",
-		  title: "Mot cau chuyen gi do",
-		  thumbnail: "image.jpg",
-		  genre: ["Kich tinh"],
-		  status: "",
-		  content: [""],
-		  like: 0,
-		  view: 0,
-		  comment_section: ""
-    },
-    {
-      id: "9",
-		  title: "Mot cau chuyen gi do",
-		  thumbnail: "image.jpg",
-		  genre: ["Kich tinh"],
-		  status: "",
-		  content: [""],
-		  like: 0,
-		  view: 0,
-		  comment_section: ""
-    },
-    {
-      id: "10",
-		  title: "Mot cau chuyen gi do",
-		  thumbnail: "image.jpg",
-		  genre: ["Kich tinh"],
 		  status: "",
 		  content: [""],
 		  like: 0,

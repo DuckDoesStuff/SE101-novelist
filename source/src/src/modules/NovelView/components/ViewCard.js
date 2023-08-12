@@ -34,7 +34,7 @@ const ViewCard = () => {
                     <Button>READ</Button>
                     <div className='ViewCardButtonInteract'>
                         <Button><i class="fa-regular fa-heart"></i>Like</Button>
-                        <Button><i class="fa-regular fa-share-from-square"></i>Share</Button>
+                        <Button><i class="fa-regular fa-flag"></i>Report</Button>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ const ViewCard = () => {
                 </div>
                 <div className='NovelReact'>
                     <div className='react'><i class="fa-solid fa-heart"></i>1000</div>
-                    <div className='react'><i class="fa-solid fa-share"></i>1000</div>
+                    <div className='react'><i class="fa-solid fa-comment"></i>1000</div>
                 </div>
             </div>
 

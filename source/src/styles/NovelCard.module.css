@@ -86,7 +86,6 @@
     text-align: left;
     margin: 0;
     width: 100%;
-    transition: all 0.3s ease-in-out;
 }
 
 .novel-card:hover .info .novel-name {

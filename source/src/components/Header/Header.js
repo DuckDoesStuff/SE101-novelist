@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/styles.css';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +9,18 @@ import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
 
 function Header() {
+  const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const handleSearchInputKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      navigate(`/search`/*?query=${searchInput}*/); // Điều hướng đến trang SearchPage với query
+    }
+  };
   const headerStyle = {
     width: '1440px',
     height: '70px',
@@ -123,7 +137,9 @@ function Header() {
   return (
     <div style={headerStyle}>
       <div style={logoStyle}>
+      <Link to="/">
         <img src="/logo.svg" alt="Logo" />
+      </Link>
         </div>
       <div><button style={genreButtonBoxStyle} onClick={toggleGenres}> Genre <FontAwesomeIcon icon={faCaretDown} /></button></div>
       <div style={{ position: 'relative' }}>
@@ -136,9 +152,16 @@ function Header() {
           left: '5px', // Cách viền trái của input
           color: '#0B886D',
         }}
-      /><input type="text"
-      placeholder="Search..."
-      style={searchInputStyle} /></div>
+      /></div>
+      <div>
+        <input
+        type="text"
+        placeholder="Search..."
+        style={searchInputStyle}
+        value={searchInput}
+        onChange={handleSearchInputChange}
+        onKeyPress={handleSearchInputKeyPress}
+       /></div>
        {showGenres && (
         <div style={genreListContainerStyle}>
         <button style={genreListStyle}>Action</button>

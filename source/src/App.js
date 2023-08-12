@@ -1,35 +1,21 @@
 import React, { useState } from 'react';
 // import useLocalStorage from 'use-local-storage'
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import './styles/styles.css';
-import NovelCard from './components/NovelCard';
-import Header from './components/Header/Header';
-import HorNovelCard from './components/HorNovelCard';
+import HomePage from './pages/HomePage.js';
+import SearchPage from './pages/SearchPage.js'
+
 
 function App() {
-  const [isDark, setTheme] = useState(false);
-  const switchTheme = () => {
-    setTheme(prevTheme => !prevTheme)
-  }
-
-  const [isLiked, setIsLiked] = useState(false);
-  const inCreaseLike = () => {
-    setIsLiked(prevLiked => !prevLiked);
-  }
-
   return (
-
-    <div data-theme={isDark ? 'dark' : 'light'}>
-      <Header/>
-      <HorNovelCard
-      thumbnailSrc="author1.jpg"
-      name="Mộng Cầm"
-      genres={["Hài", "Tình cảm"]} // Truyền mảng các thể loại
-      author="Lan Hồ Điệp"
-      script="This is the script for the novel."
-/>
-    </div>
+ 
+    <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+    </Routes>
   );
 }
+  
 
 export default App;

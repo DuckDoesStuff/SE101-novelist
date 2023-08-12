@@ -1,25 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Dropzone from 'react-dropzone'
-import { uploadImage } from '../backend-api/API'
-import '../styles/NovelDropImage.css'
+import './NovelDropImage.css'
+import styles from './NovelDropImage.module.css'
 
-const NovelDropImage = (handleDrop) => {
-  // This part should be at the edit novel view and not here, we then parse in the handleDrop
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const handleDrop = (acceptedFiles) => {
-  //   // Set the selected file first then after hitting 'Save' we will upload
-  //   setSelectedFile(acceptedFiles[0]);
-  // }
-  // const handleSave = () .........etc
-
+const NovelDropImage = (props) => {
   return (
-    <Dropzone onDrop={handleDrop} maxFiles={1} accept={{'image/png':['.png'], 'image/jpeg':['.jpg']}}>
+    <Dropzone onDrop={props.onDrop} 
+              maxFiles={1} 
+              accept={{'image/png':['.png'], 'image/jpeg':['.jpg']}}
+              noClick={true}>
       {({getRootProps, getInputProps, isDragActive}) => (
-          <section className="novel-drop-zone">
+          <section className={`novel-drop-zone ${styles[props.className]}`}>
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               {!isDragActive ? (
-                <p>Drag 'n' drop or click to select your thumbnail</p>
+                <p>Drag and drop to select your thumbnail</p>
               ):(
                 <p>Drag your thumbnail here</p>
               )}

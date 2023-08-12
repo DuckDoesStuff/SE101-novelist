@@ -7,6 +7,8 @@
     --background-01: #0B886D;
     --background-02: #1EAE91;
     --hover: #57C2AE;
+    --text-name: #0B886D;
+    --base-font-size: 100px;
 }
 
 [data-theme='dark'] {
@@ -18,6 +20,13 @@
     --background-01: #333333;
     --background-02: #515151;
     --hover: #727273;
+    --text-name: white;
+}
+
+.app {
+    background-color: var(--background);
+    width: 100vw;
+    height: 100vh;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
@@ -26,11 +35,41 @@
     color: var(--text);
     background-color: var(--background-02);
     font-family: 'REM';
-    font-style: italic;
+    font-size: 100px;
+    outline: none;
+    border-radius: 9px;
 }
 
 .click:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+}
+.read {
     color: var(--text);
+    background-color: var(--background-02);
+    font-family: 'REM';
+    font-size: 1vw;
+    border-radius: 0.5vw;
+    border: none;
+    padding: 0.5vw 1vw;
+}
+
+.read:hover {
+    background-color: var(--hover);
+    cursor: pointer;
+}
+
+.reaction {
+    color: var(--text);
+    background-color: var(--background-02);
+    font-family: 'REM';
+    font-size: 1vw;
+    border-radius: 0.5vw;
+    border: none;
+    padding: 0.5vw 1vw;
+}
+
+.reaction:hover {
     background-color: var(--hover);
     cursor: pointer;
 }

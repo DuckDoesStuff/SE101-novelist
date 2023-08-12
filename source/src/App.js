@@ -4,6 +4,8 @@ import "./App.css";
 import "./styles/styles.css";
 import NovelCard from "./components/NovelCard.js";
 import Carousel from "./components/Carousel";
+import NovelItem from "./components/NovelItem";
+import TopNovel from "./components/TopNovel";
 
 
 function App() {
@@ -15,18 +17,22 @@ function App() {
   const test = (novel) => {
     console.log(novel.id);
   };
+  const testItem = () => {
+	console.log("ok");
+  }
 
   const novel = [
     {
       id: "1",
-		  title: "Con ga trong lang thang nhieu mau that ngo",
+		  title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
 		  thumbnail: "image.jpg",
-		  genre: ["Dammy"],
+		  genre: ["Tinh yeu", "Kich tinh"],
 		  status: "",
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "2",
@@ -37,7 +43,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "3",
@@ -48,7 +55,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "4",
@@ -59,7 +67,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "5",
@@ -70,7 +79,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "6",
@@ -81,7 +91,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     },
     {
       id: "7",
@@ -92,7 +103,8 @@ function App() {
 		  content: [""],
 		  like: 0,
 		  view: 0,
-		  comment_section: ""
+		  comment_section: "",
+		  author: "haha"
     }
   ];
   return (
@@ -100,6 +112,8 @@ function App() {
       data-theme={isDark ? "dark" : "light"} className="app"
     >
       <Carousel title="Top" novel={novel} onClick={test}/>
+	  <NovelItem novel={novel[0]} onClick={testItem}/>
+	  <TopNovel novel={novel} onClick={test}/>
       <button onClick={switchTheme}> haha </button>
       <i className="fa-solid fa-arrow-right" color="blue"></i>
     </div>

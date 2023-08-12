@@ -39,21 +39,6 @@ const Carousel = ({ title, novel, onClick }) => {
     centerPadding: 100,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    // customPaging: (i, currentSlide) => (
-    //     <div
-    //       className={`${styles["pagination"]} ${
-    //         i === currentSlide ? styles["active"] : ""
-    //       }`}
-    //       style={{
-    //         /* Thêm các thuộc tính CSS tùy chỉnh ở đây */
-    //         fontSize: "18px",
-    //         fontWeight: i === currentSlide ? "bold" : "normal",
-    //         // ...Thêm thuộc tính khác tùy theo ý muốn của bạn
-    //       }}
-    //     >
-    //       {i + 1}
-    //     </div>
-    //   )
   };
 
   return (

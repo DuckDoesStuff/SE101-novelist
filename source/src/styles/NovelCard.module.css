@@ -1,7 +1,12 @@
+.novel-card .info .author {
+    text-align: left;
+    margin: 0;
+}
+
 .novel-card {
     display: flex;
     width: 15vw;
-    height:45vh;
+    height: 45vh;
     flex-direction: column;
     align-items: flex-end;
     gap: 2vh;
@@ -15,27 +20,21 @@
     margin: 1.5vw;
 }
 
+.novel-card .info {
+    overflow: hidden;
+}
+
 .novel-card:hover {
     cursor: pointer;
     background: var(--background-02);
 }
 
-/* .novel-card .thumbnail {
-    width: 10vw;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  } */
-  
-  .novel-card img {
+.novel-card img {
     max-height: 100%;
     object-fit: contain; /* Sử dụng object-fit: contain; */
     align-self: center;
     justify-items: center;
-  }
-  
+}
 
 .novel-card .tag {
     position: absolute;
@@ -63,7 +62,7 @@
 .novel-card .genre {
     color: var(--text);
     background-color: var(--background-02);
-    font-family: 'REM';
+    font-family: "REM";
     font-size: 12px;
     border-radius: 7px;
     border: none;
@@ -73,19 +72,37 @@
     text-align: center;
 }
 
-.novel-card:hover .genre{
+.novel-card:hover .genre {
     color: var(--background-02);
     background-color: var(--text);
 }
 
-.product-name {
-    white-space: normal;
+.novel-card .info .novel-name {
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Số dòng hiển thị */
-    -webkit-box-orient: vertical;
     font-size: 16px;
-    font-style: bold;
+    font-weight: bold;
     text-align: left;
+    margin: 0;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.novel-card:hover .info .novel-name {
+    animation: runText 4s linear infinite;
+    white-space: nowrap; /* Display full text on hover */
+    -webkit-line-clamp: 1; /* Số dòng hiển thị */
+    overflow: visible;
+    text-overflow: clip;
+    width: auto;
+}
+
+@keyframes runText {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }

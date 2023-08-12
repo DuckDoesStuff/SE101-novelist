@@ -37,14 +37,6 @@
     object-fit: cover;
 }
 
-/* .novel-item .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    flex: 1 0 0;
-    align-self: stretch;
-} */
 .novel-item .info {
     flex: 1; /* Sử dụng flex để phần tử .info mở rộng theo chiều dọc */
     display: flex;

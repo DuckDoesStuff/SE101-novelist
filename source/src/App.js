@@ -112,6 +112,7 @@ function App() {
       data-theme={isDark ? "dark" : "light"} className="app"
     >
       <Carousel title="Top" novel={novel} onClick={test}/>
+	  <NovelCard novel={novel[0]} onClick={testItem}/>
 	  <NovelItem novel={novel[0]} onClick={testItem}/>
 	  <TopNovel novel={novel} onClick={test}/>
       <button onClick={switchTheme}> haha </button>

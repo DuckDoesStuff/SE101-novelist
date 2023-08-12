@@ -7,7 +7,10 @@ const NovelCard = ({ novel, onClick }) => {
       <img src={novel.thumbnail} alt={novel.title} />
       <div className={styles["tag"]}>
         <p className={styles["genre"]}> {novel.genre[0]} </p>
-        <p className={styles["product-name"]}> {novel.title} </p>
+        <div className={styles["info"]}>
+          <p className={styles["novel-name"]}> {novel.title} </p>
+          <p className={styles["author"]}> {novel.author} </p>
+        </div>
       </div>
     </div>
   );

@@ -61,6 +61,15 @@
 
 .input-box:focus {
 	outline: none;
-	box-shadow: 0 0 1px 0.5px var(--background-01ư),
+	box-shadow: 0 0 1px 0.5px var(--background-01),
 				0 0 2px 1px var(--background-02);
+}
+
+.genre-list {
+	display:flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: space-around;
+	gap: 11px;
+	width: 70%;
 }

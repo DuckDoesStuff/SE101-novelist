@@ -1,0 +1,23 @@
+.button {
+    background: var(--background-01);
+    color: var(--text);
+    border-radius: 8px;
+    border-style: none;
+    padding: 5px 15px;
+    font-size: 16px;
+    transition: all 0.1s ease;
+    width: fit-content;
+
+    font-family: 'REM';
+    font-weight: 300;
+}
+
+.button:hover {
+    background: var(--background-02);
+    cursor: pointer;
+}
+
+.toggled {
+    background: var(--background-02);
+    color: var(--text);
+}

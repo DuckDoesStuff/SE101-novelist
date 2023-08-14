@@ -3,11 +3,12 @@ import {ref, push, set, child, get} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
 import {database, storage} from './FirebaseConfig';
 
-const emptyNovel = () => {
+export const emptyNovel = () => {
 	return {
 		id: "",
 		title: "",
 		thumbnail: "",
+		image_path: "",
 		genre: [""],
 		status: "",
 		content: [""],
@@ -18,17 +19,19 @@ const emptyNovel = () => {
 	}
 }
 
-const pushNovel = (novel) => {
+export const pushNovel = (novel, key=null) => {
 	const novelRef = ref(database, 'novels')
 
 	// This will add a new novel to 'novels' with 'custom_key'
-	set(child(novelRef, 'custom_key'), novel)
+	if(key != null)
+		return set(child(novelRef, key), novel)
 
 	// This will add a new novel to 'novels' and Firebase will generate a unique 'push key'
-	//push(novelRef, novel)
+	else 
+		return push(novelRef, novel)
 }
 
-const getNovel = (id) => {
+export const getNovel = (id) => {
 	const novelRef = ref(database, 'novels/' + id)
 	return new Promise((resolve, reject) => {
 		get(novelRef)
@@ -36,6 +39,8 @@ const getNovel = (id) => {
 			if (snapshot.exists()) {
 				const data = snapshot.val();
 				resolve(data)
+			} else {
+				resolve(emptyNovel())
 			}
 		})
 		.catch((error) => {
@@ -68,7 +73,9 @@ export const uploadImage = (selectedFile) => {
 			async () => {
 				try {
 					const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-					resolve(downloadURL)
+					// const filePath = downloadURL.split(storage.app.options.storageBucket)[1];
+					const filePath = selectedFile.name;
+					resolve({downloadURL, filePath})
 				}
 				catch (error) {
 					console.error("Error while fetching URL: ", error)

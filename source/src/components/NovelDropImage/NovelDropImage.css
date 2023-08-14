@@ -1,0 +1,29 @@
+.novel-drop-zone {
+	display:flex;
+	width: 270px;
+	height: 410px;
+
+	border-radius: 17px;
+	background: #eeeeee;
+	align-items: center;
+	justify-content: center;
+
+	font-family: 'REM';
+    font-size: 15px;
+	font-weight: 100;
+
+	text-align: center;
+	transition: all ease 0.4s;
+}
+
+.hidden {
+	display:none;
+}
+
+.preview-image {
+	width: 270px;
+	height: 410px;
+	border-radius: 17px;
+	object-fit: cover;
+	transition: all ease 0.4s;
+}

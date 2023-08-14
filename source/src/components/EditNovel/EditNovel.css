@@ -1,0 +1,66 @@
+.edit-novel {
+	width: 70rem;
+	height: 39.125rem;
+	
+	border-radius: 1.375rem;
+	border: 2px solid var(--background-02);
+	background: var(--background);
+	display: flex;
+
+	flex-wrap:wrap;
+}
+
+.edit-novel-image {
+	display: flex;
+	flex-direction: column;
+	justify-content:space-between;
+	align-items: center;
+	margin-top: 50px;
+	margin-left: 33px;
+
+	width: fit-content;
+	height: 500px;
+}
+
+.edit-novel-input {
+	display:flex;
+	flex-direction: column;
+	margin-top: 33px;
+	margin-left: 33px;
+}
+
+.text {
+	font-family: 'REM';
+	font-size: 19px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	color: var(--text-name);
+}
+
+.input-box {
+	display:block;
+	border-radius: 12px;
+	width: 700px;
+	height: 30px;
+	border: 2px solid var(--background-02);
+	background: var(--background);
+
+	font-family: 'REM';
+	font-size: 17px;
+	font-style: normal;
+	line-height: 1.2;
+
+	padding: 10px;
+	box-sizing: border-box;
+
+	resize:none;
+	
+	transition: ease all 0.16s;
+}
+
+.input-box:focus {
+	outline: none;
+	box-shadow: 0 0 1px 0.5px var(--background-01ư),
+				0 0 2px 1px var(--background-02);
+}

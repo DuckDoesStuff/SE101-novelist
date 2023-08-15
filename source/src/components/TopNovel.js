@@ -1,5 +1,5 @@
 import React from "react";
-import NovelItem from "./NovelItem";
+import NovelItem from "./NovelItem.js";
 import styles from "../styles/TopNovel.module.css";
 
 const TopNovel = ({ novel, onClick }) => {

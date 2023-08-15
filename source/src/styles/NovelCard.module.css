@@ -27,6 +27,7 @@
 .novel-card:hover {
     cursor: pointer;
     background: var(--background-02);
+    transition: ease-in-out 0.3s;
 }
 
 .novel-card img {
@@ -95,6 +96,7 @@
     overflow: visible;
     text-overflow: clip;
     width: auto;
+    transition: ease-in-out 0.3s;
 }
 
 @keyframes runText {

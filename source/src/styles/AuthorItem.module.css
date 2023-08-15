@@ -1,4 +1,4 @@
-.novel-item {
+.author-item {
     display: flex;
     width: 16vw;
     height: 10vh;
@@ -8,38 +8,38 @@
     border-radius: 14px;
     background-color: var(--background);
 }
-.novel-item:hover {
+.author-item:hover {
     background-color: var(--background-02);
     cursor: pointer;
     transition: ease-in-out 0.2s;
 }
 
-.novel-item:hover .info {
+.author-item:hover .info {
     background-color: var(--background-02);
     color: var(--text);
     cursor: pointer;
     transition: ease-in-out 0.2s;
 }
 
-.novel-item:hover .info .tag .genre {
+.author-item:hover .info .tag .author-info {
     background-color: var(--text);
     color: var(--background-01);
     cursor: pointer;
 }
 
-.novel-item .thumbnail-container {
+.author-item .ava-container {
     width: 4vw;
-    height: 11vh;
+    height: 4vw;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 50%;
 }
 
-.novel-item .thumbnail-container img {
+.author-item .ava-container img {
     height: 100%;
     object-fit: cover;
 }
 
-.novel-item .info {
+.author-item .info {
     flex: 1; /* Sử dụng flex để phần tử .info mở rộng theo chiều dọc */
     display: flex;
     flex-direction: column;
@@ -52,41 +52,43 @@
     font-size: 14px;
 }
 
-.novel-item .info .title {
+.author-item .info .author-username {
     white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Số dòng hiển thị */
+    -webkit-line-clamp: 1; /* Số dòng hiển thị */
     -webkit-box-orient: vertical;
     font-style: bold;
     text-align: left;
     margin: 0;
 }
 
-.novel-item .info .tag {
+.author-item .info .tag {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     justify-content: center;
     gap: 10px;
 }
 
-.novel-item .info .tag .genre {
+.author-item .info .tag .author-info {
     display: flex;
     color: var(--text);
     background-color: var(--background-02);
     font-family: "REM";
     font-size: 12px;
     border-radius: 6px;
-    width: 5vw;
     height: 3vh;
     text-align: center;
     justify-content: center;
     align-items: center;
     margin: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-weight: normal;
 }
 
-.novel-item .info .author {
+.author-item .info .author-username {
     margin: 0;
 }

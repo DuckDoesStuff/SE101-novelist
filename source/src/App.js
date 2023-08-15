@@ -6,7 +6,7 @@ import NovelCard from "./components/NovelCard.js";
 import Carousel from "./components/Carousel";
 import NovelItem from "./components/NovelItem";
 import TopNovel from "./components/TopNovel";
-
+import TopAuthor from "./components/TopAuthor";
 
 function App() {
   const [isDark, setTheme] = useState(false);
@@ -20,6 +20,30 @@ function App() {
   const testItem = () => {
 	console.log("ok");
   }
+
+  const author = [
+	{
+		id: "1",
+		username: "Lan Ho Diep 123 hahahahaaha",
+		followers: 100,
+		novels: 10,
+		ava: "ava.jpg"
+	},
+	{
+		id: "2",
+		username: "Lan Ho Diep 123",
+		followers: 100,
+		novels: 10,
+		ava: "ava.jpg"
+	},
+	{
+		id: "3",
+		username: "Lan Ho Diep 123",
+		followers: 100,
+		novels: 10,
+		ava: "ava.jpg"
+	}
+  ]
 
   const novel = [
     {
@@ -115,6 +139,7 @@ function App() {
 	  <NovelCard novel={novel[0]} onClick={testItem}/>
 	  <NovelItem novel={novel[0]} onClick={testItem}/>
 	  <TopNovel novel={novel} onClick={test}/>
+	  <TopAuthor author={author} onClick={test}/>
       <button onClick={switchTheme}> haha </button>
       <i className="fa-solid fa-arrow-right" color="blue"></i>
     </div>

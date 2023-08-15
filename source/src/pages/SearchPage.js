@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Header from "../components/Header/Header.js";
-import HorNovelCard from "../components/HorNovelCard.js";
+import HorNovelCard from "../components/HorNovelCard/HorNovelCard.js";
 
-function HomePage() {
+
+function SearchPage() {
   const novelList = [
     {
       thumbnailSrc: "/author1.jpg",
@@ -34,7 +34,7 @@ function HomePage() {
 
   return (
     <div>
-      <Header />
+      <Header style={{zIndex:"5"}}/>
       <div
         style={{
           display: "flex",
@@ -60,4 +60,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default SearchPage;

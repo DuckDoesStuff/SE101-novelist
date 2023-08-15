@@ -2,13 +2,14 @@ import React from "react";
 
 const GenreList = () => {
   const genreListContainerStyle = {
-    position: "absolute",
+    position: "fixed",
     top: "70px", // Đặt ở dưới nút "Genre"
-    left: "150px",
+    left: "136px",
     width: "200px", // Đặt chiều rộng cho khung chứa
     backgroundColor: "var(--background-02)", // Màu nền
     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Hiệu ứng bóng đổ
     padding: "10px", // Khoảng cách viền nội dung
+    zIndex:"1000",
   };
 
   const genreListStyle = {

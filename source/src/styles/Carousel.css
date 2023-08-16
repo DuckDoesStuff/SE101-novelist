@@ -1,0 +1,11 @@
+.pagination li{
+    background-color: var(--background);
+    border-width: 0;
+    font-family: 'REM';
+    color: var(--text-name);
+    border-radius: 9px;
+}
+.pagination li.slick-active{
+    background-color: var(--text-name);
+    color: var(--background);
+}

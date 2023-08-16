@@ -1,0 +1,109 @@
+.novel-card .info .author {
+    text-align: left;
+    margin: 0;
+}
+
+.novel-card {
+    display: flex;
+    width: 15vw;
+    height: 45vh;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2vh;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border-style: solid;
+    border-color: var(--background-02);
+    border-width: 0.7px;
+    box-shadow: 2px 2px 4px rgba(100, 100, 100, 0.5);
+    margin: 1.5vw;
+}
+
+.novel-card .info {
+    overflow: hidden;
+}
+
+.novel-card:hover {
+    cursor: pointer;
+    background: var(--background-02);
+    transition: ease-in-out 0.3s;
+}
+
+.novel-card img {
+    max-height: 100%;
+    object-fit: contain; /* Sử dụng object-fit: contain; */
+    align-self: center;
+    justify-items: center;
+}
+
+.novel-card .tag {
+    position: absolute;
+    display: flex;
+    padding: 1px 8px;
+    justify-content: left;
+    align-items: center;
+    gap: 5px;
+    align-self: stretch;
+    background-color: var(--background);
+    color: var(--text-name);
+    font-size: auto;
+    border-radius: 0 0 9px 9px;
+    bottom: 0;
+    width: 15vw;
+    height: 10vh;
+}
+
+.novel-card:hover .tag {
+    background-color: var(--background-02);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.novel-card .genre {
+    color: var(--text);
+    background-color: var(--background-02);
+    font-family: "REM";
+    font-size: 12px;
+    border-radius: 7px;
+    border: none;
+    padding: 5px 10px;
+    align-items: center;
+    justify-self: center;
+    text-align: center;
+}
+
+.novel-card:hover .genre {
+    color: var(--background-02);
+    background-color: var(--text);
+}
+
+.novel-card .info .novel-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    width: 100%;
+}
+
+.novel-card:hover .info .novel-name {
+    animation: runText 4s linear infinite;
+    white-space: nowrap; /* Display full text on hover */
+    -webkit-line-clamp: 1; /* Số dòng hiển thị */
+    overflow: visible;
+    text-overflow: clip;
+    width: auto;
+    transition: ease-in-out 0.3s;
+}
+
+@keyframes runText {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

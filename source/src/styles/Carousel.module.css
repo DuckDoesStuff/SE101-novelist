@@ -1,0 +1,58 @@
+.container {
+    width: 90%;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+}
+
+/* CustomSlider.css */
+.slick-next {
+  width: 40px; /* Đặt chiều rộng của mũi tên */
+  height: 40px; /* Đặt chiều cao của mũi tên */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  right: -40px;
+  color: var(--background-02);
+  background-color: var(--text);
+}
+.slick-next:hover {
+    color: var(--text);
+    cursor: pointer;
+    background-color: var(--background-02);
+}
+
+.slick-prev {
+    width: 40px; /* Đặt chiều rộng của mũi tên */
+    height: 40px; /* Đặt chiều cao của mũi tên */
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    left: -40px;
+    color: var(--background-02);
+    background-color: var(--text);
+  }
+
+.slick-prev:hover {
+    color: var(--text);
+    cursor: pointer;
+    background-color: var(--background-02);
+}
+
+.title {
+    color: var(--text-name);
+    text-align: left;
+    margin-bottom: 2px;
+    margin-top: 0px;
+}

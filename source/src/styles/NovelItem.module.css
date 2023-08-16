@@ -1,0 +1,92 @@
+.novel-item {
+    display: flex;
+    width: 16vw;
+    height: 10vh;
+    padding: 10px 10px;
+    align-items: center;
+    gap: 1vw;
+    border-radius: 14px;
+    background-color: var(--background);
+}
+.novel-item:hover {
+    background-color: var(--background-02);
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+
+.novel-item:hover .info {
+    background-color: var(--background-02);
+    color: var(--text);
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+}
+
+.novel-item:hover .info .tag .genre {
+    background-color: var(--text);
+    color: var(--background-01);
+    cursor: pointer;
+}
+
+.novel-item .thumbnail-container {
+    width: 4vw;
+    height: 11vh;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.novel-item .thumbnail-container img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.novel-item .info {
+    flex: 1; /* Sử dụng flex để phần tử .info mở rộng theo chiều dọc */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3px;
+    background-color: var(--background);
+    color: var(--text-name);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.novel-item .info .title {
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    font-style: bold;
+    text-align: left;
+    margin: 0;
+}
+
+.novel-item .info .tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.novel-item .info .tag .genre {
+    display: flex;
+    color: var(--text);
+    background-color: var(--background-02);
+    font-family: "REM";
+    font-size: 12px;
+    border-radius: 6px;
+    width: 5vw;
+    height: 3vh;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    font-weight: normal;
+}
+
+.novel-item .info .author {
+    margin: 0;
+}

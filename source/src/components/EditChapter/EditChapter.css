@@ -1,0 +1,51 @@
+.edit-chapter {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	font-family: 'REM';
+	font-weight: 900;
+	color: var(--text-name);
+	width: 70rem;
+	margin-top: 70px;
+}
+
+.edit-button, .delete-button {
+	width: 40px;
+	height: 40px;	
+	border-radius: 50%;
+	background-color: var(--background-01);
+	border: none;
+	outline: none;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all ease 0.15s;
+}
+.delete-button {
+	background-color: var(--detete, #EF5634);;
+}
+.edit-button:hover {
+	background-color: var(--hover);	
+}
+.delete-button:hover {
+	background-color: var(--hover-delete, #EF7458);
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	width: 90px;
+	margin-right: 20px;
+}
+
+.chapter-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	border: solid 2px var(--background-02);
+	height: 50px;
+	border-radius: 17px;
+}

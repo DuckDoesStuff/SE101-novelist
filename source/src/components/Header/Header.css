@@ -2,10 +2,9 @@
   position: relative;
   display: flex;
   height: 70px;
-  width: 1440px;
+  width: 100%;
   background-color: var(--background-01);
   align-items: center; /* Căn giữa theo chiều dọc */
-
 }
 .headlogo{
   margin-left: 10px;

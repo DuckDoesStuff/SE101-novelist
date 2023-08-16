@@ -7,7 +7,7 @@
   --background-01: #0b886d;
   --background-02: #1eae91;
   --hover: #57c2ae;
-  --page-width: 1440px; /* Đặt biến cho chiều rộng trang */
+  --page-width: 100%; /* Đặt biến cho chiều rộng trang */
 }
 
 [data-theme="dark"] {

@@ -11,6 +11,8 @@
     --hover: #57C2AE;
     --text-name: #0B886D;
     --base-font-size: 100px;
+    --page-width: 1440px; /* Đặt biến cho chiều rộng trang */
+
 }
 
 [data-theme='dark'] {
@@ -41,25 +43,6 @@
 }
 
 .click:hover {
-    background-color: var(--hover);
-    cursor: pointer;
-}
-.read {
-    color: var(--text);
-    background-color: var(--background-02);
-    font-family: 'REM';
-    font-size: 1vw;
-    border-radius: 0.5vw;
-    border: none;
-    padding: 0.5vw 1vw;
-}
-
-.read:hover {
-    background-color: var(--hover);
-    cursor: pointer;
-}
-
-.reaction {
     color: var(--text);
     background-color: var(--background-02);
     font-family: 'REM';

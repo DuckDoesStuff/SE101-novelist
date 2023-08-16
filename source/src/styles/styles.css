@@ -1,18 +1,17 @@
 :root {
-    --warning_color_red: #EF5634;
+  --warning_color_red: #ef5634;
 
-    --text: white;
-    --text_reading: black;
-    --background: white;
-    --background-01: #0B886D;
-    --background-02: #1EAE91;
-    --hover: #57C2AE;
-    --text-name: #0B886D;
-    --base-font-size: 100px;
+  --text: white;
+  --text_reading: black;
+  --background: white;
+  --background-01: #0b886d;
+  --background-02: #1eae91;
+  --hover: #57c2ae;
+  --page-width: 1440px; /* Đặt biến cho chiều rộng trang */
 }
 
-[data-theme='dark'] {
-    --warning_color_red: #EF5634;
+[data-theme="dark"] {
+  --warning_color_red: #ef5634;
 
     --text: white;
     --text_reading: #d2d2d2;
@@ -20,18 +19,15 @@
     --background-01: #333333;
     --background-02: #515151;
     --hover: #727273;
-    --text-name: white;
 }
 
-.app {
-    background-color: var(--background);
-    width: 100vw;
-    height: 100vh;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=REM&display=swap");
 
 .click {
+  color: var(--text);
+  background-color: var(--background-02);
+  font-family: "REM";
+  font-style: italic;
     color: var(--text);
     background-color: var(--background-02);
     font-family: 'REM';
@@ -41,35 +37,15 @@
 }
 
 .click:hover {
-    background-color: var(--hover);
-    cursor: pointer;
-}
-.read {
     color: var(--text);
-    background-color: var(--background-02);
-    font-family: 'REM';
-    font-size: 1vw;
-    border-radius: 0.5vw;
-    border: none;
-    padding: 0.5vw 1vw;
-}
-
-.read:hover {
     background-color: var(--hover);
     cursor: pointer;
 }
+body {
+  width: var(--page-width);
+} /* cái này dùng để định dang độ rộng của page*/
 
-.reaction {
-    color: var(--text);
-    background-color: var(--background-02);
-    font-family: 'REM';
-    font-size: 1vw;
-    border-radius: 0.5vw;
-    border: none;
-    padding: 0.5vw 1vw;
-}
-
-.reaction:hover {
-    background-color: var(--hover);
-    cursor: pointer;
-}
+a {
+  color: inherit; /* Sử dụng màu văn bản thừa kế */
+  text-decoration: none; /* Loại bỏ gạch chân */
+} /*cái này dùng để bỏ tô xanh với gạch chân khi dùng thẻ link*/

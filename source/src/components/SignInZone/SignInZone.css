@@ -1,0 +1,79 @@
+.SignInZone {
+    position: relative;
+  }
+  
+  .logo {
+    width: 173px;
+    height: 55.19px;
+    position: absolute;
+    margin-top: 146px;
+    margin-left: 633px;
+  }
+  
+  .SignInCard {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    width: 582px;
+    height: 476px;
+    background-color: white;
+    top:219px;
+    left:429px;
+    border-radius: 22px;
+    border: 2px solid var(--background-02);
+  }
+  .title{
+      color: aliceblue;
+      background-color: var(--background-02);
+      height: 43px;
+      width: 200px;
+      border-radius: 5px;
+      font-weight: bold;
+      position: relative;
+      text-align: center;
+      margin-top: 43px;
+      margin-left: 191px;
+      font-size: 25px;
+  
+  
+  }
+  
+  .text{
+      color:var(--background-02);
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 50px;
+      line-height: 0;
+  }
+  .inputContainer{
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+  
+  }
+  .icon{
+      color: var(--background-02);
+      font-size: 30px;
+      padding-right: 10px;
+  }
+  .inputField{
+      padding-left: 20px;
+      width: 490px;
+      height: 38px;
+  
+  }
+  .btn{
+      margin-top:23px;
+      margin-left: 154px ;
+      font-weight: bold;
+      color:aliceblue;
+      border-radius: 6px ;
+      font-size: 15px;
+      width: 264px;
+      height: 43px;
+      background-color: var(--background-01);
+      transition: background-color 0.3s;
+  }
+  .btn:hover{
+  background-color: var(--hover); /* Màu nền hover */
+    cursor: pointer; 
+  }

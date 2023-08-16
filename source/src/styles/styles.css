@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
+
 :root {
     --warning_color_red: #EF5634;
 
@@ -28,8 +30,6 @@
     width: 100vw;
     height: 100vh;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=REM&display=swap');
 
 .click {
     color: var(--text);

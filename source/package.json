@@ -1,8 +1,7 @@
 {
-  "name": "novelist",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
+    "@mui/material": "^5.14.4",
+    "styled-components": "^6.0.7",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
@@ -29,11 +28,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "devDependencies": {
+    "eslint-config-react-app": "^7.0.1",
+    "web-vitals": "^3.4.0"
   },
   "browserslist": {
     "production": [

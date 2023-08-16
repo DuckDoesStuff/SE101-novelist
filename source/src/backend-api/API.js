@@ -3,22 +3,34 @@ import {ref, push, set, child, get} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
 import {database, storage} from './FirebaseConfig';
 
+export const emptyChapter = () => {
+	return {
+		id: "",
+		title: "",
+		content: [""],
+		like: 0,
+		view: 0,
+	}
+}
+
+// Returns an empty novel object, useful for creating a new novel
 export const emptyNovel = () => {
 	return {
 		id: "",
 		title: "",
 		thumbnail: "",
+		description: "",
 		image_path: "",
+		comment_section: "",
 		genre: [""],
+		chapter_id: [""],
 		status: "",
-		content: [""],
 		like: 0,
 		view: 0,
-		comment_section: "",
-		description: ""
 	}
 }
 
+// Parse in a novel object and a key (if you want to set a custom key)
 export const pushNovel = (novel, key=null) => {
 	const novelRef = ref(database, 'novels')
 
@@ -31,6 +43,8 @@ export const pushNovel = (novel, key=null) => {
 		return push(novelRef, novel)
 }
 
+// Parse in a novel id and it will return a promise which contains the novel data
+// If the novel doesn't exist, it will return an empty novel
 export const getNovel = (id) => {
 	const novelRef = ref(database, 'novels/' + id)
 	return new Promise((resolve, reject) => {
@@ -50,10 +64,7 @@ export const getNovel = (id) => {
 	})
 }
 
-//TODO: getNovels(string) a function to return multiple novels with titles contain the string
-
-//TODO: uploadImage(file) returns a promise which can resolve to a file URL
-
+// Parse in a File object and it will return a promise which contains the downloadURL and filePath
 export const uploadImage = (selectedFile) => {
 	if (selectedFile) {
 		const novelThumbsRef = sRef(storage, selectedFile.name);
@@ -74,6 +85,9 @@ export const uploadImage = (selectedFile) => {
 				try {
 					const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 					// const filePath = downloadURL.split(storage.app.options.storageBucket)[1];
+					// Currently filePath is just the file name
+					// If we ever want to change the file path instead of uploading to root
+					// We need to do some handle in here.
 					const filePath = selectedFile.name;
 					resolve({downloadURL, filePath})
 				}

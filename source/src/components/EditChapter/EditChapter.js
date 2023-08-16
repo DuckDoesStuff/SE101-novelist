@@ -2,13 +2,15 @@ import React from 'react'
 import './EditChapter.css'
 
 const EditChapter = (props) => {
-	const ChapterItem = (
-		<p>Hiiiiiii</p>
-	)
+	const ChapterItem = () => {
+		return (
+			<p>Hiiiiii</p>
+		)
+	}
 
   return (
 	<div>
-	  {ChapterItem}
+	  <ChapterItem/>
 	</div>
   )
 }

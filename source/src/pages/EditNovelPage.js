@@ -19,9 +19,6 @@ const EditNovelPage = (props) => {
 
   // Fetch novel data from backend
   const fetchNovel = (novelID) => {
-    // fetch novel data from backend
-    // set novel data
-
     getNovel(novelID)
     .then((data) => {
       setTitle(data.title);
@@ -83,6 +80,7 @@ const EditNovelPage = (props) => {
   };
 
   const [messageApi, notificationHolder] = message.useMessage();
+
   const submitNovel = () => {
     var message = "", type = "error", duration = 2;
     if(!title)
@@ -91,7 +89,7 @@ const EditNovelPage = (props) => {
       message = "You need to fill out the description";
     else if(!img.preview)
       message = "You need to upload an image";
-    else if(genre.length < 1)
+    else if(genre.length < 2)
       message = "You need to select at least one genre";
     else {
       message = "Uploading novel";
@@ -108,7 +106,8 @@ const EditNovelPage = (props) => {
       newNovel.thumbnail = thumbnail;
 
       // Completely new novel
-      if(newNovel.image_path === "" && newNovel.thumbnail === "" && selectedFile !== null) {
+      if(newNovel.image_path === "" && newNovel.thumbnail === "" && selectedFile !== "") {
+        console.log("Hello1");
         uploadImage(selectedFile).then((result) => {
           newNovel.thumbnail = result.downloadURL;
           setThumbnail(result.downloadURL);
@@ -120,22 +119,28 @@ const EditNovelPage = (props) => {
         });
       }
       // Update novel with new thumbnail
-      else if(newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile !== null) {
-        deleteObject(ref(storage, newNovel.image_path)).then(() => {
-          uploadImage(selectedFile).then((result) => {
-            newNovel.thumbnail = result.downloadURL;
-            setThumbnail(result.downloadURL);
-            newNovel.image_path = result.filePath;
-            setImagePath(result.filePath);
+      else if(newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile !== "") {
+        console.log("Hello2")
+        deleteObject(ref(storage, newNovel.image_path))
+        .catch((error) => {
+          console.error("Possibly the file has already been deleted", error)
+        })
+        uploadImage(selectedFile).then((result) => {
+          newNovel.thumbnail = result.downloadURL;
+          setThumbnail(result.downloadURL);
+          newNovel.image_path = result.filePath;
+          setImagePath(result.filePath);
 
-            pushNovel(newNovel, props.novelID)
-            uploadMessage("Successfully uploaded", "success", duration);
-          });
+          pushNovel(newNovel, props.novelID)
+          uploadMessage("Successfully uploaded", "success", duration);
         });
       }
       // Update novel with old thumbnail
-      else if (newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile === null) {
+      else if (newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile === "") {
+        console.log("Hello3");
         pushNovel(newNovel, props.novelID)
+        uploadMessage("Successfully uploaded", "success", duration);
+      } else {
         uploadMessage("Successfully uploaded", "success", duration);
       }
     }

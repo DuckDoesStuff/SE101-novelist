@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './ViewCard.css';
 import thumbnail from './thumbnail.jpg'
 import avatar from './avatar.jpg'
-import Button from '../../../components/Button/Button';
-import Pagination from '../../../components/Pagination/Pagination';
+import Button from '../Button/Button';
+import Pagination from '../Pagination/Pagination'
 
 // const fakeNovel = () => {
 // 	return {

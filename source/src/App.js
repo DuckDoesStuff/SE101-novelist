@@ -9,6 +9,8 @@ import TopAuthor from "./components/TopAuthor";
 import NovelCard from "./components/NovelCard";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
+import UserInfo from "./components/UserProfile/UserInfo/UserInfo";
+import TabNovelCard from "./components/UserProfile/NovelTab/TabNovelCard";
 
 function App() {
 //   const [isDark, setTheme] = useState(false);
@@ -19,9 +21,9 @@ function App() {
 //   const test = (novel) => {
 //     console.log(novel.id);
 //   };
-//   const testItem = () => {
-// 	console.log("ok");
-//   }
+  const testItem = () => {
+	console.log("ok");
+  }
 
 //   const author = [
 // 	{
@@ -47,19 +49,19 @@ function App() {
 // 	}
 //   ]
 
-//   const novel = [
-//     {
-//       id: "1",
-// 		  title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
-// 		  thumbnail: "image.jpg",
-// 		  genre: ["Tinh yeu", "Kich tinh"],
-// 		  status: "",
-// 		  content: [""],
-// 		  like: 0,
-// 		  view: 0,
-// 		  comment_section: "",
-// 		  author: "haha"
-//     },
+  const novel = 
+    {
+      id: "1",
+		  title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
+		  thumbnail: "image.jpg",
+		  genre: ["Tinh yeu", "Kich tinh"],
+		  status: "",
+		  content: [""],
+		  like: 0,
+		  view: 0,
+		  comment_section: "",
+		  author: "haha"
+    }
 //     {
 //       id: "2",
 // 		  title: "Lan Ho Diep 123",
@@ -147,7 +149,7 @@ function App() {
 //     </div>
 //   );
 	return (
-		<ViewCard/>
+		<TabNovelCard novel={novel} onClick={testItem}/>
 	)
 }
   

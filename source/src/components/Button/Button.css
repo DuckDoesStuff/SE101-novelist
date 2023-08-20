@@ -1,10 +1,13 @@
 .button {
     background: var(--background-01);
     color: var(--text);
+    display: flex;
+    flex-direction: row;
     border-radius: 8px;
     border-style: none;
-    padding: 5px 15px;
+    padding: 4px 12px;
     font-size: 16px;
+    gap: 8px;
     transition: all 0.1s ease;
 
     font-family: 'REM';

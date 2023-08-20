@@ -17,7 +17,6 @@
     border-color: var(--background-02);
     border-width: 0.7px;
     box-shadow: 2px 2px 4px rgba(100, 100, 100, 0.5);
-    margin: 1.5vw;
 }
 
 .novel-card .info {

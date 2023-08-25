@@ -10,6 +10,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInZone() {
     const [isChecked, setIsChecked] = useState(false);
+    
     const [messageApi, notificationHolder] = message.useMessage();
     
     const [email, setEmail] = useState("");
@@ -29,11 +30,34 @@ function SignInZone() {
     const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
     };
+
+    const handleSignIn = async (e) =>{
+        e.preventDefault();
+        console.log(email,password);
+        signInWithEmailAndPassword(auth, email, password)
+        .then((user) => {
+            console.log("12");
+            uploadMessage("The user has been created successfully","success",2)
+        })
+        .catch((error) => {
+            console.log(error.code)
+            var message = "Something wrong, please try again", type = "error", duration = 2;
+            if(error.code === 'auth/wrong-password'){
+                message = "Your password is wrong, try again! Are you forgot your password ????";
+            }
+            else if (error.code === 'auth/user-not-found'){
+                message = "User not found, check the email again if it correct"
+            }
+            uploadMessage(message, type, duration);
+        })
+
+    };
     return (
       <div className="SignInZone" >
-        <img className="logo" src="/Greenlogo.svg" alt="Logo" ></img>
+        {notificationHolder}
+        <img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img>
         <div className="SignInCard">
-            <p className="title">Sign in</p>
+            <p className="titleBar">Sign in</p>
             <p className="text">Account </p>
            <div className="inputContainer"> 
                 <div className="icon">
@@ -42,7 +66,7 @@ function SignInZone() {
                     type="text"
                     value={email} onChange={(e) => setEmail(e.target.value)}
                     className="inputField"
-                    placeholder="User Name"
+                    placeholder="Email"
                 />
             </div>
             <p className="text">Password </p>
@@ -50,13 +74,13 @@ function SignInZone() {
                 <div className="icon">
                 <FontAwesomeIcon icon={faLock} /></div>
                 <input
-                    type="text"
+                    type="password"
                     value={password} onChange={(e) => setPassword(e.target.value)}
                     className="inputField"
                     placeholder="Password"
                 />
             </div>
-            <div style={{marginLeft:"42px", marginTop:"5px",marginBottom:"30px"}}>
+            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px"}}>
             <input
                 type="checkbox"
                 id="remember"
@@ -66,12 +90,10 @@ function SignInZone() {
             <label htmlFor="remember" >Remember me</label>
                 <Link to="/signup" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
             </div>
-            <Link to ="/homepage">
-                <button className="btn">Log in</button>
-            </Link>
-            <Link to ="/signup">
-                <button className="btn">Sign Up</button>
-            </Link>
+
+               <Link to =""><button className="btnSign" onClick={handleSignIn}>Log in</button></Link> 
+               <Link to ="/signup"> <button className="btnSign">Sign Up</button></Link> 
+
 
         </div>
             

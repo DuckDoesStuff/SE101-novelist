@@ -28,10 +28,10 @@
 }
 
 .novel-item .thumbnail-container {
-    width: 4vw;
-    height: 11vh;
+    width: 3.5vw;
+    height: 5.25vw;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .novel-item .thumbnail-container img {

@@ -3,8 +3,6 @@ import './UserInfo.css';
 import Button from '../../Button/Button';
 import avatar from '../../NovelViewCard/avatar.jpg'
 
-// if logged-in user, hide flag button and follow button
-
 const UserInfo = () => {
     const hidden = {
         display: 'none',

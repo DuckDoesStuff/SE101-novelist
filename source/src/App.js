@@ -9,7 +9,7 @@ import TopAuthor from "./components/TopAuthor";
 import NovelCard from "./components/NovelCard";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
-import UserInfo from "./components/UserProfile/UserInfo/UserInfo";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
 //   const [isDark, setTheme] = useState(false);
@@ -148,7 +148,7 @@ function App() {
 //     </div>
 //   );
 	return (
-		<UserInfo novel={novel} onClick={testItem}/>
+		<UserProfilePage/>
 	)
 }
   

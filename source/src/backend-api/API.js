@@ -1,8 +1,8 @@
 // Backend api
 import {ref, push, set, child, get} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
-import {auth, database, storage} from './FirebaseConfig';
-// import { auth } from './FirebaseConfig';
+import {database, storage} from './FirebaseConfig';
+
 export const emptyChapter = () => {
 	return {
 		id: "",
@@ -125,23 +125,4 @@ export const test = () => {
 	.catch((error) => {
 		// Cry
 	})
-}
-
-export const signup = (email, password) => {
-	// const auth = firebase.auth()
-
-	return auth.createUserWithEmailAndPassword(email, password)
-		.then((user) => {
-			// The user has been created successfully
-			const userRef = ref(database, 'users', user.uid)
-			userRef.set({
-				email,
-				password,
-				createdAt: new Date(),
-			})
-		})
-		.catch((error) => {
-			// An error occurred while creating the user
-			console.error(error)
-		})
 }

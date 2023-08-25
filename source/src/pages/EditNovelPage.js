@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import EditNovel from "../components/EditNovel/EditNovel";
 import EditChapter from "../components/EditChapter/EditChapter";
-import { message } from "antd";
 import Button from "../components/Button/Button";
-import { uploadImage, pushNovel, emptyNovel, getNovel } from "../backend-api/API";
+import Header from "../components/Header/Header";
+
+import { message } from "antd";
+import { uploadImage, pushNovel, emptyNovel, getNovel, emptyChapter, pushChapter, getChapter } from "../backend-api/API";
 import { storage } from "../backend-api/FirebaseConfig";
 import { deleteObject, ref } from "firebase/storage";
 import "../styles/EditNovelPage.css";
@@ -16,6 +18,8 @@ const EditNovelPage = (props) => {
   const [thumbnail, setThumbnail] = useState("");
   const [img, setImg] = useState({ preview: "" });
   const [genre, setGenre] = useState([]);
+  const [chapterID, setChapterID] = useState([]);
+  const [chapterInfo, setChapterInfo] = useState([]);
 
   // Fetch novel data from backend
   const fetchNovel = (novelID) => {
@@ -27,6 +31,7 @@ const EditNovelPage = (props) => {
       setThumbnail(data.thumbnail);
       setImg({preview: data.thumbnail});
       setGenre(data.genre);
+      setChapterID(data.chapter_id);
     })
   }
 
@@ -46,11 +51,26 @@ const EditNovelPage = (props) => {
     return () => fetchNovel(props.novelID);
   }, [props.novelID])
 
-
+  // Image preview
   useEffect(() => {
     // Revoke the data uris to avoid memory leaks
     return () => (file => URL.revokeObjectURL(file.preview));
   }, [img]);
+
+  // Fetch chapter data based on chapter IDs
+  const fetchChapters = () => {
+    for(var i = 0; i < chapterID.length; i++) {
+      getChapter(chapterID[i])
+      .then((data) => {
+        chapterInfo.push(data);
+      })
+    }
+  };
+
+  // Use useEffect to trigger fetchChapters after chapter state updates
+  useEffect(() => {
+    fetchChapters();
+  }, [chapterID]);
 
   const handleDrop = (acceptedFiles) => {
     // Set the selected file first then after hitting 'Save' we will upload
@@ -89,8 +109,10 @@ const EditNovelPage = (props) => {
       message = "You need to fill out the description";
     else if(!img.preview)
       message = "You need to upload an image";
-    else if(genre.length < 2)
+    else if(genre.length < 1)
       message = "You need to select at least one genre";
+    else if (chapterID.length < 1)
+      message = "You need to have at least one chapter";
     else {
       message = "Uploading novel";
       type = "loading";
@@ -104,10 +126,10 @@ const EditNovelPage = (props) => {
       newNovel.genre = genre;
       newNovel.image_path = imagePath;
       newNovel.thumbnail = thumbnail;
+      newNovel.chapter_id = chapterID;
 
       // Completely new novel
       if(newNovel.image_path === "" && newNovel.thumbnail === "" && selectedFile !== "") {
-        console.log("Hello1");
         uploadImage(selectedFile).then((result) => {
           newNovel.thumbnail = result.downloadURL;
           setThumbnail(result.downloadURL);
@@ -120,7 +142,6 @@ const EditNovelPage = (props) => {
       }
       // Update novel with new thumbnail
       else if(newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile !== "") {
-        console.log("Hello2")
         deleteObject(ref(storage, newNovel.image_path))
         .catch((error) => {
           console.error("Possibly the file has already been deleted", error)
@@ -137,7 +158,6 @@ const EditNovelPage = (props) => {
       }
       // Update novel with old thumbnail
       else if (newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile === "") {
-        console.log("Hello3");
         pushNovel(newNovel, props.novelID)
         uploadMessage("Successfully uploaded", "success", duration);
       } else {
@@ -145,11 +165,32 @@ const EditNovelPage = (props) => {
       }
     }
   };
-  
+
+  const handlePushChapter = () => {
+    var newChapter = emptyChapter();
+    newChapter.title = "Untitled";
+    newChapter.novel_id = props.novelID;
+    newChapter.content = "";
+    newChapter.like = 0;
+    newChapter.view = 0;
+    setChapterInfo([...chapterInfo, newChapter]);
+  }
+
+  const testFunction = () => {
+    console.log(chapterInfo)
+  }
   const buttons = ["Mystery", "Thriller", "Romantic", "Adventure", "Danmei", "Sci-fi", "Horror", "Action"];
   return (
     <div className="edit-novel-page">
       {notificationHolder}
+      <Header />
+
+      <div className="button-group">
+        <Button children="Submit" onClick={submitNovel}/>
+        <Button children="Cancel" onClick={submitNovel}/>
+        <Button children="Test" onClick={testFunction}/>
+      </div>
+
       <EditNovel  handleDrop={handleDrop}
                   preview={img.preview}
                   handleTitle={handleTitle}
@@ -161,8 +202,8 @@ const EditNovelPage = (props) => {
                   description={description}
                   />
 
-      <EditChapter />
-      <Button children="Submit" onClick={submitNovel}/>
+      <Button children="New chapter" onClick={handlePushChapter}/>
+      <EditChapter chapterInfo={chapterInfo} saveChapterInfo={setChapterInfo} />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {  faMoon, faCaretDown, faSearch, faUserLarge } from '@fortawesome/free-s
 
 import "./Header.css"; // Import the CSS file
 
-function Header() {
+const Header = () => {
   const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");

@@ -6,8 +6,9 @@ import {database, storage} from './FirebaseConfig';
 export const emptyChapter = () => {
 	return {
 		id: "",
+		novel_id: "",
 		title: "",
-		content: [""],
+		content: "",
 		like: 0,
 		view: 0,
 	}
@@ -22,12 +23,27 @@ export const emptyNovel = () => {
 		description: "",
 		image_path: "",
 		comment_section: "",
-		genre: [""],
-		chapter_id: [""],
+		genre: [],
+		chapter_id: [],
 		status: "",
 		like: 0,
 		view: 0,
 	}
+}
+
+// Parse in a chapter object and a key (if you want to set a custom key)
+export const pushChapter = (chapter, key=null) => {
+	const chapterRef = ref(database, 'chapters')
+
+	// This will add a new chapter to 'chapters' with 'custom_key'
+	if(key != null) {
+		return set(child(chapterRef, key), chapter)
+	}
+
+	// This will add a new chapter to 'chapters' and Firebase will generate a unique 'push key'
+	else {
+		return push(chapterRef, chapter)
+	} 
 }
 
 // Parse in a novel object and a key (if you want to set a custom key)
@@ -41,6 +57,27 @@ export const pushNovel = (novel, key=null) => {
 	// This will add a new novel to 'novels' and Firebase will generate a unique 'push key'
 	else 
 		return push(novelRef, novel)
+}
+
+// Parse in a chapter id and it will return a promise which contains the chapter data
+// If the chapter doesn't exist, it will return an empty chapter
+export const getChapter = (id) => {
+	const chapterRef = ref(database, 'chapters/' + id);
+	return new Promise((resolve, reject) => {
+		get(chapterRef)
+		.then((snapshot) => {
+			if (snapshot.exists()) {
+				const data = snapshot.val();
+				resolve(data)
+			} else {
+				resolve(emptyChapter())
+			}
+		})
+		.catch((error) => {
+			console.error("An error occured while fetching data: ", error)
+			reject(error)
+		})
+	})
 }
 
 // Parse in a novel id and it will return a promise which contains the novel data
@@ -100,29 +137,3 @@ export const uploadImage = (selectedFile) => {
 	}
 }
 
-// Example:
-export const test = () => { 
-	let novel = emptyNovel();
-	// Change some data
-	novel.id = "custom_key"
-	novel.title = "hHA"
-	pushNovel(novel);
-
-	getNovel("custom_key")
-	.then((novelData) => {
-		// In here we should check if novelData is not empty
-		// then we can return a novel card parsing in the novelData
-		
-		/*
-		if (novelData != emptyNovel())
-			return <NovelCard data={novelData}/>
-		else 
-			return something
-		*/
-		
-		console.log(novelData)
-	})
-	.catch((error) => {
-		// Cry
-	})
-}

@@ -8,6 +8,8 @@
 	color: var(--text-name);
 	width: 70rem;
 	margin-top: 70px;
+	gap:40px;
+	padding-bottom: 300px;
 }
 
 .edit-button, .delete-button {
@@ -33,19 +35,83 @@
 	background-color: var(--hover-delete, #EF7458);
 }
 
-.buttons {
+.save-cancel-button-group {
 	display: flex;
 	justify-content: space-between;
-	width: 90px;
-	margin-right: 20px;
+	width: fit-content;
+	gap:20px;
 }
 
 .chapter-item {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	border: solid 2px var(--background-02);
-	height: 50px;
-	border-radius: 17px;
+	/* border: solid 2px var(--background-02); */
+	/* border-radius: 17px; */
+}
+
+.chapter-hor {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: inherit;
+}
+
+
+.chapter-input {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: 'REM';
+	font-weight: 900;
+	color: var(--text-name);
+	width: 70rem;
+	margin-top: 70px;
+	gap:20px;
+}
+
+.input-box {
+	display:block;
+	border-radius: 12px;
+	width: 100%;
+	border: 2px solid var(--background-02);
+	background: var(--background);
+
+	font-family: 'REM';
+	font-size: 17px;
+	font-style: normal;
+	line-height: 1.2;
+
+	box-sizing: border-box;
+	overflow-x: hidden;
+
+	resize:none;
+	
+	transition: ease all 0.16s;
+}
+
+.input-box::-webkit-scrollbar {
+	width: 8px;
+}
+
+.input-box::-webkit-scrollbar-thumb {
+	background: var(--background-02);
+	border-radius: 10px;
+}
+
+.input-box:focus {
+	outline: none;
+	box-shadow: 0 0 1px 0.5px var(--background-01),
+				0 0 2px 1px var(--background-02);
+}
+
+.message-text {
+	font-size: 30px;
+	font-family: 'REM';
+	font-weight: 100;
+	align-self: center;
 }

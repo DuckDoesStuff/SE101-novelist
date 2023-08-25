@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./App.css";
 import "./styles/styles.css";
 import EditNovelPage from "./pages/EditNovelPage.js";
-import Carousel from "./components/Carousel";
-import NovelItem from "./components/NovelItem";
-import TopNovel from "./components/TopNovel";
-import TopAuthor from "./components/TopAuthor";
-import NovelCard from "./components/NovelCard";
+// import Carousel from "./components/Carousel";
+// import NovelItem from "./components/NovelItem";
+// import TopNovel from "./components/TopNovel";
+// import TopAuthor from "./components/TopAuthor";
+// import NovelCard from "./components/NovelCard";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -20,9 +20,9 @@ function App() {
 //   const test = (novel) => {
 //     console.log(novel.id);
 //   };
-  const testItem = () => {
-	console.log("ok");
-  }
+//   const testItem = () => {
+// 	console.log("ok");
+//   }
 
 //   const author = [
 // 	{
@@ -48,19 +48,19 @@ function App() {
 // 	}
 //   ]
 
-  const novel = 
-    {
-      id: "1",
-		  title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
-		  thumbnail: "image.jpg",
-		  genre: ["Tinh yeu", "Kich tinh"],
-		  status: "",
-		  content: [""],
-		  like: 0,
-		  view: 0,
-		  comment_section: "",
-		  author: "haha"
-    }
+//   const novel = [
+//     {
+//       id: "1",
+// 		  title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
+// 		  thumbnail: "image.jpg",
+// 		  genre: ["Tinh yeu", "Kich tinh"],
+// 		  status: "",
+// 		  content: [""],
+// 		  like: 0,
+// 		  view: 0,
+// 		  comment_section: "",
+// 		  author: "haha"
+//     },
 //     {
 //       id: "2",
 // 		  title: "Lan Ho Diep 123",
@@ -151,6 +151,5 @@ function App() {
 		<UserProfilePage/>
 	)
 }
-  
 
 export default App;

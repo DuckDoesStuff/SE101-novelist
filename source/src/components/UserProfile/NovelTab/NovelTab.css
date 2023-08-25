@@ -57,13 +57,16 @@
     display: none;
 }
 
-.tab-pane p {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--background-01);
-}
-
 .tab-pane.active {
     display: flex;
     flex-direction: column;
+    padding: 32px;
+    gap: 12px;
+}
+
+.tab-pane .NovelCardRow {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
 }

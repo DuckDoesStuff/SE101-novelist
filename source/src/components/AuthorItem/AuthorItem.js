@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/AuthorItem.module.css";
+import styles from "./AuthorItem.module.css";
 
 const AuthorItem = ({author, onClick}) => {
     return (

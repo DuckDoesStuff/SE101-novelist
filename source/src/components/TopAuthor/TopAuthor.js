@@ -1,6 +1,6 @@
 import React from "react";
-import AuthorItem from "./AuthorItem.js";
-import styles from "../styles/TopNovel.module.css";
+import AuthorItem from "../AuthorItem/AuthorItem.js";
+import styles from "./TopNovel.module.css";
 
 const TopAuthor = ({ author, onClick }) => {
     return (

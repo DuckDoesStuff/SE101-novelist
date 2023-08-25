@@ -48,6 +48,9 @@ function SignInZone() {
             else if (error.code === 'auth/user-not-found'){
                 message = "User not found, check the email again if it correct"
             }
+            else if (error.code === 'auth/invalid-email'){
+                message = "The email is invalid, please check and try again"
+            }
             uploadMessage(message, type, duration);
         })
 

@@ -6,14 +6,26 @@ import avatar from '../../NovelViewCard/avatar.jpg'
 // if logged-in user, hide flag button and follow button
 
 const UserInfo = () => {
+    const hidden = {
+        display: 'none',
+    };
+    
+    let isAuthor = false
+    let follow = false
+    
     return (
         <div className="UserInfoContainer">
             <div className="UserInfoNameContainer">
                 <img src={avatar} alt='avatar'></img>
                 <div className="UserInfoName">
-                    <p className="FullName">Author name <i class="fa-regular fa-flag"></i></p>
+                    <p className="FullName">
+                        Author name
+                        <i class="fa-regular fa-flag" style={isAuthor ? hidden : {}}></i>
+                        </p>
                     <p className="UserName">user_name</p>
-                    <Button><i class="fa-regular fa-square-plus"></i> Follow</Button>
+                    <div className="FollowButton" style={isAuthor ? hidden : {}}>
+                        <Button><i class={follow ? `fa-solid fa-check` : `fa-regular fa-square-plus`}></i>{follow ? `Followed` : `Follow`}</Button>
+                    </div>
                 </div>
             </div>
             <div className="UserInfoStatics">

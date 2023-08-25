@@ -10,7 +10,6 @@ import NovelCard from "./components/NovelCard";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
 import UserInfo from "./components/UserProfile/UserInfo/UserInfo";
-import TabNovelCard from "./components/UserProfile/NovelTab/TabNovelCard";
 
 function App() {
 //   const [isDark, setTheme] = useState(false);
@@ -149,7 +148,7 @@ function App() {
 //     </div>
 //   );
 	return (
-		<TabNovelCard novel={novel} onClick={testItem}/>
+		<UserInfo novel={novel} onClick={testItem}/>
 	)
 }
   

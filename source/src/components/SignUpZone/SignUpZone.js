@@ -8,6 +8,8 @@ import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 // import { createUser } from "../../backend-api/AuthAPI";
 import { signup } from "../../backend-api/API";
+import { auth } from "../../backend-api/FirebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // const SignUp = () => {
   
@@ -39,13 +41,27 @@ function SignUpZone() {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-        console.log(email);
-        try {
-        await signup(email, password);
-        // Đăng ký thành công, thực hiện các hành động tiếp theo (ví dụ: chuyển hướng)
-        } catch (error) {
-        setError(error.message);
-        }
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((user) => {
+            // The user has been created successfully
+            console.log(user)
+        })
+        .catch((error) => {
+            // Cry
+            console.log(error)
+        })
+
+
+        // console.log(email);
+        // try {
+        //     // const result = await signup(email, password);
+
+        //     // Đăng ký thành công, thực hiện các hành động tiếp theo (ví dụ: chuyển hướng)
+        // } catch (resultMessage) {
+        //     console.log(resultMessage)
+        //     setError(resultMessage);
+        //     console.log(error)
+        // }
     };
     return (
       <div className="SignUpZone" >
@@ -72,7 +88,7 @@ function SignUpZone() {
                     style={{marginLeft:"50px"}}
             />
             <div>
-                <button className="btn" onClick={handleSignUp} >Sign up</button>
+                <button className="btn" onClick={handleSignUp}>Sign up</button>
                 <Link to = "/signin">
                     <button className="btn">Already have account?</button>
                 </Link>

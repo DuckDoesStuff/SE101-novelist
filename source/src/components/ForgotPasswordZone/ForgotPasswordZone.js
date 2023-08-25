@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./SignInZone.css"
+import "./ForgotPasswordZone.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 
 import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 
-function SignInZone() {
+function ForgotZone() {
     const [isChecked, setIsChecked] = useState(false);
     
     const [messageApi, notificationHolder] = message.useMessage();
     
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [password, setPassword] = useState("");
 
     const uploadMessage = (content, type, duration) => {
         messageApi.destroy();
@@ -27,17 +27,14 @@ function SignInZone() {
           }
         })
       }
-    const handleCheckboxChange = () => {
-      setIsChecked(!isChecked);
-    };
+    
 
-    const handleSignIn = async (e) =>{
+    const handleSend = async (e) =>{
         e.preventDefault();
-        console.log(email,password);
-        signInWithEmailAndPassword(auth, email, password)
+        console.log(email);
+        sendPasswordResetEmail(auth, email)
         .then((user) => {
-            console.log("12");
-            uploadMessage("The user has been created successfully","success",2)
+            uploadMessage("Check your email","success",2)
         })
         .catch((error) => {
             console.log(error.code)
@@ -56,11 +53,11 @@ function SignInZone() {
 
     };
     return (
-      <div className="SignInZone" >
+      <div className="ForgotZone" >
         {notificationHolder}
         <img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img>
-        <div className="SignInCard">
-            <p className="titleBar">Sign in</p>
+        <div className="ForgotCard">
+            <p className="titleBar">Reset Password</p>
             <p className="text">Account </p>
            <div className="inputContainer"> 
                 <div className="icon">
@@ -72,33 +69,22 @@ function SignInZone() {
                     placeholder="Email"
                 />
             </div>
-            <p className="text">Password </p>
-            <div className="inputContainer"> 
-                <div className="icon">
-                <FontAwesomeIcon icon={faLock} /></div>
-                <input
-                    type="password"
-                    value={password} onChange={(e) => setPassword(e.target.value)}
-                    className="inputField"
-                    placeholder="Password"
-                />
-            </div>
+            
             <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px"}}>
-            <input
-                type="checkbox"
-                id="remember"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-            />
-            <label htmlFor="remember" >Remember me</label>
-                <Link to="/forgot" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
+            
+            
             </div>
-               <Link to =""><button className="btnSign" onClick={handleSignIn}>Log in</button></Link> 
-               <Link to ="/signup"> <button className="btnSign">Sign Up</button></Link> 
+
+               <Link to =""><button className="btnSign" onClick={handleSend}>Send to email new password </button></Link> 
+               <p style={{marginLeft:"auto",marginRight:"auto",fontStyle:"italic"}}>Remember your password ? </p>
+               <Link to ="/signin"> <button className="btnSign">Sign In</button></Link> 
+
+
         </div>
+            
       </div>
     );
   }
   
-  export default SignInZone;
+  export default ForgotZone;
   

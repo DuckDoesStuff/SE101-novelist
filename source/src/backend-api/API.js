@@ -127,21 +127,3 @@ export const test = () => {
 	})
 }
 
-export const signup = (email, password) => {
-	// const auth = firebase.auth()
-
-	return auth.createUserWithEmailAndPassword(email, password)
-		.then((user) => {
-			// The user has been created successfully
-			const userRef = ref(database, 'users', user.uid)
-			userRef.set({
-				email,
-				password,
-				createdAt: new Date(),
-			})
-		})
-		.catch((error) => {
-			// An error occurred while creating the user
-			console.error(error)
-		})
-}

@@ -7,64 +7,62 @@ import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 
 import React, { useState } from "react";
 // import { createUser } from "../../backend-api/AuthAPI";
-import { signup } from "../../backend-api/API";
+// import { signup } from "../../backend-api/API";
+import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-// const SignUp = () => {
-  
-
-//   return (
-//     <div>
-//       <h2>Đăng ký</h2>
-//       {error && <div>{error}</div>}
-//       <form onSubmit={handleSignUp}>
-//         <div>
-//           <label>Email:</label>
-//           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-//         </div>
-//         <div>
-//           <label>Mật khẩu:</label>
-//           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-//         </div>
-//         <button type="submit">Đăng ký</button>
-//       </form>
-//     </div>
-//   );
-// };
 
 
 function SignUpZone() {
+    
+    const [messageApi, notificationHolder] = message.useMessage();
+    
+    const uploadMessage = (content, type, duration) => {
+        messageApi.destroy();
+        messageApi.open({
+          content: content,
+          type: type,
+          duration: duration,
+          style: {
+            marginTop: '20px auto',
+          }
+        })
+      }
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmpass, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
 
     const handleSignUp = async (e) => {
+        if (confirmpass!=password){
+            uploadMessage("Your confirm password and password are not the same","error",2)
+            return;
+        }
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
-            // The user has been created successfully
-            console.log(user)
+            uploadMessage("The user has been created successfully","success",2)
         })
         .catch((error) => {
-            // Cry
-            console.log(error)
+            console.log(error.code)
+            var message = "Something wrong, please try again", type = "error", duration = 2;
+            if(error.code === 'auth/weak-password'){
+                message = "Your password weak like Navi, use stronger password (at least 6 character)";
+            }
+            else if (error.code === 'auth/email-already-in-use'){
+                message = "This email is used, check again"
+            }
+
+            uploadMessage(message, type, duration);
+
+            // uploadMessage(error, "error", 2);
         })
 
-
-        // console.log(email);
-        // try {
-        //     // const result = await signup(email, password);
-
-        //     // Đăng ký thành công, thực hiện các hành động tiếp theo (ví dụ: chuyển hướng)
-        // } catch (resultMessage) {
-        //     console.log(resultMessage)
-        //     setError(resultMessage);
-        //     console.log(error)
-        // }
     };
     return (
       <div className="SignUpZone" >
+        {notificationHolder}
         <img className="logo" src="/Greenlogo.svg" alt="Logo" ></img>
         <div className="SignUpCard">
             <p className="title">Sign up</p>
@@ -82,10 +80,11 @@ function SignUpZone() {
             </div>
             <p className="text">Comfirm your password </p>
             <input
-                    type="text"
-                    className="inputField"
-                    placeholder="Password"
-                    style={{marginLeft:"50px"}}
+                    type="confirm your password"
+                    value={confirmpass} onChange={(e) => setConfirmPassword(e.target.value)}
+                    // className="inputField"
+                    // placeholder="Password"
+                    // style={{marginLeft:"50px"}}
             />
             <div>
                 <button className="btn" onClick={handleSignUp}>Sign up</button>

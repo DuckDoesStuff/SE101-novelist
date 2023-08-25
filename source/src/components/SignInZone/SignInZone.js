@@ -4,9 +4,28 @@ import "./SignInZone.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 
+import { message } from "antd";
+import { auth } from "../../backend-api/FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 function SignInZone() {
     const [isChecked, setIsChecked] = useState(false);
+    const [messageApi, notificationHolder] = message.useMessage();
+    
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    const uploadMessage = (content, type, duration) => {
+        messageApi.destroy();
+        messageApi.open({
+          content: content,
+          type: type,
+          duration: duration,
+          style: {
+            marginTop: '20px auto',
+          }
+        })
+      }
     const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
     };
@@ -21,6 +40,7 @@ function SignInZone() {
                 <FontAwesomeIcon icon={faUser} /></div>
                 <input
                     type="text"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
                     className="inputField"
                     placeholder="User Name"
                 />
@@ -31,6 +51,7 @@ function SignInZone() {
                 <FontAwesomeIcon icon={faLock} /></div>
                 <input
                     type="text"
+                    value={password} onChange={(e) => setPassword(e.target.value)}
                     className="inputField"
                     placeholder="Password"
                 />
@@ -45,7 +66,7 @@ function SignInZone() {
             <label htmlFor="remember" >Remember me</label>
                 <Link to="/signup" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
             </div>
-            <Link to ="/signup">
+            <Link to ="/homepage">
                 <button className="btn">Log in</button>
             </Link>
             <Link to ="/signup">

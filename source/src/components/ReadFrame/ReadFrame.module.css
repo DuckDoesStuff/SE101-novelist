@@ -1,0 +1,46 @@
+.frame {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.novel-info {
+    color: var(--background-01);
+    font-family: REM;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chapter {
+    font-size: 16px;
+}
+
+.reaction {
+    display:flex;
+    align-items: center;
+    font-size: 20px;
+    color: var(--background-01);
+    font-family: REM;
+    gap: 7px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 0;
+    align-self: stretch;
+    font-family: REM;
+    font-weight: lighter;
+    margin-top: 10px;
+    text-align: justify;
+    line-height: 30px;
+}

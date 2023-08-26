@@ -31,13 +31,18 @@ function SignInZone() {
       setIsChecked(!isChecked);
     };
 
+    function nothing(){
+      
+    }
     const handleSignIn = async (e) =>{
         e.preventDefault();
         console.log(email,password);
         signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
             console.log("12");
-            uploadMessage("The user has been created successfully","success",2)
+            uploadMessage("Login succesfully","success",2);
+            setTimeout(nothing(), 1000);
+            window.location.href = "";
         })
         .catch((error) => {
             console.log(error.code)
@@ -93,7 +98,7 @@ function SignInZone() {
             <label htmlFor="remember" >Remember me</label>
                 <Link to="/forgot" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
             </div>
-               <Link to =""><button className="btnSign" onClick={handleSignIn}>Log in</button></Link> 
+               <Link to ="/forgot"><button className="btnSign" onClick={handleSignIn}>Log in</button></Link> 
                <Link to ="/signup"> <button className="btnSign">Sign Up</button></Link> 
         </div>
       </div>

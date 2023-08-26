@@ -13,6 +13,7 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import HomePage from "./pages/HomePage";
+import SettingPage from "./pages/SettingPage"
 function App() {
   const [isDark, setTheme] = useState(false);
   const switchTheme = () => {
@@ -141,6 +142,7 @@ function App() {
       <Route path="search" element={<SearchPage />} />
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
+      <Route path="setting" element={<SettingPage/>} />
       <Route path="" element={<HomePage />} />
     </Routes>
   );

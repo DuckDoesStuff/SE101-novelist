@@ -1,0 +1,31 @@
+/* GenreList.css */
+
+.genreListContainerStyle {
+    position: fixed;
+    top: 70px;
+    left: 136px;
+    width: 200px;
+    background-color: var(--background-02);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    z-index: 1000;
+    
+  }
+  
+  .genreListStyle {
+    border: none;
+    height: 36px;
+    width: 100%;
+    background-color: var(--background-01);
+    color: var(--text);
+    font-weight: bold;
+    border-radius: 5%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+.genreListStyle:hover {
+  background-color: var(--hover); /* Change the background color on hover */
+  cursor: pointer; /* Show a pointer cursor on hover */
+}
+  

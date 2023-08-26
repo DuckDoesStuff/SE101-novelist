@@ -22,9 +22,6 @@ const HorNovelCard = (props) => {
             className="ThumbImg"
             alt="thumbnail"
             />
-          {isHovered && (
-              <FontAwesomeIcon icon={faPlay} className="ThumbIcon"/>
-          )}
         </div>
         </Link>
       <div className="HorContentContainer">

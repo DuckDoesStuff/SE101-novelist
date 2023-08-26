@@ -7,7 +7,7 @@
   align-items: center; /* Căn giữa theo chiều dọc */
 }
 .headlogo{
-  margin-left: 10px;
+  margin-left: 20px;
   margin-right: 25px;
 }
 .headbtn{
@@ -19,7 +19,7 @@
   border: 0 none;
   font-weight: bold;
   transition: background-color 0.3s;
-  margin-left: 10px;
+  margin-left: 20px;
 
 }
 .headbtn:hover{
@@ -28,7 +28,7 @@
 }
 
 .headbtn.clicked{
-  background-color: aliceblue;
+  background-color: var(--text);
   color: var(--background-01);
 }
 
@@ -38,7 +38,7 @@
   border: 0px none;
   background-color: white;
   color: "black";
-  margin-left: 20px ;
+  margin-left: 70px ;
   border-radius: 5px;
   padding-left: 25px;
 

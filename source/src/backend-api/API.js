@@ -1,7 +1,117 @@
 // Backend api
-import {ref, push, set, child, get} from 'firebase/database';
+import {ref, push, set, child, get, remove, update} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
 import {database, storage} from './FirebaseConfig';
+
+
+export const changeChapterView = (id, view) => {
+	const chapterRef = ref(database, 'chapters/' + id);
+	return new Promise((resolve, reject) => {
+		update(chapterRef, {view: view})
+		.then(() => {
+			resolve(true)
+		})
+		.catch((error) => {
+			console.error("An error occured while updating chapter view: ", error, id)
+			reject(error)
+		})
+	})
+}
+
+export const changeNovelView = (id, view) => {
+	const novelRef = ref(database, 'novels/' + id);
+	return new Promise((resolve, reject) => {
+		update(novelRef, {view: view})
+		.then(() => {
+			resolve(true)
+		})
+		.catch((error) => {
+			console.error("An error occured while updating novel view: ", error, id)
+			reject(error)
+		})
+	})
+}
+
+export const changeChapterLike = (id, like) => {
+	const chapterRef = ref(database, 'chapters/' + id);
+	return new Promise((resolve, reject) => {
+		update(chapterRef, {like: like})
+		.then(() => {
+			resolve(true)
+		})
+		.catch((error) => {
+			console.error("An error occured while updating chapter like: ", error, id)
+			reject(error)
+		})
+	})
+}
+
+export const changeNovelLike = (id, like) => {
+	const novelRef = ref(database, 'novels/' + id);
+	return new Promise((resolve, reject) => {
+		update(novelRef, {like: like})
+		.then(() => {
+			resolve(true)
+		})
+		.catch((error) => {
+			console.error("An error occured while updating novel like: ", error, id)
+			reject(error)
+		})
+	})
+}
+
+export const deleteChapter = (id, novel_id) => {
+	const chapterRef = ref(database, 'chapters/' + id);
+	return new Promise((resolve, reject) => {
+		remove(chapterRef)
+		.then(() => {
+			// Update novel chapter_id list
+			console.log(novel_id, id)
+			const novelChapterRef = ref(database, 'novels/' + novel_id);
+			getNovel(novel_id).then((novel) => {
+				const newChapterID = novel.chapter_id.filter((chapter) => {
+					return chapter !== id;
+				})
+				update(novelChapterRef, {chapter_id: newChapterID})
+				resolve(true)
+			})
+		})
+		.catch((error) => {
+			console.error("An error occured while deleting chapter: ", error, id)
+			reject(error)
+		})
+	})
+}
+
+export const deleteNovel = (id) => {
+	const novelRef = ref(database, 'novels/' + id);
+	return new Promise((resolve, reject) => {
+		getNovel(id)
+		.then((novel) => {
+			novel.chapter_id.map((chapter) => {
+				deleteChapter(chapter, id)
+				return 1;
+			})
+			remove(novelRef)
+			.then(() => {
+				resolve(true);
+			})
+			.catch((error) => {
+				console.error("An error occured while deleting novel: ", error, id)
+				reject(error)
+			})
+		})
+		
+	})
+}
+
+export const genChapterKey = () => {
+	return push(ref(database, 'chapters')).key
+}
+
+export const genNovelKey = () => {
+	return push(ref(database, 'novels')).key
+}
 
 export const emptyChapter = () => {
 	return {

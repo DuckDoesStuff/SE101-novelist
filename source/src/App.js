@@ -6,7 +6,7 @@ import EditNovelPage from "./pages/EditNovelPage.js";
 function App() {
   return (
 	<div>
-		<EditNovelPage novelID={"custom_key"} />
+		<EditNovelPage novelID={"custom_key"}/>
 	</div>
   );
 }

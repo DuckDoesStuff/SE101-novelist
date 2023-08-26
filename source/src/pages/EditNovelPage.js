@@ -169,7 +169,13 @@ const EditNovelPage = (props) => {
   };
 
   const cancelNovel = () => {
-    
+    deleteNovel(novelID)
+    .then(() => {
+      uploadMessage("Successfully deleted", "success", 2);
+    })
+    .catch((error) => {
+      console.error("An error occured while deleting novel: ", error, novelID)
+    })
   }
 
 

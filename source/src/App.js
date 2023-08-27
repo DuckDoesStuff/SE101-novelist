@@ -144,6 +144,8 @@ function App() {
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
       <Route path="" element={<HomePage />} />
+
+      <Route path="homepage" element={<HomePage />} />
     </Routes>
   );
 }

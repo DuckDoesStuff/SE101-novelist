@@ -36,10 +36,10 @@ function SignInZone() {
     }
     const handleSignIn = async (e) =>{
         e.preventDefault();
-        console.log(email,password);
+        // console.log(email,password);
         signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
-            console.log("12");
+            localStorage.setItem("user", JSON.stringify(user));
             setTimeout(nothing(), 100000);
             window.location.href = "/homepage";
         })

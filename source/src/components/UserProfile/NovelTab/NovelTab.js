@@ -34,6 +34,11 @@ const NovelTab = () => {
 
     const tabs = $$(".tab-item");
     const panes = $$(".tab-pane");
+    const tabActive = $(".tab-item.active");
+    const line = $(".tabs .line");
+
+    line.style.left = tabActive.offsetLeft + "px";
+    line.style.width = tabActive.offsetWidth + "px";
 
     tabs.forEach((tab, index) => {
         const pane = panes[index];
@@ -42,6 +47,8 @@ const NovelTab = () => {
             $(".tab-item.active").classList.remove("active");
             $(".tab-pane.active").classList.remove("active");
 
+            line.style.left = this.offsetLeft + "px";
+            line.style.width = this.offsetWidth + "px";
 
             this.classList.add("active");
             pane.classList.add("active");
@@ -52,7 +59,11 @@ const NovelTab = () => {
         <div className="tab-container">
             <div class="tabs">
                 <div class="tab-item active">Library</div>
-                <div class="tab-item">Published</div>
+                <div class="tab-item">
+                    Published
+                    <div class="line"></div>
+                </div>
+                
             </div>
 
             <div class="tab-content">

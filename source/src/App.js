@@ -10,6 +10,7 @@ import EditNovelPage from "./pages/EditNovelPage.js";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
 import UserProfilePage from "./pages/UserProfilePage";
+import NovelManagePage from "./pages/Admin/NovelManagePage";
 
 function App() {
 //   const [isDark, setTheme] = useState(false);
@@ -148,7 +149,7 @@ function App() {
 //     </div>
 //   );
 	return (
-		<UserProfilePage/>
+		<NovelManagePage/>
 	)
 }
 

@@ -33,20 +33,19 @@
 }
 
 .searchInput{
-  height: 36px;
+  height: 33px;
   width: 460px;
   border: 0px none;
   background-color: white;
   color: "black";
   margin-left: 70px ;
-  border-radius: 5px;
   padding-left: 25px;
 
 
 }
 .searchIcon{
   position: absolute;
-  left: 25px;
+  left: 75px;
   color: var(--background-01);
   top:50%;
   transform: translateY(-50%);

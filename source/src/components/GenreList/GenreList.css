@@ -3,8 +3,8 @@
 .genreListContainerStyle {
     position: fixed;
     top: 70px;
-    left: 136px;
-    width: 200px;
+    left: 120px;
+    width: 180px;
     background-color: var(--background-02);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
     padding: 10px;
@@ -14,13 +14,14 @@
   
   .genreListStyle {
     border: none;
-    height: 36px;
+    font-size: 16px;
+    height: 40px;
     width: 100%;
     background-color: var(--background-01);
     color: var(--text);
-    font-weight: bold;
     border-radius: 5%;
     margin-bottom: 10px;
+    box-shadow: 0px 2px 4px rgb(0,0,0,0.2);
     transition: background-color 0.3s; /* Smooth transition effect */
 }
 

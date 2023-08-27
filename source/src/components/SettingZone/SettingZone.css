@@ -3,7 +3,7 @@
     height: 100vh;
 }
 .SettingNav{
-    width: 300px;
+    width: 250px;
     height: 100%;   
     background-color: var(--background-02);
     flex-direction: column; /* Xếp các mục theo chiều dọc */
@@ -13,7 +13,7 @@
     color: var(--text);
     font-size: 18px;
     padding: 20px 0px 20px 50px;
-    transition: background-color 0.3s ease; /* Hiệu ứng khi hover */
+    transition: background-color 1s ease; /* Hiệu ứng khi hover */
 }
 .SettingChoice:hover{
     cursor: pointer;
@@ -25,6 +25,7 @@
 .MainContent{
     display: flex; 
     margin-top: 70px;
+    margin-left: 20px;
 }
 
 .AvaContainer{
@@ -47,7 +48,7 @@
     flex-direction: column; /* Xếp các phần tử theo chiều dọc */
     margin-left: 20px; /* Khoảng cách giữa AvaContainer và InfoContainer */
 
-};
+}
 .text{
     font-size: 15px;
     color: var(--background-01);
@@ -59,6 +60,9 @@
     margin-left: 40px;
     border-radius: 15px;
     border: 1px solid var(--background-02);
+    box-shadow: 0px 2px 4px rgb(0,0,0,0.1);
+    width: 400px;
+
 }
 .inputField.bio {
     height: 100px;
@@ -83,6 +87,8 @@
     font-size: 15;
     border: none;
     transition: 0.3s ease;
+    box-shadow: 0px 2px 4px rgb(0,0,0,0.3);
+
 
 }
 .funcbtn:hover{
@@ -101,17 +107,19 @@
     margin-top: 30px;
 }
 .text.h1{
-    font-size: 25px;
+    font-size: 30px;
     margin-bottom: 0px;
     color: var(--background-01);
 }
 .hrline {
     border: none;
     margin-left: 40px;
+    box-shadow: 0px 2px 4px rgb(0,0,0,0.2);
+
     border-top: 1px solid var(--background-01); /* Đổi màu cho đường gạch ngang */
   }
   .text.small{
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .btnFuncContainer.ser{
@@ -121,7 +129,7 @@
   .funcbtn.delete{
     background-color: #EF5634;
     transition: 0.3s ease;
-    margin-left: 40px;
+    margin-left: 380px;
     margin-top: 20px;
     width: 130px;
     height: 35px;
@@ -130,4 +138,7 @@
   .funcbtn.delete:hover{
     background-color: rgb(237, 193, 135);
     cursor: pointer;
+  }
+  .delZoneContainer{
+    margin-left: 50px;
   }

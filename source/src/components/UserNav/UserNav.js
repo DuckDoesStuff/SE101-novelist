@@ -30,9 +30,8 @@ const UserNav = () => {
       <Link to="/setting"><div className="func">
         <FontAwesomeIcon icon={faGear} /> Setting
       </div></Link>
-      <div className="func">
-        {" "}
-        <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+      <div className="func logout">
+        <FontAwesomeIcon  icon={faRightFromBracket} /> Logout
       </div>
      </div>
     </div>

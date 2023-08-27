@@ -32,7 +32,7 @@ const HorNovelCard = (props) => {
           ))}
         </div>
         <Link to ="/profile" className="AuthorName">Author: {author}</Link>
-        <span className="Likes">Likes: {likes} <FontAwesomeIcon icon={faHeart} style={{color: 'red'}}/></span>
+        <span className="Likes">Likes: {likes} <FontAwesomeIcon icon={faHeart} style={{color: 'var(--background-01)'}}/></span>
         <p className="Script">{script}</p>
       </div>
     </div>

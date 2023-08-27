@@ -16,10 +16,9 @@
  
   .func{
     color: var(--text);
-    font-weight: bold;
     align-items: center;
     display:flex;
-    padding: 15px 20px 20px 30px;
+    padding: 15px 20px 15px 30px;
     gap: 7px;
     transition:  background-color 0.7s ease;
   }
@@ -38,7 +37,6 @@
   }
   .func:hover{
     background-color: var(--hover);
-    color: black; 
     cursor: pointer;
   }
   .authorIcon{
@@ -47,4 +45,7 @@
     border-radius: 50%;
     margin: 10px;
     margin-right: 0px;
+  }
+  .func.logout{
+    color: rgb(6, 6, 6);
   }

@@ -48,8 +48,8 @@ const EditNovelPage = (props) => {
         setImg({preview: data.thumbnail});
         setGenre(data.genre);
         setChapterID(data.chapter_id || []);
-        console.log("chapter_id", data.chapter_id)
-        console.log("chapterID", chapterID)
+        // console.log("chapter_id", data.chapter_id)
+        // console.log("chapterID", chapterID)
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -194,7 +194,7 @@ const EditNovelPage = (props) => {
       <div className="button-group">
         <Button children="Submit" onClick={submitNovel}/>
         <Button children="Cancel" onClick={cancelNovel}/>
-        <Button children="Test" onClick={testFunction}/>
+        {/* <Button children="Test" onClick={testFunction}/> */}
       </div>
 
       <EditNovel  handleDrop={handleDrop}

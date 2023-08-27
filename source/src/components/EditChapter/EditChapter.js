@@ -48,7 +48,7 @@ const EditChapter = (props) => {
   // Runs when parent component submitChapter is true
   useEffect(() => {
     if(props.submitChapter === false) return;
-    console.log(chapterInfo)
+    // console.log(chapterInfo)
     chapterInfo.map((chapter) => {
       if(chapter.id !== "" && chapter.content !== "" && chapter.title !== "") {
         pushChapter(chapter, chapter.id)
@@ -195,7 +195,7 @@ const EditChapter = (props) => {
 	<div className='edit-chapter'>
     <h2>Chapters</h2>
     <Button children='New chapter' onClick={handleNewChapter}/>
-    <Button children='Vo tri' onClick={voTriButton}/>
+    {/* <Button children='Vo tri' onClick={voTriButton}/> */}
     {chapterInfo.length === 0 ? <p className="message-text">No chapter yet</p> : 
     <>
       {chapterInfo.map((chapter, index) => (

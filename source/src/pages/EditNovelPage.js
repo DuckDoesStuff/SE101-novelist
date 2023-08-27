@@ -123,6 +123,7 @@ const EditNovelPage = (props) => {
       var newNovel = emptyNovel();
       newNovel.id = novelID;
       newNovel.title = title;
+      newNovel.normalized_title = title.toLowerCase().replace(/ /g, "-");
       newNovel.description = description;
       newNovel.genre = genre;
       newNovel.image_path = imagePath;

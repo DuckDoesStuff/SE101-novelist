@@ -1,14 +1,36 @@
 // Backend api
-import {ref, push, set, child, get, remove, update} from 'firebase/database';
-import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, doc, setDoc, getDoc, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
-import { database, storage, fstore } from './FirebaseConfig';
+import { uploadBytesResumable, ref as sRef, getDownloadURL, deleteObject } from 'firebase/storage';
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, deleteDoc, updateDoc, arrayRemove, where, query } from "firebase/firestore";
+import { storage, fstore } from './FirebaseConfig';
 
+
+export const searchNovel = (queryString) => {
+	const novelRef = collection(fstore, 'novels');
+	const normalizedQuery = queryString.toLowerCase().replace(/ /g, '-');
+	const searchQuery = query(novelRef, where("normalized_title", ">=", normalizedQuery));
+	return new Promise((resolve, reject) => {
+		getDocs(searchQuery)
+		.then((docs) => {
+			const matchingNovels = [];
+			docs.forEach((doc) => {
+				matchingNovels.push(doc.data())
+			})
+			if(matchingNovels.length === 0)
+				resolve([])
+			else
+				resolve(matchingNovels)
+		})
+		.catch((error) => {
+			console.error("An error occured while searching for novel: ", error, queryString)
+			reject(error)
+		})
+	})
+}
 
 export const changeChapterView = (id, view) => {
-	const chapterRef = ref(database, 'chapters/' + id);
+	const chapterRef = doc(fstore, 'chapters/', id);
 	return new Promise((resolve, reject) => {
-		update(chapterRef, {view: view})
+		updateDoc(chapterRef, {view: view})
 		.then(() => {
 			resolve(true)
 		})
@@ -20,9 +42,9 @@ export const changeChapterView = (id, view) => {
 }
 
 export const changeNovelView = (id, view) => {
-	const novelRef = ref(database, 'novels/' + id);
+	const novelRef = doc(fstore, 'novels/', id);
 	return new Promise((resolve, reject) => {
-		update(novelRef, {view: view})
+		updateDoc(novelRef, {view: view})
 		.then(() => {
 			resolve(true)
 		})
@@ -34,9 +56,9 @@ export const changeNovelView = (id, view) => {
 }
 
 export const changeChapterLike = (id, like) => {
-	const chapterRef = ref(database, 'chapters/' + id);
+	const chapterRef = doc(fstore, 'chapters/', id);
 	return new Promise((resolve, reject) => {
-		update(chapterRef, {like: like})
+		updateDoc(chapterRef, {like: like})
 		.then(() => {
 			resolve(true)
 		})
@@ -48,9 +70,9 @@ export const changeChapterLike = (id, like) => {
 }
 
 export const changeNovelLike = (id, like) => {
-	const novelRef = ref(database, 'novels/' + id);
+	const novelRef = doc(fstore, 'novels/', id);
 	return new Promise((resolve, reject) => {
-		update(novelRef, {like: like})
+		updateDoc(novelRef, {like: like})
 		.then(() => {
 			resolve(true)
 		})
@@ -66,6 +88,10 @@ export const deleteChapter = (id, novel_id) => {
 	return new Promise((resolve, reject) => {
 		deleteDoc(chapterRef)
 		.then(() => {
+			if(novel_id === null) {
+				resolve(true)
+				return;
+			}
 			// Update novel chapter_id list
 			const novelChapterRef = doc(fstore, 'novels', novel_id)
 			updateDoc(novelChapterRef, {
@@ -92,17 +118,26 @@ export const deleteNovel = (id) => {
 		getNovel(id)
 		.then((novel) => {
 			novel.chapter_id.map((chapter) => {
-				deleteChapter(chapter, id)
+				deleteChapter(chapter, null)
 				return 1;
 			})
 
 			deleteDoc(novelRef)
 			.then(() => {
-				// Delete novel image
-				
+				// Delete novel thumbnail
+				if(novel.image_path !== "") {
+					console.log(novel.image_path)
+					deleteObject(sRef(storage, novel.image_path))
+					.catch((error) => {
+						console.error("Possibly the file has already been deleted", error)
+					})
+					.then(() => {
+						resolve(true)
+					})
+				}
 			})
 			.catch((error) => {
-				console.error("Possibly the file has already been deleted", error)
+				console.warn("Possibly the file has already been deleted", error)
 			})
 		})
 		.catch((error) => {
@@ -136,6 +171,7 @@ export const emptyNovel = () => {
 	return {
 		id: "",
 		title: "",
+		normalized_title: "",
 		thumbnail: "",
 		description: "",
 		image_path: "",
@@ -223,7 +259,8 @@ export const getNovel = (id) => {
 // Parse in a File object and it will return a promise which contains the downloadURL and filePath
 export const uploadImage = (selectedFile) => {
 	if (selectedFile) {
-		const novelThumbsRef = sRef(storage, selectedFile.name);
+		const filePath = genNovelKey();
+		const novelThumbsRef = sRef(storage, filePath);
 		const uploadTask = uploadBytesResumable(novelThumbsRef, selectedFile)
 
 		return new Promise((resolve, reject) => {
@@ -244,7 +281,6 @@ export const uploadImage = (selectedFile) => {
 					// Currently filePath is just the file name
 					// If we ever want to change the file path instead of uploading to root
 					// We need to do some handle in here.
-					const filePath = selectedFile.name;
 					resolve({downloadURL, filePath})
 				}
 				catch (error) {

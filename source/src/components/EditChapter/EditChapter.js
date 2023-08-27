@@ -55,6 +55,7 @@ const EditChapter = (props) => {
       }
       return 1;
     })
+    // window.location.reload(); should go to the previous page instead
   }, [props.submitChapter])
 
   const handleNewChapter = () => {
@@ -133,6 +134,7 @@ const EditChapter = (props) => {
         if(props.title === "Untitled") {
           setUntitledChapter(untitledChapter - 1);
         }
+        uploadMessage("Chapter deleted", "success", 2);
 
 
       })
@@ -189,13 +191,18 @@ const EditChapter = (props) => {
   const voTriButton = () => {
     console.log(chapterInfo)
     console.log(props.chapterID)
+    // chapterInfo.map((chapter) => {
+    //   if(chapter.id !== "" && chapter.content !== "" && chapter.title !== "") {
+    //     pushChapter(chapter, chapter.id)
+    //   }
+    // })
   }
 
   return (
 	<div className='edit-chapter'>
     <h2>Chapters</h2>
     <Button children='New chapter' onClick={handleNewChapter}/>
-    {/* <Button children='Vo tri' onClick={voTriButton}/> */}
+    <Button children='Vo tri' onClick={voTriButton}/>
     {chapterInfo.length === 0 ? <p className="message-text">No chapter yet</p> : 
     <>
       {chapterInfo.map((chapter, index) => (

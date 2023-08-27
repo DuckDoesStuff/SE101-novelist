@@ -1,7 +1,8 @@
 // Backend api
 import {ref, push, set, child, get, remove, update} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
-import {database, storage} from './FirebaseConfig';
+import { collection, addDoc, doc, setDoc, getDoc, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
+import { database, storage, fstore } from './FirebaseConfig';
 
 
 export const changeChapterView = (id, view) => {
@@ -61,19 +62,21 @@ export const changeNovelLike = (id, like) => {
 }
 
 export const deleteChapter = (id, novel_id) => {
-	const chapterRef = ref(database, 'chapters/' + id);
+	const chapterRef = doc(fstore, 'chapters', id);
 	return new Promise((resolve, reject) => {
-		remove(chapterRef)
+		deleteDoc(chapterRef)
 		.then(() => {
 			// Update novel chapter_id list
-			console.log(novel_id, id)
-			const novelChapterRef = ref(database, 'novels/' + novel_id);
-			getNovel(novel_id).then((novel) => {
-				const newChapterID = novel.chapter_id.filter((chapter) => {
-					return chapter !== id;
-				})
-				update(novelChapterRef, {chapter_id: newChapterID})
+			const novelChapterRef = doc(fstore, 'novels', novel_id)
+			updateDoc(novelChapterRef, {
+				chapter_id: arrayRemove(id)
+			})
+			.then(() => {
 				resolve(true)
+			})
+			.catch((error) => {
+				console.error("An error occured while updating novel chapter list: ", error, id, novel_id)
+				reject(error)
 			})
 		})
 		.catch((error) => {
@@ -84,7 +87,7 @@ export const deleteChapter = (id, novel_id) => {
 }
 
 export const deleteNovel = (id) => {
-	const novelRef = ref(database, 'novels/' + id);
+	const novelRef = doc(fstore, 'novels/', id);
 	return new Promise((resolve, reject) => {
 		getNovel(id)
 		.then((novel) => {
@@ -92,25 +95,29 @@ export const deleteNovel = (id) => {
 				deleteChapter(chapter, id)
 				return 1;
 			})
-			remove(novelRef)
+
+			deleteDoc(novelRef)
 			.then(() => {
-				resolve(true);
+				// Delete novel image
+				
 			})
 			.catch((error) => {
-				console.error("An error occured while deleting novel: ", error, id)
-				reject(error)
+				console.error("Possibly the file has already been deleted", error)
 			})
 		})
-		
+		.catch((error) => {
+			console.error("An error occured while deleting novel: ", error, id)
+			reject(error)
+		})
 	})
 }
 
 export const genChapterKey = () => {
-	return push(ref(database, 'chapters')).key
+	return doc(collection(fstore, 'chapters')).id
 }
 
 export const genNovelKey = () => {
-	return push(ref(database, 'novels')).key
+	return doc(collection(fstore, 'novels')).id
 }
 
 export const emptyChapter = () => {
@@ -142,49 +149,47 @@ export const emptyNovel = () => {
 }
 
 // Parse in a chapter object and a key (if you want to set a custom key)
-export const pushChapter = (chapter, key=null) => {
-	const chapterRef = ref(database, 'chapters')
-
-	// This will add a new chapter to 'chapters' with 'custom_key'
-	if(key != null) {
-		return set(child(chapterRef, key), chapter)
+export const pushChapter = async (chapter, key=null) => {
+	if(key) {
+		const chapterRef = doc(fstore, 'chapters', key)
+		await setDoc(chapterRef, chapter, {merge: true});
+	}else {
+		const chapterRef = collection(fstore, 'chapters')
+		await addDoc(chapterRef, chapter);
 	}
-
-	// This will add a new chapter to 'chapters' and Firebase will generate a unique 'push key'
-	else {
-		return push(chapterRef, chapter)
-	} 
 }
 
 // Parse in a novel object and a key (if you want to set a custom key)
-export const pushNovel = (novel, key=null) => {
-	const novelRef = ref(database, 'novels')
-
-	// This will add a new novel to 'novels' with 'custom_key'
-	if(key != null)
-		return set(child(novelRef, key), novel)
-
-	// This will add a new novel to 'novels' and Firebase will generate a unique 'push key'
-	else 
-		return push(novelRef, novel)
-}
+export const pushNovel = async (novelData, key=null) => {
+	if(key) {
+		const novelRef = doc(fstore, 'novels', key)
+		await setDoc(novelRef, novelData, {merge: true});
+	}else {
+		const novelRef = collection(fstore, 'novels')
+		await addDoc(novelRef, novelData);
+	}
+};
 
 // Parse in a chapter id and it will return a promise which contains the chapter data
 // If the chapter doesn't exist, it will return an empty chapter
 export const getChapter = (id) => {
-	const chapterRef = ref(database, 'chapters/' + id);
 	return new Promise((resolve, reject) => {
-		get(chapterRef)
-		.then((snapshot) => {
-			if (snapshot.exists()) {
-				const data = snapshot.val();
+		if(id === null) {
+			resolve(emptyChapter())
+			return;
+		}
+		const chapterRef = doc(fstore, 'chapters', id);
+		getDoc(chapterRef)
+		.then((doc) => {
+			if (doc.exists()) {
+				const data = doc.data();
 				resolve(data)
 			} else {
 				resolve(emptyChapter())
 			}
 		})
 		.catch((error) => {
-			console.error("An error occured while fetching data: ", error)
+			console.error("An error occured while fetching chapter: ", error, id)
 			reject(error)
 		})
 	})
@@ -193,19 +198,23 @@ export const getChapter = (id) => {
 // Parse in a novel id and it will return a promise which contains the novel data
 // If the novel doesn't exist, it will return an empty novel
 export const getNovel = (id) => {
-	const novelRef = ref(database, 'novels/' + id)
 	return new Promise((resolve, reject) => {
-		get(novelRef)
-		.then((snapshot) => {
-			if (snapshot.exists()) {
-				const data = snapshot.val();
+		if (id === null) {
+			resolve(emptyNovel())
+			return;
+		}
+		const novelRef = doc(fstore, 'novels', id);
+		getDoc(novelRef)
+		.then((doc) => {
+			if (doc.exists()) {
+				const data = doc.data();
 				resolve(data)
 			} else {
 				resolve(emptyNovel())
 			}
 		})
 		.catch((error) => {
-			console.error("An error occured while fetching data: ", error)
+			console.error("An error occured while fetching novel: ", error, id)
 			reject(error)
 		})
 	})

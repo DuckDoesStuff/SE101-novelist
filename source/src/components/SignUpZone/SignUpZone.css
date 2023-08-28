@@ -62,8 +62,11 @@
 }
 
 .inputField {
-  width: 100%; /* Fill available space */
-  height: 38px;
+  width: 400px; /* Fill available space */
+  height: 35px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 .Signbtn {
@@ -75,9 +78,9 @@
   height: 43px;
   background-color: var(--background-01);
   transition: background-color 0.3s;
-  margin-left: 155px; 
   margin-top: 20px;
-
+  margin-right: 50%;
+  margin-left: 25%;
 }
 
 .Signbtn:hover {

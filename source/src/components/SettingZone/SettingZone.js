@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../Header/Header.js";
 import "./SettingZone.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button.js";
-import { getAuth, updatePassword } from "firebase/auth";
+import { updatePassword } from "firebase/auth";
 import { EmailAuthProvider } from "firebase/auth";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { message } from "antd";
 import { reauthenticateWithCredential } from "firebase/auth";
 import { Link } from "react-router-dom";
-
 import { uploadImage, pushAuth,genAuthKey,emptyAuth ,getUser} from "../../backend-api/API";
 import { storage } from '../../backend-api/FirebaseConfig';
 import { deleteObject, ref } from "firebase/storage";
@@ -20,10 +19,6 @@ import { deleteObject, ref } from "firebase/storage";
 
 const SettingZone = (props) => {
 
-  
-  const [isProfileSelected, setProfileSelected] = useState(true);
-  const [isAccountSelected, setAccountSelected] = useState(false);
-  
   const [authID, setAuthID] = useState(null);
 
   useEffect(() => {
@@ -32,6 +27,10 @@ const SettingZone = (props) => {
     else
       setAuthID(genAuthKey());
   }, [props.AuthID])
+
+  
+  const [isProfileSelected, setProfileSelected] = useState(true);
+  const [isAccountSelected, setAccountSelected] = useState(false);
 
   const handleProfileClick = () => {
     setProfileSelected(true);
@@ -48,6 +47,33 @@ const SettingZone = (props) => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [messageApi, notificationHolder] = message.useMessage();
 
+  const uploadMessage = (content, type, duration) => {
+    messageApi.destroy();
+    messageApi.open({
+      content: content,
+      type: type,
+      duration: duration,
+      style: {
+        marginTop: "20px auto",
+      },
+    });
+  };
+  const handlePasswordChange = async () => {
+    if (newPassword !== confirmNewPassword) {
+      uploadMessage("New passwords do not match", "error", 2);
+      return;
+    }
+    try {
+      const credentials = EmailAuthProvider.credential(email, currentPassword);
+      await reauthenticateWithCredential(auth.currentUser, credentials);
+
+      await updatePassword(auth.currentUser, newPassword);
+      uploadMessage("Password updated successfully", "success", 2);
+    } catch (error) {
+      console.error("Error updating password:", error);
+      uploadMessage("An error occurred while updating password", "error", 2);
+    }
+  };
   const [selectedFile, setSelectedFile] = useState("");
   const [Name, setName] = useState("");
   const [Bio, setBio] = useState("");
@@ -66,8 +92,8 @@ const SettingZone = (props) => {
   }, [img]);
 
   useEffect(() => {
-    // Fetch novel data from backend
-    const fetchNovel = (authID) => {
+    // Fetch  data from backend
+    const fetchAuth = (authID) => {
       getUser(authID)
       .then((data) => {
         setName(data.Name);
@@ -85,13 +111,13 @@ const SettingZone = (props) => {
       })
     }
 
-    fetchNovel(authID)
+    fetchAuth(authID)
   }, [authID])
 
   const handleDrop = (acceptedFiles) => {
     // Set the selected file first then after hitting 'Save' we will upload
     setSelectedFile(acceptedFiles[0]);
-    
+
     // Set the preview image
     setImg(Object.assign(acceptedFiles[0], {preview: URL.createObjectURL(acceptedFiles[0])})
     );
@@ -120,7 +146,7 @@ const SettingZone = (props) => {
     // else if (chapterID.length === undefined || chapterID.length < 1)
     //   message = "You need to have at least one chapter";
     else {
-      message = "Uploading Infomation";
+      message = "Uploading Auth";
       type = "loading";
     }
     uploadMessage(message, type, duration);
@@ -171,7 +197,7 @@ const SettingZone = (props) => {
       } else {
         uploadMessage("Successfully uploaded", "success", duration);
       }
-      // setSubmitChapter(true);
+      //   setSubmitChapter(true);
     }
   };
 
@@ -184,40 +210,6 @@ const SettingZone = (props) => {
   //     console.error("An error occured while deleting novel: ", error, authID)
   //   })
   // }
-
-  const testFunction = () => {
-    console.log(chapterID)
-    console.log(authID)
-    // setSubmitChapter(true);
-  }
-
-  const uploadMessage = (content, type, duration) => {
-    messageApi.destroy();
-    messageApi.open({
-      content: content,
-      type: type,
-      duration: duration,
-      style: {
-        marginTop: "20px auto",
-      },
-    });
-  };
-  const handlePasswordChange = async () => {
-    if (newPassword !== confirmNewPassword) {
-      uploadMessage("New passwords do not match", "error", 2);
-      return;
-    }
-    try {
-      const credentials = EmailAuthProvider.credential(email, currentPassword);
-      await reauthenticateWithCredential(auth.currentUser, credentials);
-
-      await updatePassword(auth.currentUser, newPassword);
-      uploadMessage("Password updated successfully", "success", 2);
-    } catch (error) {
-      console.error("Error updating password:", error);
-      uploadMessage("An error occurred while updating password", "error", 2);
-    }
-  };
 
   return (
     <div>
@@ -242,27 +234,25 @@ const SettingZone = (props) => {
         {isProfileSelected && (
           <div className="MainContent">
             <div className="AvaContainer">
-              <img src="image_path" className="UserAva"></img>
+              <img src="/image_path" className="UserAva"></img>
               <Button>Change Ava</Button>
             </div>
             <div className="Infocontainer">
               <p className="text">Display Name</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="text"
-                value= {Name}
-                placeholder=" "
+                placeholder="Enter your name"
               />
               <p className="text">Bio</p>
               <input
-                className="inputField bio"
+                className="inputFields bio"
                 type="text"
-                value= {Bio}
                 placeholder="Enter your bio.."
               />
               <div className="btnFuncContainer">
-                <button className="funcbtn" onclick={submitAuth}>Save</button>
-                <Link to ="/home"><button className="funcbtn cancel">Cancel</button></Link>
+                <button className="funcbtn" onClick={submitAuth}>Save</button>
+                <button className="funcbtn cancel">Cancel</button>
               </div>
             </div>
           </div>
@@ -274,7 +264,7 @@ const SettingZone = (props) => {
               <hr className="hrline" />
               <p className="text small">Email address</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -282,7 +272,7 @@ const SettingZone = (props) => {
               />
               <p className="text small">Current Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
@@ -290,7 +280,7 @@ const SettingZone = (props) => {
               />
               <p className="text small">New Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -298,7 +288,7 @@ const SettingZone = (props) => {
               />
               <p className="text small">Confirm New Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}

@@ -8,7 +8,7 @@ import {
   faBookOpen,
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
-
+import {auth} from "../../backend-api/FirebaseConfig"
 
 const UserNav = () => {
   return (
@@ -17,7 +17,7 @@ const UserNav = () => {
       <Link to="/profile">
         <div  className ="func user" >
           <img src="image.jpg" className="authorIcon">
-          </img><p>Author Name</p>
+          </img><p>{auth.currentUser.uid}</p>
         </div>
       </Link>
 

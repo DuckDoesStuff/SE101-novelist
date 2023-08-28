@@ -1,133 +1,147 @@
-import React, { useState } from "react";
-import GenreList from '../GenreList/GenreList.js';
-import UserNav from "../UserNav/UserNav";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faMoon, faCaretDown, faSearch, faUserLarge } from '@fortawesome/free-solid-svg-icons';
-import { getAuth } from "firebase/auth";
-import { auth } from "../../backend-api/FirebaseConfig";
+  import React, { useState ,useEffect} from "react";
+  import GenreList from '../GenreList/GenreList.js';
+  import UserNav from "../UserNav/UserNav";
+  import { Link } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
+    import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import {  faMoon, faCaretDown, faSearch, faUserLarge } from '@fortawesome/free-solid-svg-icons';
+  import { getAuth } from "firebase/auth";
+  import { auth } from "../../backend-api/FirebaseConfig";
+  import { useTheme } from '../ThemeProvider';
+    import "./Header.css"; // Import the CSS file
 
-import "./Header.css"; // Import the CSS file
-
-const Header = () => {
-  const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
-  const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
-
-  const navigate = useNavigate();
-  const [searchInput, setSearchInput] = useState("");
-  const [isSignedIn, setIsSignedIn] = useState(false);
-
-  const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
-  };
-
-  const handleSearchInputKeyPress = (event) => {
-    if (event.key === "Enter") {
-      navigate(`/search`);
+  const Header = () => {
+    const [showScrolledHeader, setShowScrolledHeader] = useState(false);
+    const [isSignedIn, setIsSignedIn] = useState(false);  
+    const handleSignIn = () => {
+      setIsSignedIn(true);
+    };
+    const handleSignOut = () => {
+      setIsSignedIn(false);
+    };
+    const checkLoginStatus = () => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          var  temp = setIsSignedIn();
+          return true;
+        } else {
+          return false;
+        }
+      })
     }
-  };
+    const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
+    const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 
-  const handleSignIn = () => {
-    setIsSignedIn(true);
-  };
-
-  const handleSignOut = () => {
-    setIsSignedIn(false);
-  };
-  const toggleUserNav = () => {
-    setShowUserNav(!showUserNav);
-  };
-
-  const toggleGenres = () => {
-    setShowGenres(!showGenres);
-  };
-
-  // const storedUser = JSON.parse(sessionStorage.getItem("user"));
-  // // const auth = getAuth();
-  // // const user = auth.currentUser;
-  // // console.log(user.email);
-  // console.log(isSignedIn)
-  // if (storedUser!==null){
-  //     // const username = user.displayName;
-  //     const temp = handleSignIn;
-  //     // console.log(user.email);
-  // }
+    const navigate = useNavigate();
+    const [searchInput, setSearchInput] = useState("");
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 0) {
+          setShowScrolledHeader(true);
+        } else {
+          setShowScrolledHeader(false);
+        }
+      };
   
+      window.addEventListener("scroll", handleScroll);
+  
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
+    const handleSearchInputChange = (event) => {
+      setSearchInput(event.target.value);
+    };
 
-  const checkLoginStatus = () => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        var  temp = setIsSignedIn();
-        console.log(isSignedIn)
-      } else {
-        console.log(isSignedIn)
+    const handleSearchInputKeyPress = (event) => {
+      if (event.key === "Enter") {
+        navigate(`/search`);
       }
-    })
+    };
+
+
+
+    const toggleUserNav = () => {
+      setShowUserNav(!showUserNav);
+      setShowGenres(false);
+    };
+
+    const toggleGenres = () => {
+      setShowGenres(!showGenres);
+      setShowUserNav(false);
+    };
+
+
+    
+    const { toggleTheme } = useTheme(); // Destructure the toggleTheme function
+
+    const handleThemeToggle = () => {
+      toggleTheme(); // Call the toggleTheme function
+    };
+    // var resultDiv = document.getElementById("resultDiv");
+    // resultDiv.textContent = string(username);
+
+    return (
+      <div className={`header ${showScrolledHeader ? "scrolled" : ""}`}>
+        <div className="headlogo">
+            <Link to={"/"}>
+                <img   src="logo.svg" alt ="logo"/>
+            </Link>
+        </div>
+          <button 
+            className={`headbtn ${showGenres?'clicked':''}` }
+            onClick={toggleGenres}>Genres <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
+          </button>
+          {showGenres && <GenreList />}
+        <div style={{ position: "relative" }}>
+            <FontAwesomeIcon
+            icon={faSearch}
+            className="searchIcon"
+            />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="searchInput"
+              value={searchInput}
+              onChange={handleSearchInputChange}
+              onKeyPress={handleSearchInputKeyPress}
+              />
+        </div>
+        <div className="btnContainer">
+          {checkLoginStatus ? (
+            <div>
+              <button 
+                className={`headbtn ${showUserNav?'clicked':''}` }
+                style={{borderRadius:'50%',width:'36px',marginRight:'10px'}} 
+                onClick={() => {
+                  toggleUserNav();
+                }}>
+                <FontAwesomeIcon icon={faUserLarge} flip="horizontal" size="lg" />
+              </button>
+              {showUserNav && <UserNav/>}
+
+            </div>
+          ) : (
+            <div>
+              <Link to="/signup">
+                <button className="headbtn" >Sign Up</button>
+              </Link>
+              <Link to="/signin">
+                <button className="headbtn">Sign In</button>
+              </Link>
+            </div>     
+            )}
+          
+          <button className="headbtn themebtn" 
+          onClick={handleThemeToggle}><FontAwesomeIcon 
+                icon={faMoon} flip="horizontal" size="2x" />
+              
+          </button>
+          
+        </div>
+        
+      </div>
+    );
   }
 
-
-  // var resultDiv = document.getElementById("resultDiv");
-  // resultDiv.textContent = string(username);
-
-  return (
-    <div className="header">
-      <div className="headlogo">
-      {checkLoginStatus}
-          <Link to={"/"}>
-              <img   src="logo.svg" alt ="logo"/>
-          </Link>
-      </div>
-        <button 
-          className={`headbtn ${showGenres?'clicked':''}` }
-          onClick={toggleGenres}>Genres <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
-        </button>
-        {showGenres && <GenreList />}
-      <div style={{ position: "relative" }}>
-          <FontAwesomeIcon
-          icon={faSearch}
-          className="searchIcon"
-          />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="searchInput"
-            value={searchInput}
-            onChange={handleSearchInputChange}
-            onKeyPress={handleSearchInputKeyPress}
-            />
-      </div>
-      <div className="btnContainer">
-        {isSignedIn ? (
-          <div>
-            <button 
-              className={`headbtn ${showUserNav?'clicked':''}` }
-              style={{borderRadius:'50%',width:'36px',marginRight:'10px'}} 
-              onClick={toggleUserNav}>
-              <FontAwesomeIcon icon={faUserLarge} flip="horizontal" size="lg" />
-            </button>
-            {showUserNav && <UserNav/>}
-
-          </div>
-        ) : (
-          <div>
-            <Link to="/signup">
-              <button className="headbtn" onClick={handleSignIn}>Sign Up</button>
-            </Link>
-            <Link to="/signin">
-              <button className="headbtn" onClick={handleSignIn}>Sign In</button>
-            </Link>
-          </div>     
-          )}
-        
-        <button className="headbtn themebtn">
-            <FontAwesomeIcon icon={faMoon} flip="horizontal" size="2x" />
-        </button>
-        
-      </div>
-      
-    </div>
-  );
-}
-
-export default Header;
+  export default Header;

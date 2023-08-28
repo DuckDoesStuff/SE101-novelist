@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 import "./SignInZone.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../AuthContext"; // Đường dẫn đến file AuthContext.js
-
 import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInZone() {
-    const { isSignedIn, setIsSignedIn } = useAuth();
     const [isChecked, setIsChecked] = useState(false);
-    
     const [messageApi, notificationHolder] = message.useMessage();
     
     const [email, setEmail] = useState("");
@@ -89,7 +85,7 @@ function SignInZone() {
                     placeholder="Password"
                 />
             </div>
-            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px"}}>
+            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px",marginTop:"-10px"}}>
             <input
                 type="checkbox"
                 id="remember"
@@ -97,7 +93,7 @@ function SignInZone() {
                 onChange={handleCheckboxChange}
             />
             <label htmlFor="remember" >Remember me</label>
-                <Link to="/forgot" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
+                <Link to="/forgot" style={{marginTop:"-10px",marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
             </div>
                {/* <Link to ="/homepage"> */}
                   <button className="btnSign" onClick={handleSignIn}>Log in</button>

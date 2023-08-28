@@ -309,7 +309,7 @@ export const getUser = (id) => {
 			reject(error)
 		})
 	})
-}
+};
 
 // Parse in a File object and it will return a promise which contains the downloadURL and filePath
 export const uploadImage = (selectedFile) => {

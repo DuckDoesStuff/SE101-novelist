@@ -79,7 +79,6 @@
     height: 43px;
     background-color: var(--background-01);
     transition: background-color 0.3s;
-    margin-left: 155px; 
     margin-top: 30px;
   }
   .btnSgin:hover{

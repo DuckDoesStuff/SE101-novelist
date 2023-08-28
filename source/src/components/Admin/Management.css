@@ -1,10 +1,17 @@
+.Container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 8px;
+}
+
 .SidebarContainer {
     width: 240px;
     height: fit-content;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 8px;
+    padding: 8px 0;
     align-items: center;
     border-radius: 4px;
     border-width: 1px;
@@ -31,7 +38,7 @@
 .SidebarItem {
     font-size: 16px;
     color: black;
-    padding: 8px 4px;
+    padding: 8px;
 }
 
 .SidebarItem.active {
@@ -43,4 +50,40 @@
     background-color: var(--background-01);
     color: white;
     cursor: pointer;
+}
+
+.ManagementContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--background-01);
+    padding: 12px;
+}
+
+.ManagementContainer h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--background-01);
+    margin: 0;
+}
+
+.MyTable {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RowTitle {
+    font-size: 16px;
+    color: var(--background-01);
+}
+
+td {
+    width: 280px;
 }

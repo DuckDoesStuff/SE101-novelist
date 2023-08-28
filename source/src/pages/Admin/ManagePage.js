@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../../components/Admin/Header";
-import NovelManagement from "../../components/Admin/NovelManagement";
+import Management from "../../components/Admin/Management";
 
 function NovelManagePage() {
     return (
         <div>
             <Header/>
-            <NovelManagement/>
+            <Management/>
         </div>
     );
 };

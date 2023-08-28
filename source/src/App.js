@@ -4,16 +4,15 @@ import "./styles/styles.css";
 import { Route, Routes } from "react-router-dom";
 
 import EditNovelPage from "./pages/EditNovelPage.js";
-import SearchPage from "./pages/SearchPage.js";
-import SignUpPage from "./pages/SignUpPage.js";
-import SignInPage from "./pages/SignInPage.js";
-import HomePage from "./pages/HomePage.js";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage.js";
 import Carousel from "./components/Carousel/Carousel";
 import NovelItem from "./components/NovelItem/NovelItem";
 import TopNovel from "./components/TopNovel/TopNovel";
 import TopAuthor from "./components/TopAuthor/TopAuthor";
 import NovelCard from "./components/NovelCard/NovelCard";
+import NovelViewCard from "./components/NovelViewCard/ViewCard"
+import ViewCard from "./components/NovelViewCard/ViewCard";
+import UserProfilePage from "./pages/UserProfilePage";
+import NovelManagePage from "./pages/Admin/NovelManagePage";
 
 function App() {
   const [isDark, setTheme] = useState(false);

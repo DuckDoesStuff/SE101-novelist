@@ -12,6 +12,12 @@ const ViewCard = (props) => {
     const [chaptersOfNovel, setChaptersOfNovel] = useState([]);
     const [isFetched, setIsFetched] = useState(false);
 
+    const [isLike, setLike] = useState(false);
+
+    const handleLikeClick = () => {
+        setLike(!isLike)
+    }
+
     useEffect(() => {
         const fetchData = async (novel_id) => {
             const novelData = await getNovel(novel_id);
@@ -100,11 +106,13 @@ const ViewCard = (props) => {
             <div className='ViewCardInteract'>
                 <img src={novel.thumbnail} alt='test image'></img>
                 <div className='ViewCardButton'>
-                    <Button onClick={handleClickRead}>Read</Button>
-                    <div className='ViewCardButtonInteract'>
-                        <Button><i class="fa-regular fa-heart"></i>Like</Button>
-                        <Button><i class="fa-regular fa-flag"></i>Report</Button>
-                    </div>
+                    <Button onClick={handleClickRead}><i class="fa-solid fa-book-open"></i>Read</Button>
+                    {isLike ? (
+                        <Button onClick={handleLikeClick}><i class="fa-solid fa-heart"></i>Liked</Button>
+                    ) : (
+                        <Button onClick={handleLikeClick}><i class="fa-regular fa-heart"></i>Like</Button>
+                    )}
+                    
                 </div>
             </div>
 

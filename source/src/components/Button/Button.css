@@ -19,6 +19,8 @@
 .button:hover {
     background: var(--background-02);
     cursor: pointer;
+    color: var(--text);
+
 }
 
 .toggled {

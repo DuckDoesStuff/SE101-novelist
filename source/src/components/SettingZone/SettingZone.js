@@ -87,13 +87,13 @@ const SettingZone = () => {
             <div className="Infocontainer">
               <p className="text">Display Name</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="text"
                 placeholder="Enter your name"
               />
               <p className="text">Bio</p>
               <input
-                className="inputField bio"
+                className="inputFields bio"
                 type="text"
                 placeholder="Enter your bio.."
               />
@@ -111,7 +111,7 @@ const SettingZone = () => {
               <hr className="hrline" />
               <p className="text small">Email address</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -119,7 +119,7 @@ const SettingZone = () => {
               />
               <p className="text small">Current Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
@@ -127,7 +127,7 @@ const SettingZone = () => {
               />
               <p className="text small">New Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -135,7 +135,7 @@ const SettingZone = () => {
               />
               <p className="text small">Confirm New Password</p>
               <input
-                className="inputField"
+                className="inputFields"
                 type="password"
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}

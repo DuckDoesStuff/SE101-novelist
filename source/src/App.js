@@ -20,14 +20,14 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
+import { useTheme } from './components/ThemeProvider'; // Import the useTheme hook
 
 
 
 function App() {
-  const [isDark, setTheme] = useState(false);
-  const switchTheme = () => {
-    setTheme((prevTheme) => !prevTheme);
-  };
+  const { isDark } = useTheme(); // Get isDark from the context
+  const themeClass = isDark ? 'dark' : 'light';
+
 
   const test = (novel) => {
     console.log(novel.id);
@@ -147,12 +147,14 @@ function App() {
     },
   ];
   return (
-	<div>
+<div data-theme={themeClass} className="app">    
     <Routes>
       <Route path="search" element={<SearchPage />} />
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
+      <Route path="setting" element={<SettingPage />} />
+
       <Route path="" element={<HomePage />} />
 
     </Routes>

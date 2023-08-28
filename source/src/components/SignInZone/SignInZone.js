@@ -87,7 +87,7 @@ function SignInZone() {
                     placeholder="Password"
                 />
             </div>
-            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px"}}>
+            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px",marginTop:"-10px"}}>
             <input
                 type="checkbox"
                 id="remember"
@@ -95,7 +95,7 @@ function SignInZone() {
                 onChange={handleCheckboxChange}
             />
             <label htmlFor="remember" >Remember me</label>
-                <Link to="/forgot" style={{marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
+                <Link to="/forgot" style={{marginTop:"-10px",marginLeft:"280px",fontStyle:"italic"}}>Forgot password?</Link>
             </div>
                {/* <Link to ="/homepage"> */}
                   <button className="btnSign" onClick={handleSignIn}>Log in</button>

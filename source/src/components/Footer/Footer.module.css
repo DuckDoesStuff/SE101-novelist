@@ -1,0 +1,65 @@
+.footer {
+    background-color: var(--background-01);
+    margin-top: 70px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    padding-bottom: 20px;
+}
+
+.frame {
+    background-color: var(--background-01);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.frame-logo {
+    background-color: var(--background-01);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    margin-left: 20vw;
+}
+
+.title {
+    font-family: REM;
+    font-weight: bold;
+    color: var(--text);
+    background-color: var(--background-01);
+    margin-bottom: 10px;
+}
+.name {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-family: REM;
+    color: var(--text);
+}
+.name:hover p {
+    text-decoration: underline;
+}
+
+.HCMUS {
+    font-family: REM;
+    color: var(--text);
+    font-size: 16px;
+}
+.fit-hcmus {
+    font-family: REM;
+    color: var(--text);
+    font-size: 30px;
+}
+.logo-hcmus {
+    width: 5vw;
+}
+.logo-hcmus img {
+    width: 100%;
+}
+.logo-fit {
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}

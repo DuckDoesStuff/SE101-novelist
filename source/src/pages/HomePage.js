@@ -4,6 +4,7 @@ import Header from '../components/Header/Header.js';
 import { auth } from '../backend-api/FirebaseConfig.js';
 import "../styles/HomePage.css"
 import Carousel from '../components/Carousel/Carousel.js';
+import Footer from '../components/Footer/Footer.js';
 
 import { getAllNovels } from '../backend-api/API.js';
 import 'firebase/firestore';
@@ -182,6 +183,7 @@ const test = (novel) => {
       <Header/>
       <Carousel novel={novels} user={author} onClick={test} title={"Recent Novel"} />
       <Carousel novel={novels} user={author} onClick={test} title={"Popular"} />
+      <Footer />
     </div>
     
     );

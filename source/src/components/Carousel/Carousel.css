@@ -9,3 +9,6 @@
     background-color: var(--text-name);
     color: var(--background);
 }
+.slick-list .slick-track{
+    align-content: center;
+}

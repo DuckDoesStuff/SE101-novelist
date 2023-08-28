@@ -12,7 +12,16 @@ import NovelCard from "./components/NovelCard/NovelCard";
 import NovelViewCard from "./components/NovelViewCard/ViewCard"
 import ViewCard from "./components/NovelViewCard/ViewCard";
 import UserProfilePage from "./pages/UserProfilePage";
-import NovelManagePage from "./pages/Admin/NovelManagePage";
+import NovelManagePage from "./pages/Admin/ManagePage";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import HomePage from "./pages/HomePage";
+import SearchPage from "./pages/SearchPage";
+import Header from "./components/Header/Header";
+import SettingPage from "./pages/SettingPage";
+
+
 
 function App() {
   const [isDark, setTheme] = useState(false);

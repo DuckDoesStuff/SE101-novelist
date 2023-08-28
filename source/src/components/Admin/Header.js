@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <div className="HeaderContainer">
             <img src="/logo.svg" alt ="logo"/>
-            <div className="btnContainer">
+            <div className="btnContainerAdmin">
                 <i class="fa-solid fa-user"></i>
             </div>
         </div>

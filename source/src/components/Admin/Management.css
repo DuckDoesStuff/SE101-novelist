@@ -1,11 +1,12 @@
 .Container {
     display: flex;
-    height: 100vh;
+    height: 100%;
 }
 
 .SidebarContainer {
     width: 180px;
     height: 100%;
+    margin: 8px;
     background-color: var(--background-02);
     flex-direction: column;
     display: flex;

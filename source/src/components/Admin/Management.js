@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Table } from "antd";
+import React, { useState, useEffect, useRef } from "react";
+import { Button, Input, Space, Table } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import Highlighter from 'react-highlight-words';
 import './Management.css';
 import { getAllNovels } from '../../backend-api/API.js';
 
 const NovelManagement = () => {
-	const [isGenreSelected, setGenre] = useState(true);
-	const [isNovelSelected, setNovel] = useState(false);
+	const [isNovelSelected, setNovel] = useState(true);
 	const [isUserSelected, setUser] = useState(false);
 	const [isThemeSelected, setTheme] = useState(false);
 	const [isNotifSelected, setNotif] = useState(false);
 
-	const handleGenreClick = () => {
-		setGenre(true);
-		setNovel(false);
-		setUser(false);
-		setTheme(false);
-		setNotif(false);
-	};
-
 	const handleNovelClick = () => {
-		setGenre(false);
 		setNovel(true);
 		setUser(false);
 		setTheme(false);
@@ -27,7 +19,6 @@ const NovelManagement = () => {
 	};
 
 	const handleUserClick = () => {
-		setGenre(false);
 		setNovel(false);
 		setUser(true);
 		setTheme(false);
@@ -35,7 +26,6 @@ const NovelManagement = () => {
 	};
 
 	const handleThemeClick = () => {
-		setGenre(false);
 		setNovel(false);
 		setUser(false);
 		setTheme(true);
@@ -43,7 +33,6 @@ const NovelManagement = () => {
 	};
 
 	const handleNotifClick = () => {
-		setGenre(false);
 		setNovel(false);
 		setUser(false);
 		setTheme(false);
@@ -65,21 +54,133 @@ const NovelManagement = () => {
 	fetchAllNovels();
 	}, []);
 
+	const [searchText, setSearchText] = useState('');
+	const [searchedColumn, setSearchedColumn] = useState('');
+	const searchInput = useRef(null);
+	const handleSearch = (selectedKeys, confirm, dataIndex) => {
+		confirm();
+		setSearchText(selectedKeys[0]);
+		setSearchedColumn(dataIndex);
+	};
+	const handleReset = (clearFilters) => {
+		clearFilters();
+		setSearchText('');
+	};
+	const getColumnSearchProps = (dataIndex) => ({
+		filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
+			<div
+				style={{
+					padding: 8,
+				}}
+				onKeyDown={(e) => e.stopPropagation()}
+			>
+				<Input
+					ref={searchInput}
+					placeholder={`Search ${dataIndex}`}
+					value={selectedKeys[0]}
+					onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+					onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+					style={{
+					marginBottom: 8,
+					display: 'block',
+					}}
+				/>
+				<Space>
+					<Button
+						type="primary"
+						onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+						icon={<SearchOutlined />}
+						size="small"
+						style={{
+							width: 90,
+						}}
+					>
+						Search
+					</Button>
+					<Button
+						onClick={() => clearFilters && handleReset(clearFilters)}
+						size="small"
+						style={{
+							width: 90,
+						}}
+					>
+						Reset
+					</Button>
+					<Button
+						type="link"
+						size="small"
+						onClick={() => {
+							confirm({
+							closeDropdown: false,
+							});
+							setSearchText(selectedKeys[0]);
+							setSearchedColumn(dataIndex);
+						}}
+					>
+						Filter
+					</Button>
+					<Button
+						type="link"
+						size="small"
+						onClick={() => {
+							close();
+						}}
+					>
+						close
+					</Button>
+				</Space>
+			</div>
+		),
+		filterIcon: (filtered) => (
+			<SearchOutlined
+				style={{
+					color: filtered ? '#1890ff' : undefined,
+				}}
+			/>
+		),
+		onFilter: (value, record) =>
+			record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+		onFilterDropdownOpenChange: (visible) => {
+			if (visible) {
+				setTimeout(() => searchInput.current?.select(), 100);
+			}
+		},
+		render: (text) =>
+			searchedColumn === dataIndex ? (
+				<Highlighter
+					highlightStyle={{
+					backgroundColor: '#ffc069',
+					padding: 0,
+					}}
+					searchWords={[searchText]}
+					autoEscape
+					textToHighlight={text ? text.toString() : ''}
+				/>
+			) : (
+				text
+			),
+	});
+
     const novel_columns = [
         {
 			title: 'ID',
             dataIndex: 'id',
             key: 'id',
+			width: '20%'
         },
 		{
 			title: 'Title',
             dataIndex: 'title',
             key: 'title',
+			width: '40%',
+			...getColumnSearchProps('title'),
         },
 		{
 			title: 'Author',
             dataIndex: 'author',
             key: 'author',
+			width: '40%',
+			...getColumnSearchProps('author'),
         },
 		{
 			title: 'Genre',
@@ -96,20 +197,67 @@ const NovelManagement = () => {
 					})}
 				</>
 			),
+			filters: [
+				{
+					text: 'Mystery',
+					value: 'Mystery',
+				},
+				{
+					text: 'Thriller',
+					value: 'Thriller',
+				},
+				{
+					text: 'Romantic',
+					value: 'Romantic',
+				},
+				{
+					text: 'Adventure',
+					value: 'Adventure',
+				},
+				{
+					text: 'Danmei',
+					value: 'Danmei',
+				},
+				{
+					text: 'Sci-fi',
+					value: 'Sci-fi',
+				},
+				{
+					text: 'Horror',
+					value: 'Horror',
+				},
+				{
+					text: 'Action',
+					value: 'Action',
+				},
+			],
+			onFilter: (value, record) => record.genre.includes(value),
+			filterSearch: true,
+			width: '30%',
         },
 		{
 			title: 'Like',
             dataIndex: 'like',
             key: 'like',
+			sorter: {
+				compare: (a, b) => a.like - b.like,
+				multiple: 1,
+			},
+			width: '20%',
         },
 		{
 			title: 'Comment',
             dataIndex: 'comment',
             key: 'comment',
+			sorter: {
+				compare: (a, b) => a.comment - b.comment,
+				multiple: 1,
+			},
+			width: '20%',
         }
     ]
 
-	const author_columns = [
+	const user_columns = [
         {
 			title: 'ID',
             dataIndex: 'author_id',
@@ -117,8 +265,8 @@ const NovelManagement = () => {
         },
 		{
 			title: 'Name',
-            dataIndex: 'username',
-            key: 'username',
+            dataIndex: 'name',
+            key: 'name',
         },
 		{
 			title: 'Published novels',
@@ -132,16 +280,14 @@ const NovelManagement = () => {
         }
 	]
 
+	const onChange = (pagination, filters, sorter, extra) => {
+		console.log('params', pagination, filters, sorter, extra);
+	};
+
 	return (
 		<div className="Container">
 			<div className="SidebarContainer">
 				<div className="SidebarItems">
-					<div 
-						className={`SidebarItem ${isGenreSelected ? "active" : ""}`}
-						onClick={handleGenreClick}
-					>
-						Genres
-					</div>
 					<div 
 						className={`SidebarItem ${isNovelSelected ? "active" : ""}`}
 						onClick={handleNovelClick}
@@ -174,7 +320,18 @@ const NovelManagement = () => {
 					<Table 
 						columns={novel_columns}
                     	dataSource={novels} 
+						onChange={onChange}
                     	pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
+				</div>
+			)}
+			{isUserSelected && (
+				<div className="ManagementContainer">
+					<h3>Users</h3>
+					<Table 
+						columns={user_columns}
+						dataSource={novels} 
+						onChange={onChange}
+						pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
 				</div>
 			)}
         </div>

@@ -179,6 +179,8 @@ function App() {
       <Route path="setting" element={<SettingPage />} />
       <Route path="novel/:id" element={<NovelViewPage />} />
 
+      <Route path="admin" element={<ManagePage />} />
+
     </Routes>
 	</div>
   );

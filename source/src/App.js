@@ -20,6 +20,7 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
+import Nhun from "./components/Nhun";
 
 
 
@@ -147,13 +148,16 @@ function App() {
     },
   ];
   return (
-	<div>
+	<div data-theme={isDark ? "dark" : "light"} className="app">
     <Routes>
       <Route path="search" element={<SearchPage />} />
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
+      <Route path="edit-novel" element={<EditNovelPage novelID={"haha"}/>} />
       <Route path="" element={<HomePage />} />
+      <Route path="setting" element={<SettingPage />} />
+
 
     </Routes>
 	</div>

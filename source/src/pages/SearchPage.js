@@ -3,6 +3,7 @@ import Header from "../components/Header/Header.js";
 import HorNovelCard from "../components/HorNovelCard/HorNovelCard.js";
 
 
+
 function SearchPage() {
   const novelList = [
     {

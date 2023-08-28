@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import styles from "./NovelCard.module.css";
 import Button from "../Button/Button";
 
@@ -12,7 +13,7 @@ const NovelCard = ({ user, novel, onClick }) => {
         onEditClick(novel); // Gọi hàm xử lý khi bấm nút "Edit"
     };
     return (
-        <div>
+        <Link to={`/novel/${novel.id}`}>
             <div
                 className={styles["novel-card"]}
                 title={novel.title}
@@ -37,7 +38,7 @@ const NovelCard = ({ user, novel, onClick }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </Link>
     );
 };
 

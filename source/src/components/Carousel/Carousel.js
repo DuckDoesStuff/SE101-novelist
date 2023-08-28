@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, Routes } from 'react-router-dom';
 import NovelCard from "../NovelCard/NovelCard.js";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

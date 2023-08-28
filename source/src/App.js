@@ -18,6 +18,8 @@ import SignInPage from "./pages/SignInPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
+import NovelViewPage from "./pages/NovelViewPage";
+import ManagePage from "./pages/Admin/ManagePage";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
 import ReadNovelPage from "./pages/ReadNovelPage";
@@ -148,11 +150,33 @@ function App() {
       author: "haha",
     },
   ];
+  // return (
+	// <div>
+  //   <Routes>
+  //     <Route path="search" element={<SearchPage />} />
+  //     <Route path="signup" element={<SignUpPage />} />
+  //     <Route path="signin" element={<SignInPage />} />
+  //     <Route path="forgot" element={<ForgotPasswordPage />} />
+  //     <Route path="" element={<HomePage />} />
+
+  //   </Routes>
+	// </div>
+  // );
+
   return (
-	<div>
-    {/* <Nhun /> */}
-    <ReadNovelPage chapterID={"A08F073jCpQiAtLLiedu"} changeTheme={switchTheme}/>
-    {/* <EditNovelPage novelID={"test_novel"}/> */}
+	<div data-theme={isDark ? "dark" : "light"} className="app">
+    <Routes>
+      <Route path="search" element={<SearchPage />} />
+      <Route path="signup" element={<SignUpPage />} />
+      <Route path="signin" element={<SignInPage />} />
+      <Route path="forgot" element={<ForgotPasswordPage />} />
+      <Route path="writenovel" element={<EditNovelPage novelID={"duck"}/>} />
+      <Route path="" element={<HomePage />} />
+      <Route path="homepage" element={<HomePage />} />
+      <Route path="setting" element={<SettingPage />} />
+      <Route path="novel/:id" element={<NovelViewPage />} />
+
+    </Routes>
 	</div>
   );
 }

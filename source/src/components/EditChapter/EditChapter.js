@@ -174,7 +174,7 @@ const EditChapter = (props) => {
         <input  type='text' 
                 placeholder='Chapter title' 
                 className='input-box'
-                maxLength={30}
+                maxLength={50}
                 value={title === "Untitled" ? "" : title}
                 onChange={(e) => props.handleTitle(e.target.value)}/>
         <textarea type='text' 

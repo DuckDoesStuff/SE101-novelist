@@ -451,3 +451,21 @@ export const getAllNovels = () => {
             });
     });
 };
+
+export const getAllUsers = () => {
+    const novelRef = collection(fstore, "userinfos");
+    return new Promise((resolve, reject) => {
+        getDocs(novelRef)
+            .then((querySnapshot) => {
+                const users = [];
+                querySnapshot.forEach((doc) => {
+                    users.push(doc.data());
+                });
+                resolve(users);
+            })
+            .catch((error) => {
+                console.error("Error fetching all users:", error);
+                reject(error);
+            });
+    });
+};

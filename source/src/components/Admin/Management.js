@@ -3,7 +3,7 @@ import { Button, Input, Space, Table, Modal, Form } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import './Management.css';
-import { getAllNovels } from '../../backend-api/API.js';
+import { getAllNovels ,getAllUsers} from '../../backend-api/API.js';
 
 const EditNotif = (props) => {
 	const layout = {
@@ -123,7 +123,7 @@ const EditNotif = (props) => {
 						/>
 					</Form.Item>
 				</Form>
-      		</Modal>
+      		</Modal>s
 		</>
 	)
 }
@@ -177,6 +177,22 @@ const NovelManagement = () => {
 
 	fetchAllNovels();
 	}, []);
+
+	const [users, setUsers] = useState([]);
+
+	useEffect(() => {
+	const fetchAllUsers = async () => {
+		try {
+		const AllUsers = await getAllUsers();
+		setUsers(AllUsers);
+		} catch (error) {
+		console.error('Error fetching all novels:', error);
+		}
+	};
+
+	fetchAllUsers();
+	}, []);
+
 
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
@@ -384,8 +400,8 @@ const NovelManagement = () => {
 	const user_columns = [
         {
 			title: 'ID',
-            dataIndex: 'author_id',
-            key: 'author_id',
+            dataIndex: 'id',
+            key: 'id',
 			width: '20%'
         },
 		{
@@ -503,8 +519,8 @@ const NovelManagement = () => {
 						</div>
 						<div className="Statitic">
 							<p className="Title">Total number of users</p>
-							{/* <p className="Number">{users.length}</p> */}
-							<p className="Number">1000</p>
+							<p className="Number">{users.length}</p>
+							{/* <p className="Number">1000</p> */}
 						</div>
 					</div>
 				</div>
@@ -519,16 +535,16 @@ const NovelManagement = () => {
                     	pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
 				</div>
 			)}
-			{/* {isUserSelected && (
+			{isUserSelected && (
 				<div className="ManagementContainer">
 					<h3>Users</h3>
 					<Table 
 						columns={user_columns}
-						dataSource={novels} 
+						dataSource={users} 
 						onChange={onChange}
 						pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
 				</div>
-			)} */}
+			)} 
 			{isNotifSelected && (
 				<div className="ManagementContainer">
 					<h3>Maintenance notification</h3>

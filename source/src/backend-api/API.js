@@ -269,7 +269,7 @@ export const emptyAuth = () => {
 		id: "",
 		name: "",
 		bio: "",
-		description: "",
+		ava:"",
 		image_path: "",
 		comment_section: "",
 		published: [],

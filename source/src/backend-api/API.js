@@ -395,6 +395,24 @@ export const getUser = (id) => {
 	})
 };
 
+export const updateUserLibrary = (id, novel) => {
+    getUser(id)
+    .then((user) => {
+        console.log(user.library, "library");
+        if(user.library.includes(novel.id)) {
+            user.library.arrayRemove(novel.id)
+            const AuthRef = doc(fstore, 'userinfos', user.id);
+            updateDoc(AuthRef, { library: user.library})
+            changeNovelLike(novel.id, novel.like - 1);
+        }else {
+            user.library.push(novel.id);
+            const AuthRef = doc(fstore, 'userinfos', user.id);
+            updateDoc(AuthRef, {library: user.library})
+            changeNovelLike(novel.id, novel.like + 1);
+        }
+    })
+}
+
 // Parse in a File object and it will return a promise which contains the downloadURL and filePath
 export const uploadImage = (selectedFile) => {
     if (selectedFile) {

@@ -3,7 +3,8 @@ import { Table, message } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import './ViewCard.css';
 import Button from '../Button/Button';
-import { getNovel, getChapter, emptyNovel, emptyChapter, getUser } from "../../backend-api/API"
+import { getNovel, getChapter, emptyNovel, emptyChapter, getUser, changeNovelLike } from "../../backend-api/API"
+import { auth } from '../../backend-api/FirebaseConfig';
 
 
 const ViewCard = (props) => {
@@ -96,6 +97,12 @@ const ViewCard = (props) => {
         }
     }
 
+    const handleLikeNovel = () => {
+        if(auth.currentUser) {
+            changeNovelLike(novel.id, novel.like + 1);
+        }
+    }
+
     if (!isFetched) {
         console.log(chaptersOfNovel)
         return <div className='loading'> <img src="/loading.svg"/> </div>;
@@ -109,7 +116,7 @@ const ViewCard = (props) => {
                 <div className='ViewCardButton'>
                     <Button onClick={handleClickRead}>Read</Button>
                     <div className='ViewCardButtonInteract'>
-                        <Button><i class="fa-regular fa-heart"></i>Like</Button>
+                        <Button onClick={handleLikeNovel}><i class="fa-regular fa-heart"></i>Like</Button>
                         <Button><i class="fa-regular fa-flag"></i>Report</Button>
                     </div>
                 </div>

@@ -173,6 +173,7 @@ useEffect(() => {
     <div>
       <Header/>
       <Carousel novel={novels} user={author} onClick={test} title={"Recent Novel"} />
+      <Carousel novel={novels} user={author} onClick={test} title={"Popular"} />
     </div>
     
     );

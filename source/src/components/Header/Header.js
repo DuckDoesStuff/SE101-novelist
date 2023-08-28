@@ -8,19 +8,19 @@
   import { getAuth } from "firebase/auth";
   import { auth } from "../../backend-api/FirebaseConfig";
   import { useTheme } from '../ThemeProvider';
-
+  import {useAuth} from "../AuthContext.js"
   import "./Header.css"; // Import the CSS file
 
   const Header = () => {
     const [showScrolledHeader, setShowScrolledHeader] = useState(false);
 
-    
+    const { isSignedIn} = useAuth();
+
     const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
     const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState("");
-    const [isSignedIn, setIsSignedIn] = useState(true);
     useEffect(() => {
       const handleScroll = () => {
         if (window.scrollY > 0) {
@@ -46,13 +46,8 @@
       }
     };
 
-    const handleSignIn = () => {
-      setIsSignedIn(true);
-    };
 
-    const handleSignOut = () => {
-      setIsSignedIn(false);
-    };
+
     const toggleUserNav = () => {
       setShowUserNav(!showUserNav);
       setShowGenres(false);
@@ -64,16 +59,6 @@
     };
 
 
-    const checkLoginStatus = () => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          var  temp = setIsSignedIn();
-          console.log(isSignedIn)
-        } else {
-          console.log(isSignedIn)
-        }
-      })
-    }
     
     const { toggleTheme } = useTheme(); // Destructure the toggleTheme function
 
@@ -86,7 +71,6 @@
     return (
       <div className={`header ${showScrolledHeader ? "scrolled" : ""}`}>
         <div className="headlogo">
-        {checkLoginStatus}
             <Link to={"/"}>
                 <img   src="logo.svg" alt ="logo"/>
             </Link>
@@ -127,10 +111,10 @@
           ) : (
             <div>
               <Link to="/signup">
-                <button className="headbtn" onClick={handleSignIn}>Sign Up</button>
+                <button className="headbtn" >Sign Up</button>
               </Link>
               <Link to="/signin">
-                <button className="headbtn" onClick={handleSignIn}>Sign In</button>
+                <button className="headbtn">Sign In</button>
               </Link>
             </div>     
             )}

@@ -55,77 +55,14 @@ const NovelTab = () => {
 
     const TabItem = () => {
         return (
-            <div>
-                {novels.map((val, key) => {
-
-                })
-                }
-                {/* <div class="NovelCardRow">    
+            <div className="NovelListContainer">
+                {novels.map((val, key) =>
                     <NovelCard
-                        user={currentUser}
-                        novel={novel}
+                        user = {author["1"]}
+                        novel={val}
                         onClick={() => testItem()}
                     />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                </div>
-                <div class="NovelCardRow">    
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                </div>
-                <div class="NovelCardRow">    
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                    <NovelCard
-                        user={currentUser}
-                        novel={novel}
-                        onClick={() => testItem()}
-                    />
-                </div> */}
+                )}
             </div>
         )
     }
@@ -134,12 +71,12 @@ const NovelTab = () => {
         {
             key: '1',
             label: 'Library',
-            children: 'Content of Tab Pane 1',
+            children: <TabItem/>,
         },
         {
             key: '2',
             label: 'Published',
-            children: 'Content of Tab Pane 2',
+            children: <TabItem/>,
         }
     ];
 

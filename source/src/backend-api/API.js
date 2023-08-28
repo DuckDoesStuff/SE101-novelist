@@ -19,7 +19,7 @@ import {
     query,
 } from "firebase/firestore";
 import { storage, fstore } from "./FirebaseConfig";
-
+import { auth } from "./FirebaseConfig";
 export const searchNovel = (queryString) => {
     const novelRef = collection(fstore, "novels");
     const normalizedQuery = queryString.toLowerCase().replace(/ /g, "-");
@@ -58,6 +58,25 @@ export const changeChapterView = (id, view) => {
             .catch((error) => {
                 console.error(
                     "An error occured while updating chapter view: ",
+                    error,
+                    id
+                );
+                reject(error);
+            });
+    });
+};
+
+export const changeNovelAuth = (id,user) => {
+    const novelRef = doc(fstore, "novels/", id);
+	// console.log(auth.currentUser.uid);
+    return new Promise((resolve, reject) => {
+        updateDoc(novelRef, { author_id: user })
+            .then(() => {
+                resolve(true);
+            })
+            .catch((error) => {
+                console.error(
+                    "An error occured while updating novel view: ",
                     error,
                     id
                 );
@@ -237,6 +256,7 @@ export const emptyNovel = () => {
         status: "",
         like: 0,
         view: 0,
+		author_id: "",
     };
 };
 

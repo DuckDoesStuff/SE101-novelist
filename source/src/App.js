@@ -154,7 +154,7 @@ function App() {
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
-      <Route path="writenovel" element={<EditNovelPage novelID={null}/>} />
+      <Route path="writenovel" element={<EditNovelPage novelID={"duck"}/>} />
       <Route path="" element={<HomePage />} />
       <Route path="homepage" element={<HomePage />} />
       <Route path="setting" element={<SettingPage />} />

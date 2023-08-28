@@ -3,7 +3,7 @@
 .UserNavContainerStyle {
     position: fixed;
     top: 70px;
-    left: 1130px;
+    left: 81%;
     width: 200px;
     background-color: var(--background-02);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);

@@ -5,8 +5,10 @@ import Button from "../components/Button/Button";
 
 import { message } from "antd";
 import { uploadImage, pushNovel, emptyNovel, getNovel, genNovelKey, deleteNovel } from "../backend-api/API";
-import { storage } from '../backend-api/FirebaseConfig';
+import { auth, storage } from '../backend-api/FirebaseConfig';
 import { deleteObject, ref } from "firebase/storage";
+// import { auth } from "../backend-api/FirebaseConfig";
+import { Auth, getAuth } from "firebase/auth";
 import "../styles/EditNovelPage.css";
 
 const EditNovelPage = (props) => {
@@ -29,6 +31,7 @@ const EditNovelPage = (props) => {
   const [submitChapter, setSubmitChapter] = useState(false);
   const [loading, setLoading] = useState(true);
 
+
   // Image preview
   useEffect(() => {
     // Revoke the data uris to avoid memory leaks
@@ -47,6 +50,7 @@ const EditNovelPage = (props) => {
         setImg({preview: data.thumbnail});
         setGenre(data.genre);
         setChapterID(data.chapter_id || []);
+        
         // console.log("chapter_id", data.chapter_id)
         // console.log("chapterID", chapterID)
         setTimeout(() => {
@@ -128,6 +132,7 @@ const EditNovelPage = (props) => {
       newNovel.image_path = imagePath;
       newNovel.thumbnail = thumbnail;
       newNovel.chapter_id = chapterID;
+      newNovel.author_id = auth.currentUser.uid;
 
       // Completely new novel
       if(newNovel.image_path === "" && newNovel.thumbnail === "" && selectedFile !== "") {

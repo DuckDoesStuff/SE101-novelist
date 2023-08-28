@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import EditNovel from "../components/EditNovel/EditNovel";
 import EditChapter from "../components/EditChapter/EditChapter";
-import { message } from "antd";
 import Button from "../components/Button/Button";
-import { uploadImage, pushNovel, emptyNovel, getNovel } from "../backend-api/API";
-import { storage } from "../backend-api/FirebaseConfig";
+
+import { message } from "antd";
+import { uploadImage, pushNovel, emptyNovel, getNovel, genNovelKey, deleteNovel } from "../backend-api/API";
+import { storage } from '../backend-api/FirebaseConfig';
 import { deleteObject, ref } from "firebase/storage";
 import "../styles/EditNovelPage.css";
 
 const EditNovelPage = (props) => {
+  const [novelID, setNovelID] = useState(null);
+  useEffect(() => {
+    if(props.novelID !== null)
+      setNovelID(props.novelID);
+    else
+      setNovelID(genNovelKey());
+  }, [props.novelID])
+
   const [selectedFile, setSelectedFile] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,19 +25,38 @@ const EditNovelPage = (props) => {
   const [thumbnail, setThumbnail] = useState("");
   const [img, setImg] = useState({ preview: "" });
   const [genre, setGenre] = useState([]);
+  const [chapterID, setChapterID] = useState([]);
+  const [submitChapter, setSubmitChapter] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch novel data from backend
-  const fetchNovel = (novelID) => {
-    getNovel(novelID)
-    .then((data) => {
-      setTitle(data.title);
-      setDescription(data.description);
-      setImagePath(data.image_path);
-      setThumbnail(data.thumbnail);
-      setImg({preview: data.thumbnail});
-      setGenre(data.genre);
-    })
-  }
+  // Image preview
+  useEffect(() => {
+    // Revoke the data uris to avoid memory leaks
+    return () => (file => URL.revokeObjectURL(file.preview));
+  }, [img]);
+
+  useEffect(() => {
+    // Fetch novel data from backend
+    const fetchNovel = (novelID) => {
+      getNovel(novelID)
+      .then((data) => {
+        setTitle(data.title);
+        setDescription(data.description);
+        setImagePath(data.image_path);
+        setThumbnail(data.thumbnail);
+        setImg({preview: data.thumbnail});
+        setGenre(data.genre);
+        setChapterID(data.chapter_id || []);
+        // console.log("chapter_id", data.chapter_id)
+        // console.log("chapterID", chapterID)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+    }
+
+    fetchNovel(novelID)
+  }, [novelID])
 
   const uploadMessage = (content, type, duration) => {
     messageApi.destroy();
@@ -42,15 +70,6 @@ const EditNovelPage = (props) => {
     })
   }
 
-  useEffect(() => {
-    return () => fetchNovel(props.novelID);
-  }, [props.novelID])
-
-
-  useEffect(() => {
-    // Revoke the data uris to avoid memory leaks
-    return () => (file => URL.revokeObjectURL(file.preview));
-  }, [img]);
 
   const handleDrop = (acceptedFiles) => {
     // Set the selected file first then after hitting 'Save' we will upload
@@ -89,8 +108,10 @@ const EditNovelPage = (props) => {
       message = "You need to fill out the description";
     else if(!img.preview)
       message = "You need to upload an image";
-    else if(genre.length < 2)
+    else if(genre.length < 1)
       message = "You need to select at least one genre";
+    // else if (chapterID.length === undefined || chapterID.length < 1)
+    //   message = "You need to have at least one chapter";
     else {
       message = "Uploading novel";
       type = "loading";
@@ -99,28 +120,29 @@ const EditNovelPage = (props) => {
 
     if(type === "loading") {
       var newNovel = emptyNovel();
+      newNovel.id = novelID;
       newNovel.title = title;
+      newNovel.normalized_title = title.toLowerCase().replace(/ /g, "-");
       newNovel.description = description;
       newNovel.genre = genre;
       newNovel.image_path = imagePath;
       newNovel.thumbnail = thumbnail;
+      newNovel.chapter_id = chapterID;
 
       // Completely new novel
       if(newNovel.image_path === "" && newNovel.thumbnail === "" && selectedFile !== "") {
-        console.log("Hello1");
         uploadImage(selectedFile).then((result) => {
           newNovel.thumbnail = result.downloadURL;
           setThumbnail(result.downloadURL);
           newNovel.image_path = result.filePath;
           setImagePath(result.filePath);
 
-          pushNovel(newNovel, props.novelID)
+          pushNovel(newNovel, novelID)
           uploadMessage("Successfully uploaded", "success", duration);
         });
       }
       // Update novel with new thumbnail
       else if(newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile !== "") {
-        console.log("Hello2")
         deleteObject(ref(storage, newNovel.image_path))
         .catch((error) => {
           console.error("Possibly the file has already been deleted", error)
@@ -131,25 +153,48 @@ const EditNovelPage = (props) => {
           newNovel.image_path = result.filePath;
           setImagePath(result.filePath);
 
-          pushNovel(newNovel, props.novelID)
+          pushNovel(newNovel, novelID)
           uploadMessage("Successfully uploaded", "success", duration);
         });
       }
       // Update novel with old thumbnail
       else if (newNovel.image_path !== "" && newNovel.thumbnail !== "" && selectedFile === "") {
-        console.log("Hello3");
-        pushNovel(newNovel, props.novelID)
+        pushNovel(newNovel, novelID)
         uploadMessage("Successfully uploaded", "success", duration);
       } else {
         uploadMessage("Successfully uploaded", "success", duration);
       }
+      setSubmitChapter(true);
     }
   };
-  
+
+  const cancelNovel = () => {
+    deleteNovel(novelID)
+    .then(() => {
+      uploadMessage("Successfully deleted", "success", 2);
+    })
+    .catch((error) => {
+      console.error("An error occured while deleting novel: ", error, novelID)
+    })
+  }
+
+  const testFunction = () => {
+    console.log(chapterID)
+    console.log(novelID)
+    // setSubmitChapter(true);
+  }
+
   const buttons = ["Mystery", "Thriller", "Romantic", "Adventure", "Danmei", "Sci-fi", "Horror", "Action"];
   return (
     <div className="edit-novel-page">
       {notificationHolder}
+
+      <div className="button-group">
+        <Button children="Submit" onClick={submitNovel}/>
+        <Button children="Cancel" onClick={cancelNovel}/>
+        <Button children="Test" onClick={testFunction}/>
+      </div>
+
       <EditNovel  handleDrop={handleDrop}
                   preview={img.preview}
                   handleTitle={handleTitle}
@@ -161,8 +206,11 @@ const EditNovelPage = (props) => {
                   description={description}
                   />
 
-      <EditChapter />
-      <Button children="Submit" onClick={submitNovel}/>
+      <EditChapter  loading={loading} 
+                    submitChapter={submitChapter} 
+                    setChapterID={setChapterID} 
+                    novelID={novelID} 
+                    chapterID={chapterID}/>
     </div>
   );
 };

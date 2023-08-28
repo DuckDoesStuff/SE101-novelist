@@ -10,7 +10,7 @@ import { auth } from "../../backend-api/FirebaseConfig";
 
 import "./Header.css"; // Import the CSS file
 
-function Header() {
+const Header = () => {
   const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
   const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 

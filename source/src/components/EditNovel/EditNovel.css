@@ -36,6 +36,7 @@
 	font-weight: 600;
 	line-height: normal;
 	color: var(--text-name);
+	margin-top: 20px;
 }
 
 .input-box {

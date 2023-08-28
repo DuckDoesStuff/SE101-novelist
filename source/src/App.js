@@ -4,16 +4,16 @@ import "./styles/styles.css";
 import { Route, Routes } from "react-router-dom";
 
 import EditNovelPage from "./pages/EditNovelPage.js";
+import SearchPage from "./pages/SearchPage.js";
+import SignUpPage from "./pages/SignUpPage.js";
+import SignInPage from "./pages/SignInPage.js";
+import HomePage from "./pages/HomePage.js";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage.js";
 import Carousel from "./components/Carousel/Carousel";
 import NovelItem from "./components/NovelItem/NovelItem";
 import TopNovel from "./components/TopNovel/TopNovel";
 import TopAuthor from "./components/TopAuthor/TopAuthor";
 import NovelCard from "./components/NovelCard/NovelCard";
-import SearchPage from "./pages/SearchPage";
-import SignUpPage from "./pages/SignUpPage";
-import SignInPage from "./pages/SignInPage";
-import HomePage from "./pages/HomePage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   const [isDark, setTheme] = useState(false);
@@ -139,6 +139,7 @@ function App() {
     },
   ];
   return (
+	<div>
     <Routes>
       <Route path="search" element={<SearchPage />} />
       <Route path="signup" element={<SignUpPage />} />
@@ -147,6 +148,7 @@ function App() {
       <Route path="" element={<HomePage />} />
 
     </Routes>
+	</div>
   );
 }
 

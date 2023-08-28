@@ -1,8 +1,19 @@
 .edit-novel-page {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	
-	height: 100vh;
+	height: fit-content;
+}
+
+.button-group {
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	justify-content: space-between;
+	padding: 40px;
+	align-self: flex-end;
+	margin-right: 160px;
+	gap:30px;
 }

@@ -30,7 +30,8 @@ const EditNovel = (props) => {
               <Button id={buttonName} 
                       children={buttonName} 
                       onClick={() => props.handleGenreClick(buttonName)}
-                      toggled={props.genre.includes(buttonName)}/>
+                      toggled={props.genre.includes(buttonName)}
+                      key={buttonName}/>
             ))}
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header/Header.js';
-import { Auth } from 'firebase/auth';
 import { auth } from '../backend-api/FirebaseConfig.js';
 
 function HomePage() {

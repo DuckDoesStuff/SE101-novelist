@@ -222,7 +222,7 @@
     cursor: pointer;
 }
 
-.ant-pagination {
+.ViewCardChapterList .ant-pagination {
     width: 100%;
     margin: 0 !important;
     padding: 4px !important;

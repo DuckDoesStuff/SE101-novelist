@@ -183,6 +183,8 @@ function App() {
       <Route path="editnovel/:id" element={<EditNovelPage />} />
       <Route path="readnovel/:id" element={<ReadNovelPage />} />
 
+      <Route path="admin" element={<ManagePage />} />
+
     </Routes>
 	</div>
   );

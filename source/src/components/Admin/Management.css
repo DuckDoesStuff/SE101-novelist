@@ -1,29 +1,15 @@
 .Container {
     display: flex;
-    flex-direction: row;
-    gap: 8px;
-    padding: 8px;
+    height: 100%;
 }
 
 .SidebarContainer {
-    width: 240px;
-    height: fit-content;
-    display: flex;
+    width: 180px;
+    height: 100%;
+    margin: 8px;
+    background-color: var(--background-02);
     flex-direction: column;
-    gap: 8px;
-    padding: 8px 0;
-    align-items: center;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--background-01);
-}
-
-.SidebarContainer h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--background-01);
-    margin: 0;
+    display: flex;
 }
 
 .SidebarItems {
@@ -36,29 +22,28 @@
 }
 
 .SidebarItem {
-    font-size: 16px;
-    color: black;
-    padding: 8px;
+    color: var(--text);
+    font-size: 18px;
+    padding: 16px;
+    font-weight: 500;
+    transition: background-color 0.5s ease;
 }
 
 .SidebarItem.active {
-    color: var(--background-01);
-    font-weight: 600;
+    background-color: var(--background-01)
 }
 
 .SidebarItem:hover {
-    background-color: var(--background-01);
-    color: white;
     cursor: pointer;
 }
 
 .ManagementContainer {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     gap: 8px;
-    border-color: var(--background-01);
+    padding: 12px;
 }
 
 .ManagementContainer h3 {
@@ -66,6 +51,45 @@
     font-weight: 700;
     color: var(--background-01);
     margin: 0;
+}
+
+.StatisticsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+}
+
+.Statitic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--background-01);
+    border-radius: 8px;
+}
+
+.Statitic .Title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--background-01);
+    padding: 4px;
+    border-bottom: 1px solid var(--background-01);
+}
+
+.Statitic .Number {
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--background-01);
+    padding: 4px;
+}
+
+.ManagementContainer .ant-spin-container {
+    height: auto;
+    width: 960px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .MyTable {

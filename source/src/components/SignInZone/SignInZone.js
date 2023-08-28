@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import "./SignInZone.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../AuthContext"; // Đường dẫn đến file AuthContext.js
 
 import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInZone() {
+    const { isSignedIn, setIsSignedIn } = useAuth();
     const [isChecked, setIsChecked] = useState(false);
     
     const [messageApi, notificationHolder] = message.useMessage();

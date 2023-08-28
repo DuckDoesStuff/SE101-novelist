@@ -120,7 +120,7 @@ const SettingZone = (props) => {
     // else if (chapterID.length === undefined || chapterID.length < 1)
     //   message = "You need to have at least one chapter";
     else {
-      message = "Uploading Auth";
+      message = "Uploading Infomation";
       type = "loading";
     }
     uploadMessage(message, type, duration);
@@ -250,17 +250,19 @@ const SettingZone = (props) => {
               <input
                 className="inputField"
                 type="text"
-                placeholder="Enter your name"
+                value= {Name}
+                placeholder=" "
               />
               <p className="text">Bio</p>
               <input
                 className="inputField bio"
                 type="text"
+                value= {Bio}
                 placeholder="Enter your bio.."
               />
               <div className="btnFuncContainer">
-                <button className="funcbtn">Save</button>
-                <button className="funcbtn cancel">Cancel</button>
+                <button className="funcbtn" onclick={submitAuth}>Save</button>
+                <Link to ="/home"><button className="funcbtn cancel">Cancel</button></Link>
               </div>
             </div>
           </div>

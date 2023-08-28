@@ -4,11 +4,11 @@ import "./styles/styles.css";
 import { Route, Routes } from "react-router-dom";
 
 import EditNovelPage from "./pages/EditNovelPage.js";
-import Carousel from "./components/Carousel";
-import NovelItem from "./components/NovelItem";
-import TopNovel from "./components/TopNovel";
-import TopAuthor from "./components/TopAuthor";
-import NovelCard from "./components/NovelCard";
+import Carousel from "./components/Carousel/Carousel";
+import NovelItem from "./components/NovelItem/NovelItem";
+import TopNovel from "./components/TopNovel/TopNovel";
+import TopAuthor from "./components/TopAuthor/TopAuthor";
+import NovelCard from "./components/NovelCard/NovelCard";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";

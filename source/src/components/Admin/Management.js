@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Table } from "antd";
 import './Management.css';
+import { getAllNovels } from '../../backend-api/API.js';
 
 const NovelManagement = () => {
 	const [isGenreSelected, setGenre] = useState(true);
@@ -48,116 +50,59 @@ const NovelManagement = () => {
 		setNotif(true);
 	};
 
-	const novel = [
-	{
-		id: "1",
-			title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
-			thumbnail: "image.jpg",
-			genre: ["Tinh yeu", "Kich tinh"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "2",
-			title: "Lan Ho Diep 123",
-			thumbnail: "image.jpg",
-			genre: ["Tinh yeu"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "3",
-			title: "Mot cau chuyen gi do",
-			thumbnail: "image.jpg",
-			genre: ["Kich tinh"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "4",
-			title: "Mot cau chuyen gi do",
-			thumbnail: "image.jpg",
-			genre: ["Kich tinh"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "5",
-			title: "Mot cau chuyen gi do",
-			thumbnail: "image.jpg",
-			genre: ["Kich tinh"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "6",
-			title: "Con ga trong lang thang nhieu mau that ngo",
-			thumbnail: "image.jpg",
-			genre: ["Dammy"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	},
-	{
-		id: "7",
-			title: "Lan Ho Diep 123",
-			thumbnail: "image.jpg",
-			genre: ["Tinh yeu"],
-			status: "",
-			content: [""],
-			like: 0,
-			view: 0,
-			comment_section: "",
-			author: "haha"
-	}
-	];
+	const [novels, setNovels] = useState([]);
 
-	const author = [
-	{
-		id: "1",
-		username: "Lan Ho Diep 123 hahahahaaha",
-		followers: 100,
-		novels: 10,
-		ava: "ava.jpg"
-	},
-	{
-		id: "2",
-		username: "Lan Ho Diep 123",
-		followers: 100,
-		novels: 10,
-		ava: "ava.jpg"
-	},
-	{
-		id: "3",
-		username: "Lan Ho Diep 123",
-		followers: 100,
-		novels: 10,
-		ava: "ava.jpg"
-	}
-	]	
+	useEffect(() => {
+	const fetchAllNovels = async () => {
+		try {
+		const allNovels = await getAllNovels();
+		setNovels(allNovels);
+		} catch (error) {
+		console.error('Error fetching all novels:', error);
+		}
+	};
+
+	fetchAllNovels();
+	}, []);
+
+    const novel_columns = [
+        {
+			title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+        },
+		{
+			title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+        },
+		{
+			title: 'Genre',
+            dataIndex: 'genre',
+            key: 'genre',
+			render: (_, { genre }) => (
+				<>
+					{genre.map((genre) => {
+					return (
+						<p color="var(--background-01)" key={genre}>
+							{genre}
+						</p>
+					);
+					})}
+				</>
+			),
+        },
+		{
+			title: 'Like',
+            dataIndex: 'like',
+            key: 'like',
+        },
+		{
+			title: 'Comment',
+            dataIndex: 'comment',
+            key: 'comment',
+        }
+    ]
 
 	return (
 		<div className="Container">
@@ -197,6 +142,15 @@ const NovelManagement = () => {
 				</ul>
         	</div>
 			{isNovelSelected && (
+				<div className="ManagementContainer">
+					<h3>Novel Management</h3>
+					<Table 
+						columns={novel_columns}
+                    	dataSource={novels} 
+                    	pagination={{className: "pagination", defaultPageSize: 50}}/>
+				</div>
+			)}
+			{/* {isNovelSelected && (
 				<div className="ManagementContainer">
 				<h3>Novel Management</h3>
 				<div className="MyTable">
@@ -256,7 +210,7 @@ const NovelManagement = () => {
                 </div>
 	            </div>
 				)
-			}
+			} */}
         </div>
     );
 };

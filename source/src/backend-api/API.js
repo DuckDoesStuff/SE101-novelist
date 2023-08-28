@@ -292,3 +292,21 @@ export const uploadImage = (selectedFile) => {
 	}
 }
 
+export const getAllNovels = () => {
+    const novelRef = collection(fstore, "novels");
+    return new Promise((resolve, reject) => {
+        getDocs(novelRef)
+            .then((querySnapshot) => {
+                const novels = [];
+                querySnapshot.forEach((doc) => {
+                    novels.push(doc.data());
+                });
+                resolve(novels);
+            })
+            .catch((error) => {
+                console.error("Error fetching all novels:", error);
+                reject(error);
+            });
+    });
+};
+

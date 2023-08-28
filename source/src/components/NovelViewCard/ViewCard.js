@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Table } from 'antd';
 import { Link } from "react-router-dom";
 import './ViewCard.css';
-import thumbnail from './thumbnail.jpg'
-import avatar from './avatar.jpg'
 import Button from '../Button/Button';
 
 
@@ -176,19 +174,6 @@ const ViewCard = () => {
 
             <div className='ViewCardChapterList'>
                 <p>Chapters</p>
-                {/* <ul>
-                    {chapters.map((val, id) => <li key={id}>{val.title}</li>)}
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                    <li>Chapter</li>
-                </ul> */}
                 <Table 
                     columns={columns} 
                     dataSource={chapters} 

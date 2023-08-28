@@ -19,6 +19,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import NovelViewPage from "./pages/NovelViewPage";
+import ManagePage from "./pages/Admin/ManagePage";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
 
@@ -161,7 +162,7 @@ function App() {
   // );
 
   return (
-    <NovelViewPage/>
+    <ManagePage/>
   );
 }
 

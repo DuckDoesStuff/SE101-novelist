@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/Admin/Header";
 import Management from "../../components/Admin/Management";
 
-function NovelManagePage() {
+function ManagePage() {
     return (
         <div>
             <Header/>
@@ -11,4 +11,4 @@ function NovelManagePage() {
     );
 };
 
-export default NovelManagePage
+export default ManagePage

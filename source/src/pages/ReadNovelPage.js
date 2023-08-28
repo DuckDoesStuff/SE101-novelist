@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 import { getNovel, getChapter } from "../backend-api/API"
 
-const ReadNovelPage = ({ novels, authors, changeTheme }) => {
+const ReadNovelPage = ({ novels, authors}) => {
     const { id } = useParams();
     const chapterID = id;
 
@@ -100,7 +100,7 @@ const ReadNovelPage = ({ novels, authors, changeTheme }) => {
     return (
         <div className={styles["read-novel-page"]}>
             <div className={styles["header"]}>
-                <Header changeTheme={changeTheme} />
+                <Header />
             </div>
 
             {/* <Button onClick={voTri}>Vo Tri</Button> */}

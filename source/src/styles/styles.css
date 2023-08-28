@@ -15,7 +15,7 @@
 
 }
 
-[data-theme='dark'] {
+/* [data-theme='dark'] {
     --warning_color_red: #EF5634;
 
     --text: white;
@@ -25,7 +25,7 @@
     --background-02: #515151;
     --hover: #727273;
     --text-name: white;
-}   
+}    */
 
 .app {
     background-color: var(--background);

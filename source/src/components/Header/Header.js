@@ -13,9 +13,7 @@
 
   const Header = () => {
     const [showScrolledHeader, setShowScrolledHeader] = useState(false);
-
-    const { isSignedIn} = useAuth();
-
+    const [isSignedIn, setIsSignedIn] = useState(false);
     const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
     const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 
@@ -58,20 +56,20 @@
       setShowUserNav(false);
     };
 
-
-  
-
-  const checkLoginStatus = () => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        var  temp = setIsSignedIn();
-        console.log(isSignedIn)
-      } else {
-        console.log(isSignedIn)
-      }
-    })
-  }
-
+    const handleSignIn = () => {
+      setIsSignedIn(true);
+    };
+  // const checkLoginStatus = () => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       var  temp = setIsSignedIn();
+  //       console.log(isSignedIn)
+  //     } else {
+  //       console.log(isSignedIn)
+  //     }
+  //   })
+  // }
+    const { toggleTheme } = useTheme(); // Destructure the toggleTheme function
     const handleThemeToggle = () => {
       toggleTheme(); // Call the toggleTheme function
     };
@@ -124,7 +122,7 @@
                 <button className="headbtn" >Sign Up</button>
               </Link>
               <Link to="/signin">
-                <button className="headbtn">Sign In</button>
+                <button className="headbtn" onClick={handleSignIn}>Sign In</button>
               </Link>
             </div>     
             )}

@@ -178,6 +178,7 @@ function App() {
       <Route path="homepage" element={<HomePage />} />
       <Route path="setting" element={<SettingPage />} />
       <Route path="novel/:id" element={<NovelViewPage />} />
+      <Route path="editnovel" element={<EditNovelPage novelID={null}/>} />
 
     </Routes>
 	</div>

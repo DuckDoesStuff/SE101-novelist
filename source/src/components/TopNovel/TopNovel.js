@@ -2,7 +2,7 @@ import React from "react";
 import NovelItem from "../NovelItem/NovelItem.js";
 import styles from "./TopNovel.module.css";
 
-const TopNovel = ({ novel, onClick }) => {
+const TopNovel = ({ novel }) => {
     return (
         <div className={styles["container"]}>
             <h2 className={styles["title"]}> Top novel </h2>
@@ -11,7 +11,6 @@ const TopNovel = ({ novel, onClick }) => {
                     <div key={novel.id}>
                         <NovelItem
                             novel={novel}
-                            onClick={() => onClick(novel)}
                         />
                     </div>
                 ))}

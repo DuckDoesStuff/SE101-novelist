@@ -38,6 +38,9 @@
     font-family: REM;
     color: var(--text);
 }
+.name:hover p {
+    text-decoration: underline;
+}
 
 .HCMUS {
     font-family: REM;

@@ -9,6 +9,7 @@
   import { auth } from "../../backend-api/FirebaseConfig";
   import { useTheme } from '../ThemeProvider';
   import {useAuth} from "../AuthContext.js"
+  import { searchNovel } from '../../backend-api/API.js';
   import "./Header.css"; // Import the CSS file
 
   const Header = () => {
@@ -19,6 +20,17 @@
 
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState("");
+    
+    const handleSearch = async () => {
+      if (searchInput.trim() !== '') {
+        try {
+          const results = await searchNovel(searchInput);
+          navigate(`/search?query=${encodeURIComponent(searchInput)}`);
+        } catch (error) {
+          console.error('Error searching novels:', error);
+        }
+      }
+    };
     useEffect(() => {
       const handleScroll = () => {
         if (window.scrollY > 0) {
@@ -40,7 +52,7 @@
 
     const handleSearchInputKeyPress = (event) => {
       if (event.key === "Enter") {
-        navigate(`/search`);
+        handleSearch();
       }
     };
 

@@ -17,7 +17,7 @@ const UserNav = () => {
       <Link to="/profile">
         <div  className ="func user" >
           <img src="image.jpg" className="authorIcon">
-          </img><p>{auth.currentUser.uid}</p>
+          </img><p>{"aaaaaa"}</p>
         </div>
       </Link>
 
@@ -29,10 +29,11 @@ const UserNav = () => {
       </div></Link>
       <Link to="/setting"><div className="func">
         <FontAwesomeIcon icon={faGear} /> Setting
+      </div></Link>     
+      <Link to="/logout">              
+      <div className="func logout" >
+        <FontAwesomeIcon  icon={faRightFromBracket}  /> Logout
       </div></Link>
-      <div className="func logout">
-        <FontAwesomeIcon  icon={faRightFromBracket} /> Logout
-      </div>
      </div>
     </div>
   );

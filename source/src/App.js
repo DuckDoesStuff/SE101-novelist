@@ -18,6 +18,7 @@ import SignInPage from "./pages/SignInPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
+import Logout from "./components/Logout/Logout";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
 import { useTheme } from './components/ThemeProvider'; // Import the useTheme hook
@@ -154,7 +155,8 @@ function App() {
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
       <Route path="setting" element={<SettingPage />} />
-
+      <Route path="logout" element={<Logout />} />
+      
       <Route path="" element={<HomePage />} />
 
     </Routes>

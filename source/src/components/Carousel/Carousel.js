@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import NovelCard from "../NovelCard/NovelCard.js";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,7 +8,7 @@ import "./Carousel.css";
 import styles from "./Carousel.module.css";
 import { useRef, useEffect } from "react";
 
-const Carousel = ({user, title, novel, onClick }) => {
+const Carousel = ({ title, novel, onClick }) => {
     const ref = useRef(null);
     useEffect(() => {
         console.log(ref);
@@ -50,7 +50,6 @@ const Carousel = ({user, title, novel, onClick }) => {
                     <div key={novel.id}>
                         <div className={styles["margin-card"]}>
                             <NovelCard
-                                user = {user}
                                 novel={novel}
                                 onClick={() => onClick(novel)}
                             />

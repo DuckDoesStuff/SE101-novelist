@@ -70,12 +70,10 @@ const NovelTab = () => {
                 <div class="tab-pane active">
                     <div class="NovelCardRow">    
                         <NovelCard
-                            user={currentUser}
                             novel={novel}
                             onClick={() => testItem()}
                         />
                         <NovelCard
-                            user={currentUser}
                             novel={novel}
                             onClick={() => testItem()}
                         />

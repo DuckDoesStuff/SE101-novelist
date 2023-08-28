@@ -47,9 +47,6 @@ const UserNav = () => {
         <Link to="/editnovel"><div className="func">
         <p><FontAwesomeIcon icon={faPenToSquare} /> Start Writing</p>
       </div></Link>
-      <Link to="/library"><div className="func">
-        <FontAwesomeIcon icon={faBookOpen} /> Library
-      </div></Link>
       <Link to="/setting"><div className="func">
         <FontAwesomeIcon icon={faGear} /> Setting
       </div></Link>     

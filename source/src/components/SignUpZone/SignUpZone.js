@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import {emptyAuth,pushAuth} from "../../backend-api/API";
 
 
 
@@ -41,7 +42,10 @@ function SignUpZone() {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
-            uploadMessage("The user has been created successfully","success",2)
+            uploadMessage("The user has been created successfully","success",2);
+            var newAuth = emptyAuth();
+            newAuth.id = auth.currentUser.uid;
+            pushAuth(newAuth, auth.currentUser.uid);
         })
         .catch((error) => {
             console.log(error.code)

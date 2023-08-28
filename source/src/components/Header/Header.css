@@ -5,6 +5,15 @@
   width: 100%;
   background-color: var(--background-01);
   align-items: center; /* Căn giữa theo chiều dọc */
+  z-index: 1000;
+}
+.header.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--background-01); /* Thay đổi màu nền tùy theo theme */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .headlogo{
   margin-left: 20px;

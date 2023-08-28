@@ -1,6 +1,6 @@
 .SettingZone{
     display: flex;
-    height: 100vh;
+    height: 100%;
 }
 .SettingNav{
     width: 250px;
@@ -51,20 +51,22 @@
 }
 .text{
     font-size: 15px;
-    color: var(--background-01);
+    color: var(--text-name);
     margin-top: 10px;
 }
 
-.inputField{
+.inputFields{
     margin-top: 10px;
-    margin-left: 40px;
+    height: 35px;
     border-radius: 15px;
     border: 1px solid var(--background-02);
     box-shadow: 0px 2px 4px rgb(0,0,0,0.1);
-    width: 400px;
+    width: 500px;
+    margin-left: 35px;
+    padding-left: 10px;
 
 }
-.inputField.bio {
+.inputFields.bio {
     height: 100px;
     border-radius: 20px;
 
@@ -82,7 +84,7 @@
     margin-top: 30px;
     background-color: var(--background-02);
     color: var(--text);
-    margin-left: 20px;
+    margin-left: 19px;
     font-weight: bold;
     font-size: 15;
     border: none;
@@ -109,7 +111,6 @@
 .text.h1{
     font-size: 30px;
     margin-bottom: 0px;
-    color: var(--background-01);
 }
 .hrline {
     border: none;

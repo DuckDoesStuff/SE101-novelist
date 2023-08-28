@@ -17,8 +17,8 @@
 }
 
 .ViewCardInteract img {
-    width: 172px;
-    height: 258px;
+    width: 200px;
+    height: 300px;
 }
 
 .ViewCardButton {
@@ -62,7 +62,7 @@
 
 .title {
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--background-01);
     margin: 0;
 }
@@ -150,10 +150,11 @@
 .react {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 4px;
 }
 
-.ViewCardChaperList {
+.ViewCardChapterList {
     width: 200px;
     display: flex;
     flex-direction: column;
@@ -163,7 +164,7 @@
     align-items: center;
 }
 
-.ViewCardChaperList p {
+.ViewCardChapterList p {
     margin: 0;
     width: 100%;
     text-align: center;
@@ -174,28 +175,59 @@
     padding: 4px 0;
 }
 
-.ViewCardChaperList ul {
+.ant-spin-container {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ant-table-content {
     width: 100%;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.ViewCardChaperList li {
-    font-size: 14px;
-    padding: 4px 0;
-    color: var(--background-01);
+.ant-table-thead {
+    display: none;
 }
 
-.ViewCardChaperList li:hover {
+.ant-table-row > td {
+    padding: 0 !important;
+}
+
+.Chapter {
+    font-size: 14px;
+    padding: 4px;
+    color: var(--background-01);
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.Chapter:hover {
     color: var(--text);
     background-color: var(--background-01);
     cursor: pointer;
 }
 
-.pagination {
+.ant-pagination {
     width: 100%;
+    margin: 0 !important;
+    padding: 4px !important;
+    justify-content: center !important;
+}
+
+.ant-pagination-item {
+    border: none !important;
+    height: fit-content !important;
+}
+
+.ant-pagination-item-active a {
+    color: var(--background-01) !important;
 }

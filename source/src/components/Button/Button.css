@@ -18,6 +18,7 @@
 
 .button:hover {
     background: var(--background-02);
+    color: var(--text);
     cursor: pointer;
 }
 

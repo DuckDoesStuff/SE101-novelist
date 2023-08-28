@@ -48,11 +48,13 @@ const Carousel = ({user, title, novel, onClick }) => {
             <Slider {...settings} dotsClass="slick-dots pagination" ref={ref}>
                 {novel.map((novel) => (
                     <div key={novel.id}>
-                        <NovelCard
-                            user = {user}
-                            novel={novel}
-                            onClick={() => onClick(novel)}
-                        />
+                        <div className={styles["margin-card"]}>
+                            <NovelCard
+                                user = {user}
+                                novel={novel}
+                                onClick={() => onClick(novel)}
+                            />
+                        </div>
                     </div>
                 ))}
             </Slider>

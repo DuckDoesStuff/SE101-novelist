@@ -1,0 +1,34 @@
+.footer {
+    background-color: var(--background-01);
+    margin-top: 70px;
+    padding-top: 20px;
+    display: flex;
+}
+
+.frame {
+    background-color: var(--background-01);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    font-family: REM;
+    font-weight: bold;
+    color: var(--text);
+    background-color: var(--background-01);
+    margin-bottom: 10px;
+}
+.name {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-family: REM;
+    color: var(--text);
+}
+
+.HCMUS {
+    font-family: REM;
+    color: var(--text);
+    font-size: 20px;
+}

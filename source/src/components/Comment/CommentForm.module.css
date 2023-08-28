@@ -1,0 +1,42 @@
+.comment-frame {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.comment-form {
+	border-radius: 12px;
+	width: 50vw;
+	border: 2px solid var(--background-02);
+	background: var(--background);
+    border-radius: 20px;
+	font-family: 'REM';
+    font-size: 16px;
+	font-style: normal;
+	line-height: 1.2;
+	box-sizing: border-box;
+    padding-left: 10px;
+    padding-top: 5px;
+    resize: none;
+	transition: ease all 0.16s;
+    height: 40px;
+    min-height: 40px;
+    color: var(--text_reading);
+}
+
+.comment-form:focus {
+    outline: none;
+    box-shadow: 0 0 1px 0.5px var(--background-01),
+                0 0 2px 1px var(--background-02);
+}
+
+.send {
+    border: none;
+    background-color: var(--background-01);
+    color: var(--text);
+    padding: 10px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.send:hover {
+    background-color: var(--background-02);
+}

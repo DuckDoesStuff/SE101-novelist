@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/NovelItem.module.css";
+import styles from "./NovelItem.module.css";
 
 const NovelItem = ({ novel, onClick }) => {
     const initGenre = (novel) => {

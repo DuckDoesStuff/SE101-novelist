@@ -1,6 +1,6 @@
 import React from "react";
-import NovelItem from "./NovelItem.js";
-import styles from "../styles/TopNovel.module.css";
+import NovelItem from "../NovelItem/NovelItem.js";
+import styles from "./TopNovel.module.css";
 
 const TopNovel = ({ novel, onClick }) => {
     return (

@@ -25,9 +25,8 @@
     background-color: var(--background);
     border-style: solid;
     border-color: var(--background-02);
-    border-width: 0.7px;
+    border-width: 1px;
     border-radius: 20px;
     padding-top: 4px;
     padding-bottom: 4px;
-    box-shadow: 2px 2px 4px rgba(100, 100, 100, 0.5);
 }

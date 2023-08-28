@@ -65,7 +65,7 @@ function Header() {
             value={searchInput}
             onChange={handleSearchInputChange}
             onKeyPress={handleSearchInputKeyPress}
-          />
+            />
       </div>
       <div className="btnContainer">
         {isSignedIn ? (

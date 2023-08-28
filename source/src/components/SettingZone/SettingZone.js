@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../Header/Header.js";
 import "./SettingZone.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button.js";
-import { updatePassword } from "firebase/auth";
+import { getAuth, updatePassword } from "firebase/auth";
 import { EmailAuthProvider } from "firebase/auth";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { message } from "antd";
 import { reauthenticateWithCredential } from "firebase/auth";
 import { Link } from "react-router-dom";
 
-const SettingZone = () => {
+import { uploadImage, pushAuth,genAuthKey,emptyAuth ,getUser} from "../../backend-api/API";
+import { storage } from '../../backend-api/FirebaseConfig';
+import { deleteObject, ref } from "firebase/storage";
+
+
+
+
+const SettingZone = (props) => {
+
+  
   const [isProfileSelected, setProfileSelected] = useState(true);
   const [isAccountSelected, setAccountSelected] = useState(false);
+  
+  const [authID, setAuthID] = useState(null);
+
+  useEffect(() => {
+    if(props.AuthID !== null)
+      setAuthID(props.AuthID);
+    else
+      setAuthID(genAuthKey());
+  }, [props.AuthID])
 
   const handleProfileClick = () => {
     setProfileSelected(true);
@@ -29,6 +47,149 @@ const SettingZone = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [messageApi, notificationHolder] = message.useMessage();
+
+  const [selectedFile, setSelectedFile] = useState("");
+  const [Name, setName] = useState("");
+  const [Bio, setBio] = useState("");
+  const [imagePath, setImagePath] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [img, setImg] = useState({ preview: "" });
+  const [genre, setGenre] = useState([]);
+  const [chapterID, setChapterID] = useState([]);
+  // const [submitAuth, setSubmitAuth] = useState(false);
+  const [Loading, setLoading] = useState(true);
+
+  // Image preview
+  useEffect(() => {
+    // Revoke the data uris to avoid memory leaks
+    return () => (file => URL.revokeObjectURL(file.preview));
+  }, [img]);
+
+  useEffect(() => {
+    // Fetch novel data from backend
+    const fetchNovel = (authID) => {
+      getUser(authID)
+      .then((data) => {
+        setName(data.Name);
+        setBio(data.Bio);
+        setImagePath(data.image_path);
+        setThumbnail(data.thumbnail);
+        setImg({preview: data.thumbnail});
+        setGenre(data.genre);
+        setChapterID(data.chapter_id || []);
+        // console.log("chapter_id", data.chapter_id)
+        // console.log("chapterID", chapterID)
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+    }
+
+    fetchNovel(authID)
+  }, [authID])
+
+  const handleDrop = (acceptedFiles) => {
+    // Set the selected file first then after hitting 'Save' we will upload
+    setSelectedFile(acceptedFiles[0]);
+    
+    // Set the preview image
+    setImg(Object.assign(acceptedFiles[0], {preview: URL.createObjectURL(acceptedFiles[0])})
+    );
+  };
+
+  const handleName = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleBio = (e) => {
+    setBio(e.target.value);
+  };
+
+  // const [messageApi, notificationHolder] = message.useMessage();
+
+  const submitAuth = () => {
+    var message = "", type = "error", duration = 2;
+    if(!Name)
+      message = "You need to fill out the Name";
+    else if(!Bio)
+      message = "You need to fill out the Bio";
+    else if(!img.preview)
+      message = "You need to upload an image";
+    else if(genre.length < 1)
+      message = "You need to select at least one genre";
+    // else if (chapterID.length === undefined || chapterID.length < 1)
+    //   message = "You need to have at least one chapter";
+    else {
+      message = "Uploading Auth";
+      type = "loading";
+    }
+    uploadMessage(message, type, duration);
+
+    if(type === "loading") {
+      var newAuth = emptyAuth();
+      newAuth.id = authID;
+      newAuth.Name = Name;
+      newAuth.normalized_Name = Name.toLowerCase().replace(/ /g, "-");
+      newAuth.Bio = Bio;
+      newAuth.genre = genre;
+      newAuth.image_path = imagePath;
+      newAuth.thumbnail = thumbnail;
+      newAuth.chapter_id = chapterID;
+
+      // Completely new novel
+      if(newAuth.image_path === "" && newAuth.thumbnail === "" && selectedFile !== "") {
+        uploadImage(selectedFile).then((result) => {
+          newAuth.thumbnail = result.downloadURL;
+          setThumbnail(result.downloadURL);
+          newAuth.image_path = result.filePath;
+          setImagePath(result.filePath);
+
+          pushAuth(newAuth, authID)
+          uploadMessage("Successfully uploaded", "success", duration);
+        });
+      }
+      // Update novel with new thumbnail
+      else if(newAuth.image_path !== "" && newAuth.thumbnail !== "" && selectedFile !== "") {
+        deleteObject(ref(storage, newAuth.image_path))
+        .catch((error) => {
+          console.error("Possibly the file has already been deleted", error)
+        })
+        uploadImage(selectedFile).then((result) => {
+          newAuth.thumbnail = result.downloadURL;
+          setThumbnail(result.downloadURL);
+          newAuth.image_path = result.filePath;
+          setImagePath(result.filePath);
+
+          pushAuth(newAuth, authID)
+          uploadMessage("Successfully uploaded", "success", duration);
+        });
+      }
+      // Update novel with old thumbnail
+      else if (newAuth.image_path !== "" && newAuth.thumbnail !== "" && selectedFile === "") {
+        pushAuth(newAuth, authID)
+        uploadMessage("Successfully uploaded", "success", duration);
+      } else {
+        uploadMessage("Successfully uploaded", "success", duration);
+      }
+      // setSubmitChapter(true);
+    }
+  };
+
+  // const cancelNovel = () => {
+  //   deleteNovel(authID)
+  //   .then(() => {
+  //     uploadMessage("Successfully deleted", "success", 2);
+  //   })
+  //   .catch((error) => {
+  //     console.error("An error occured while deleting novel: ", error, authID)
+  //   })
+  // }
+
+  const testFunction = () => {
+    console.log(chapterID)
+    console.log(authID)
+    // setSubmitChapter(true);
+  }
 
   const uploadMessage = (content, type, duration) => {
     messageApi.destroy();
@@ -81,7 +242,7 @@ const SettingZone = () => {
         {isProfileSelected && (
           <div className="MainContent">
             <div className="AvaContainer">
-              <img src="/image.jpg" className="UserAva"></img>
+              <img src="image_path" className="UserAva"></img>
               <Button>Change Ava</Button>
             </div>
             <div className="Infocontainer">

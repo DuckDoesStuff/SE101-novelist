@@ -4,6 +4,12 @@ import "./SettingZone.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button.js";
+import { updatePassword } from "firebase/auth";
+import { EmailAuthProvider } from "firebase/auth";
+import { auth } from "../../backend-api/FirebaseConfig";
+import { message } from "antd";
+import { reauthenticateWithCredential } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const SettingZone = () => {
   const [isProfileSelected, setProfileSelected] = useState(true);
@@ -18,19 +24,32 @@ const SettingZone = () => {
     setProfileSelected(false);
     setAccountSelected(true);
   };
+  const [email, setEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [messageApi, notificationHolder] = message.useMessage();
 
+  const uploadMessage = (content, type, duration) => {
+    messageApi.destroy();
+    messageApi.open({
+      content: content,
+      type: type,
+      duration: duration,
+      style: {
+        marginTop: "20px auto",
+      },
+    });
+  };
   const handlePasswordChange = async () => {
     if (newPassword !== confirmNewPassword) {
       uploadMessage("New passwords do not match", "error", 2);
       return;
     }
     try {
-      const credentials = EmailAuthProvider.credential(
-        auth.currentUser.email,
-        currentPassword
-      );
+      const credentials = EmailAuthProvider.credential(email, currentPassword);
       await reauthenticateWithCredential(auth.currentUser, credentials);
-  
+
       await updatePassword(auth.currentUser, newPassword);
       uploadMessage("Password updated successfully", "success", 2);
     } catch (error) {
@@ -43,6 +62,7 @@ const SettingZone = () => {
     <div>
       <Header />
       <div className="SettingZone">
+        {notificationHolder}
         <div className="SettingNav">
           <div
             className={`SettingChoice ${isProfileSelected ? "selected" : ""}`}
@@ -93,12 +113,16 @@ const SettingZone = () => {
               <input
                 className="inputField"
                 type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
               />
               <p className="text small">Current Password</p>
               <input
                 className="inputField"
                 type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter your current password"
               />
               <p className="text small">New Password</p>
@@ -118,8 +142,12 @@ const SettingZone = () => {
                 placeholder="Confirm your new password"
               />
               <div className="btnFuncContainer ser">
-                <button className="funcbtn">Save</button>
-                <button className="funcbtn cancel">Cancel</button>
+                <button className="funcbtn" onClick={handlePasswordChange}>
+                  Save
+                </button>
+                <Link to="/home">
+                  <button className="funcbtn cancel">Cancel</button>
+                </Link>
               </div>
             </div>
             <div className="delZoneContainer">
@@ -134,7 +162,6 @@ const SettingZone = () => {
             </div>
           </div>
         )}
-        {/* Thêm nội dung cho các trường hợp khác */}
       </div>
     </div>
   );

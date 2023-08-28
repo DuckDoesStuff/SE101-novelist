@@ -44,31 +44,20 @@ const UserNav = () => {
           </div>
         </Link>
 
-        <Link to="/writenovel">
-          <div className="func">
-            <p>
-              <FontAwesomeIcon icon={faPenToSquare} /> Start Writing
-            </p>
-          </div>
-        </Link>
-
-        <Link to="/library">
-          <div className="func">
-            <FontAwesomeIcon icon={faBookOpen} /> Library
-          </div>
-        </Link>
-
-        <Link to="/setting">
-          <div className="func">
-            <FontAwesomeIcon icon={faGear} /> Setting
-          </div>
-        </Link>
-
-        <div className="func logout">
-          <FontAwesomeIcon icon={faRightFromBracket} /> Logout
-        </div>
-
-      </div>
+        <Link to="/editnovel"><div className="func">
+        <p><FontAwesomeIcon icon={faPenToSquare} /> Start Writing</p>
+      </div></Link>
+      <Link to="/library"><div className="func">
+        <FontAwesomeIcon icon={faBookOpen} /> Library
+      </div></Link>
+      <Link to="/setting"><div className="func">
+        <FontAwesomeIcon icon={faGear} /> Setting
+      </div></Link>     
+      <Link to="/logout">              
+      <div className="func logout" >
+        <FontAwesomeIcon  icon={faRightFromBracket}  /> Logout
+      </div></Link>
+     </div>
     </div>
   );
 };

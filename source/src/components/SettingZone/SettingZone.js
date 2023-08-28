@@ -4,7 +4,7 @@ import "./SettingZone.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Button/Button.js";
-import { getAuth, updatePassword } from "firebase/auth";
+import { updatePassword } from "firebase/auth";
 import { EmailAuthProvider } from "firebase/auth";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { message } from "antd";

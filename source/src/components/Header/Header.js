@@ -3,7 +3,7 @@
   import UserNav from "../UserNav/UserNav";
   import { Link } from "react-router-dom";
   import { useNavigate } from "react-router-dom";
-    import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import {  faMoon, faCaretDown, faSearch, faUserLarge } from '@fortawesome/free-solid-svg-icons';
   import { getAuth } from "firebase/auth";
   import { auth } from "../../backend-api/FirebaseConfig";
@@ -13,23 +13,34 @@
 
   const Header = () => {
     const [showScrolledHeader, setShowScrolledHeader] = useState(false);
-    const [isSignedIn, setIsSignedIn] = useState(false);  
+    const [isSignedIn, setIsSignedIn] = useState(false);
+    
     const handleSignIn = () => {
       setIsSignedIn(true);
     };
     const handleSignOut = () => {
       setIsSignedIn(false);
     };
-    const checkLoginStatus = () => {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          var  temp = setIsSignedIn();
-          return true;
-        } else {
-          return false;
+    
+    const checkLoginStatus = () =>{
+      var temp  ;
+      auth.onAuthStateChanged((user)=>{
+        if(user){
+          setIsSignedIn(true);
+          temp = true;
         }
+        else
+          setIsSignedIn(false);
+          temp = false;
       })
+      // console.log(temp);
+      return temp;
     }
+
+    useEffect(() => {
+      // setIsSignedIn(checkLoginStatus())
+      console.log(checkLoginStatus()) 
+    }, [])
     const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
     const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 
@@ -126,7 +137,7 @@
               />
         </div>
         <div className="btnContainer">
-          {checkLoginStatus ? (
+          {isSignedIn ? (
             <div>
               <button 
                 className={`headbtn ${showUserNav?'clicked':''}` }

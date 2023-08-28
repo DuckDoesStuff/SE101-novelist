@@ -20,6 +20,7 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import NovelViewPage from "./pages/NovelViewPage";
 import ManagePage from "./pages/Admin/ManagePage";
+import Logout from "./components/Logout/Logout";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
 import ReadNovelPage from "./pages/ReadNovelPage";
@@ -184,7 +185,7 @@ function App() {
       <Route path="readnovel/:id" element={<ReadNovelPage />} />
 
       <Route path="admin" element={<ManagePage />} />
-
+      <Route path="logout" element={<Logout />} />
     </Routes>
 	</div>
   );

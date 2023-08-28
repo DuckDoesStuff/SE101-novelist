@@ -34,12 +34,14 @@ function SignInZone() {
     }
     const handleSignIn = async (e) =>{
         e.preventDefault();
-        // console.log(email,password);
         signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
+            if(auth.currentUser.uid ==="f8cW6UNAHxTCRkMChIQ1S8NvFi62")
+              window.location.href = "/admin"
+            else{
             localStorage.setItem("user", JSON.stringify(user));
             setTimeout(nothing(), 100000);
-            window.location.href = "/homepage";
+            window.location.href = "/";}
         })
         .catch((error) => {
             console.log(error.code)

@@ -2,10 +2,13 @@
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
 }
 .body {
     margin: 0px;
+}
+.read-novel-page {
+    background-color: var(--background);
 }
 .read-header {
     position: sticky;
@@ -16,15 +19,15 @@
     align-items: center;
     align-self: stretch;
     background-color: var(--background);
-    z-index: 100;
+    z-index: 5;
 }
 
 .novel-header {
     display: flex;
-    width: 70vw;
+    width: 30vw;
     padding: 10px 30px;
     align-items: center;
-    color: var(--background-01);
+    
     border-style: solid;
     border-color: var(--background-02);
     border-width: 1px;
@@ -32,6 +35,10 @@
 
 .novel-header:hover {
     cursor: pointer;
+}
+
+.button-list {
+    margin-left: 70px;
 }
 
 .novel-info {
@@ -69,11 +76,11 @@
     font-weight: bold;
     text-align: left;
     margin: 0;
-    color: var(--background-01);
+    color: var(--text-name);
 }
 
 .novel-chapter {
-    color: var(--background-01);
+    color: var(--text-name);
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1; /* Số dòng hiển thị */
@@ -88,7 +95,7 @@
 }
 
 .author-name {
-    color: var(--background-01);
+    color: var(--text-name);
     font-family: REM;
     font-weight: bold;
     width: 20vw;
@@ -107,7 +114,7 @@
     border-style: solid;
     border-color: var(--background-02);
     border-width: 1px;
-    width: 30vw;
+    width: 70vw;
 }
 
 .side-bar {
@@ -123,16 +130,48 @@
 
 .read-frame {
     width: 80%;
+    margin-bottom: 30px;
 }
 
 .reading {
     width: 100vw;
+    height: 1200px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    flex-direction: column;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
 }
 
 .body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start; 
+}
+
+.chapter-list {
+    position: absolute;
+    top: 100%; /* Đặt vị trí phía dưới button */
+    left: 0;
+    background-color:var(--background-01);
+    border-bottom-left-radius: 9px; /* Bo góc dưới bên trái */
+    border-bottom-right-radius: 9px;
+    padding: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 2; /* Đảm bảo danh sách hiển thị trên các phần tử khác */
+    color: white;
+    width: 31.3vw;
+}
+
+.chapter-list ul {
+    list-style-type: none; /* Loại bỏ dấu chấm của danh sách */
+    padding: 0; /* Loại bỏ padding mặc định của danh sách */
+}
+
+.chapter-list ul li:hover {
+    text-decoration: underline;
 }

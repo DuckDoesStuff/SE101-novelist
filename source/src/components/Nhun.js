@@ -69,7 +69,7 @@ function Nhun() {
             comment:0,
             comment_section: "",
             author: "1",
-            chapters: ["1", "2", "3"]
+            chapters: ["1", "2"]
         },
         {
             id: "2",
@@ -170,7 +170,8 @@ function Nhun() {
     };
     return (
         <div data-theme={isDark ? "dark" : "light"} className="app">
-            <ReadNovelPage authors={author} chapter={chapters[0]} novels={novel} />
+            <ReadNovelPage authors={author} chapter={chapters[0]} novels={novel}/>
+            <button onClick={switchTheme}>Change Theme</button>
         </div>
     );
 }

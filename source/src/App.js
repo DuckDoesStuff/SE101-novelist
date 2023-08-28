@@ -162,6 +162,9 @@ function App() {
   //   </Routes>
 	// </div>
   // );
+  const testDark = (novel) => {
+    // localStorage
+  }
 
   return (
 <div data-theme={themeClass} className="app">    

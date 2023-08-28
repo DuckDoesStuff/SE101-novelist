@@ -46,7 +46,8 @@
 	height: 30px;
 	border: 2px solid var(--background-02);
 	background: var(--background);
-
+	color: var(--text_reading);
+	
 	font-family: 'REM';
 	font-size: 17px;
 	font-style: normal;

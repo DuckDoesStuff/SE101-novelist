@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, message } from 'antd';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './ViewCard.css';
 import Button from '../Button/Button';
 import { getNovel, getChapter, emptyNovel, emptyChapter } from "../../backend-api/API"
@@ -79,9 +79,11 @@ const ViewCard = (props) => {
         }
         })
     }
+    const navigate = useNavigate();
     const handleClickRead = () => {
         if(chaptersOfNovel[0] !== undefined) {
-            window.location.href = "/readnovel/" + chaptersOfNovel[0].id;
+            // window.location.href = "/readnovel/" + chaptersOfNovel[0].id;
+            navigate(`/readnovel/${chaptersOfNovel[0].id}`);
         }else {
             uploadMessage("This novel doesn't have any chapters, check again later", "warning", 2);
         }

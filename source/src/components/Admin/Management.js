@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button, Input, Space, Table, Modal, Form } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
 import './Management.css';
 import { getAllNovels } from '../../backend-api/API.js';
 
@@ -271,7 +270,7 @@ const NovelManagement = () => {
 		},
 		render: (text) =>
 			searchedColumn === dataIndex ? (
-				<Highlighter
+				<div
 					highlightStyle={{
 					backgroundColor: '#ffc069',
 					padding: 0,

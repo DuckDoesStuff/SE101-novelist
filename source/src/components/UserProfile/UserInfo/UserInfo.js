@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import './UserInfo.css';
 import Button from '../../Button/Button';
 
 const UserInfo = () => {
+    const [isFollowSelected, setFollow] = useState(false);
+
+    const handleFollowClick = () => {
+        setFollow(!isFollowSelected)
+    }
+
+
     const hidden = {
         display: 'none',
     };
@@ -15,13 +22,14 @@ const UserInfo = () => {
             <div className="UserInfoNameContainer">
                 <img src="ava.jpg" alt='avatar'></img>
                 <div className="UserInfoName">
-                    <p className="FullName">
-                        Author name
-                        <i class="fa-regular fa-flag" style={isAuthor ? hidden : {}}></i>
-                        </p>
+                    <p className="FullName">Author name</p>
                     <p className="UserName">user_name</p>
-                    <div className="FollowButton" style={isAuthor ? hidden : {}}>
-                        <Button><i class={follow ? `fa-solid fa-check` : `fa-regular fa-square-plus`}></i>{follow ? `Followed` : `Follow`}</Button>
+                    <div className="FollowButton" style={isAuthor ? hidden : {}} onClick={handleFollowClick}>
+                        {isFollowSelected ? (                    
+                            <Button><i class="fa-solid fa-check"></i>Following</Button>
+			            ) : (
+                            <Button><i class="fa-regular fa-square-plus"></i>Follow</Button>
+                        )}
                     </div>
                 </div>
             </div>

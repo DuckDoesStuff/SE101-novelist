@@ -1,186 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Tabs } from "antd";
 import './NovelTab.css'
 import NovelCard from "../../NovelCard/NovelCard";
+import { getAllNovels } from '../../../backend-api/API.js';
+  
 
 
 const NovelTab = () => {
-    const $ = document.querySelector.bind(document);
-    const $$ = document.querySelectorAll.bind(document);
-
     const testItem = () => {
         console.log("ok");
     }
 
-    const novel ={
-          id: "1",
-            title: "Con ga trong lang thang nhieu mau that ngo hahahaha",
-            thumbnail: "image.jpg",
-            genre: ["Tinh yeu", "Kich tinh"],
-            status: "",
-            content: [""],
-            like: 0,
-            view: 0,
-            comment_section: "",
-            author: "haha"
-    }
+	const [novels, setNovels] = useState([]);
 
-    const currentUser = {
-        id: "3",
-        username: "Nhung",
-        followers: 100,
-        novels: 10,
-        ava: "ava.jpg",
+	useEffect(() => {
+	const fetchAllNovels = async () => {
+		try {
+		const allNovels = await getAllNovels();
+		setNovels(allNovels);
+		} catch (error) {
+		console.error('Error fetching all novels:', error);
+		}
+	};
+
+	fetchAllNovels();
+	}, []);
+
+    const author = [
+        {
+            id: "1",
+            username: "Lan Ho Diep 123 hahahahaaha",
+            followers: 100,
+            novels: 10,
+            ava: "ava.jpg",
+        },
+        {
+            id: "2",
+            username: "Lan Ho Diep 123",
+            followers: 100,
+            novels: 10,
+            ava: "ava.jpg",
+        },
+        {
+            id: "3",
+            username: "Nhung",
+            followers: 100,
+            novels: 10,
+            ava: "ava.jpg",
+        },
+    ];
+    const onChange = (key) => {
+        console.log(key);
     };
 
-    const tabs = $$(".tab-item");
-    const panes = $$(".tab-pane");
-    // const tabActive = $(".tab-item.active");
-    // const line = $(".tabs .line");
+    const TabItem = () => {
+        return (
+            <div className="NovelListContainer">
+                {novels.map((val, key) =>
+                    <NovelCard
+                        user = {author["1"]}
+                        novel={val}
+                        onClick={() => testItem()}
+                    />
+                )}
+            </div>
+        )
+    }
 
-    // line.style.left = tabActive.offsetLeft + "px";
-    // line.style.width = tabActive.offsetWidth + "px";
-
-    tabs.forEach((tab, index) => {
-        const pane = panes[index];
-
-        tab.onclick = function () {
-            $(".tab-item.active").classList.remove("active");
-            $(".tab-pane.active").classList.remove("active");
-
-            // line.style.left = this.offsetLeft + "px";
-            // line.style.width = this.offsetWidth + "px";
-
-            this.classList.add("active");
-            pane.classList.add("active");
-        };
-    });
+    const items = [
+        {
+            key: '1',
+            label: 'Library',
+            children: <TabItem/>,
+        },
+        {
+            key: '2',
+            label: 'Published',
+            children: <TabItem/>,
+        }
+    ];
 
     return (
-        <div className="tab-container">
-            <div class="tabs">
-                <div class="tab-item active">Library</div>
-                <div class="tab-item">
-                    Published
-                    <div class="line"></div>
-                </div>
-                
-            </div>
-
-            <div class="tab-content">
-                <div class="tab-pane active">
-                    <div class="NovelCardRow">    
-                        <NovelCard
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                    </div>
-                    <div class="NovelCardRow">    
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                    </div>
-                    <div class="NovelCardRow">    
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                    </div>
-                </div>
-                <div class="tab-pane">
-                <div class="NovelCardRow">    
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                    </div>
-                    <div class="NovelCardRow">    
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                        <NovelCard
-                            user={currentUser}
-                            novel={novel}
-                            onClick={() => testItem()}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     );
 };
 

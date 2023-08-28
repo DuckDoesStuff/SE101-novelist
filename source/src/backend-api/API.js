@@ -171,6 +171,7 @@ export const emptyNovel = () => {
 	return {
 		id: "",
 		title: "",
+		author_id: "",
 		normalized_title: "",
 		thumbnail: "",
 		description: "",

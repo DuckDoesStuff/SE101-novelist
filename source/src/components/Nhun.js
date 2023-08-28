@@ -171,7 +171,6 @@ function Nhun() {
     return (
         <div data-theme={isDark ? "dark" : "light"} className="app">
             <ReadNovelPage authors={author} chapter={chapters[0]} novels={novel}/>
-            <button onClick={switchTheme}>Change Theme</button>
         </div>
     );
 }

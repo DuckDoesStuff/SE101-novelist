@@ -20,6 +20,8 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import Header from "./components/Header/Header";
 import SettingPage from "./pages/SettingPage";
+import ReadNovelPage from "./pages/ReadNovelPage";
+import Nhun from "./components/Nhun";
 
 
 
@@ -148,14 +150,9 @@ function App() {
   ];
   return (
 	<div>
-    <Routes>
-      <Route path="search" element={<SearchPage />} />
-      <Route path="signup" element={<SignUpPage />} />
-      <Route path="signin" element={<SignInPage />} />
-      <Route path="forgot" element={<ForgotPasswordPage />} />
-      <Route path="" element={<HomePage />} />
-
-    </Routes>
+    {/* <Nhun /> */}
+    <ReadNovelPage chapterID={"A08F073jCpQiAtLLiedu"} changeTheme={switchTheme}/>
+    {/* <EditNovelPage novelID={"test_novel"}/> */}
 	</div>
   );
 }

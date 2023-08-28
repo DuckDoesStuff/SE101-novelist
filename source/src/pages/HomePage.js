@@ -6,7 +6,7 @@ function HomePage() {
   auth.onAuthStateChanged((user) => {
     if (user) {
         // Người dùng đã đăng nhập, thực hiện hành động tương ứng
-        console.log("Người dùng đã đăng nhập:", user.email);
+        console.log("Người dùng đã đăng nhập:", user.uid);
 
         // Lưu thông tin đăng nhập vào Local Storage
         localStorage.setItem("user", JSON.stringify(user));

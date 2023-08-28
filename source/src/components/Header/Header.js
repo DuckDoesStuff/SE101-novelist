@@ -43,16 +43,7 @@ const Header = () => {
     setShowGenres(!showGenres);
   };
 
-  // const storedUser = JSON.parse(sessionStorage.getItem("user"));
-  // // const auth = getAuth();
-  // // const user = auth.currentUser;
-  // // console.log(user.email);
-  // console.log(isSignedIn)
-  // if (storedUser!==null){
-  //     // const username = user.displayName;
-  //     const temp = handleSignIn;
-  //     // console.log(user.email);
-  // }
+
   
 
   const checkLoginStatus = () => {

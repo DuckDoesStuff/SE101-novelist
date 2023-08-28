@@ -85,7 +85,7 @@ function SignInZone() {
                     placeholder="Password"
                 />
             </div>
-            <div style={{marginLeft:"35px", marginTop:"5px",marginBottom:"30px",marginTop:"-10px"}}>
+            <div style={{marginLeft:"35px", marginTop:"-5px",marginBottom:"30px",}}>
             <input
                 type="checkbox"
                 id="remember"

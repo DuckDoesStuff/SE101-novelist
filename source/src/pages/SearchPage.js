@@ -9,11 +9,13 @@ import TopAuthor from "../components/TopAuthor/TopAuthor";
 import TopNovel from "../components/TopNovel/TopNovel";
 import styles from "../styles/SearchPage.module.css";
 
+
 function SearchPage() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const query = queryParams.get("query");
-
+    const {authorName,setAuthorName} = useState();
+    
     const [searchResults, setSearchResults] = useState([]);
     useEffect(() => {
         // Gọi hàm tìm kiếm từ API sử dụng query và cập nhật state searchResults
@@ -30,33 +32,7 @@ function SearchPage() {
             fetchSearchResults();
         }
     }, [query]);
-    const novelList = [
-        {
-            thumbnailSrc: "/author1.jpg",
-            name: "Mộng Cầm",
-            genres: ["Comedy", "Romance"],
-            author: "Lan Hồ Điệp",
-            likes: "1000",
-            script: "This is the script for the novel 1.",
-        },
-        {
-            thumbnailSrc: "/author1.jpg",
-            name: "Tiên Hiệp",
-            genres: ["Action", "Thriller"],
-            author: "Nguyễn Văn A",
-            likes: "1000",
-            script: "This is the script for the novel 2.",
-        },
-        {
-            thumbnailSrc: "/author1.jpg",
-            name: "Harry Potter và người lái đò Sông Đà",
-            genres: ["School", "Horror"],
-            author: "Nguyễn Văn A",
-            likes: "1000",
-            script: "This is the script for the novel 2.",
-        },
-        // Thêm thông tin các HorNovelCard khác vào đây
-    ];
+    
 
     return (
         <div>
@@ -79,7 +55,7 @@ function SearchPage() {
                                 thumbnailSrc={novel.thumbnail}
                                 name={novel.title}
                                 genres={novel.genre}
-                                author={novel.author}
+                                author={novel.author_id}
                                 likes={novel.like}
                                 script={novel.description}
                             />

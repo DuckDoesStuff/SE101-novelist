@@ -26,8 +26,7 @@ const SettingZone = () => {
   const [Ava,setAva] = useState("");
   const [newName, setNewName] = useState("");
   const [newBio, setNewBio] = useState("");
-  const [imagePath, setImagePath] = useState("");
-  const [Loading, setLoading] = useState(true);
+
 
   const handleProfileClick = () => {
     setProfileSelected(true);
@@ -100,13 +99,14 @@ const SettingZone = () => {
       getUser(auth.currentUser.uid).then((data) => {
         setName(data.name);
         setBio(data.bio);
+        if(data.ava)
         setAva(data.ava);
+        else
+        setAva("author1.jpg")
         //setImagePath(data.image_path);
         // console.log("chapter_id", data.chapter_id)
         // console.log("chapterID", chapterID)
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
+
       });
     };
 
@@ -153,12 +153,13 @@ const SettingZone = () => {
       //   newAuth.normalized_Name = Name;
       newAuth.bio = newBio;
       if(selectedAvatar){
-      uploadImage(selectedAvatar).then((result)=>{
+        uploadImage(selectedAvatar).then((result)=>{
         newAuth.ava = result.downloadURL;
         newAuth.image_path= result.filePath;
         pushAuth(newAuth, auth.currentUser.uid);
       });}
       else{
+        newAuth.ava = Ava;
         pushAuth(newAuth, auth.currentUser.uid);
 
       }
@@ -241,7 +242,7 @@ const SettingZone = () => {
           className="UserAva"
         />
               <label htmlFor="avatarInput" className="button">
-                Change Avatar
+                Choose Avatar
               </label>
               <input
                 id="avatarInput"
@@ -265,6 +266,7 @@ const SettingZone = () => {
                 className="inputFields bio"
                 type="text"
                 placeholder={Bio}
+                value = {newBio}
                 onChange={handleBioChange}
               />
               <div className="btnFuncContainer">

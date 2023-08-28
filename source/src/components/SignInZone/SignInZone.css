@@ -81,7 +81,7 @@
     transition: background-color 0.3s;
     margin-top: 30px;
   }
-  .btnSgin:hover{
+  .btnSign:hover{
   background-color: var(--hover); /* Màu nền hover */
     cursor: pointer; 
   }

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faMoon, faCaretDown, faSearch, faUserLarge } from '@fortawesome/free-solid-svg-icons';
+import { getAuth } from "firebase/auth";
+import { auth } from "../../backend-api/FirebaseConfig";
 
 import "./Header.css"; // Import the CSS file
 
@@ -41,9 +43,37 @@ function Header() {
     setShowGenres(!showGenres);
   };
 
+  // const storedUser = JSON.parse(sessionStorage.getItem("user"));
+  // // const auth = getAuth();
+  // // const user = auth.currentUser;
+  // // console.log(user.email);
+  // console.log(isSignedIn)
+  // if (storedUser!==null){
+  //     // const username = user.displayName;
+  //     const temp = handleSignIn;
+  //     // console.log(user.email);
+  // }
+  
+
+  const checkLoginStatus = () => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        var  temp = setIsSignedIn();
+        console.log(isSignedIn)
+      } else {
+        console.log(isSignedIn)
+      }
+    })
+  }
+
+
+  // var resultDiv = document.getElementById("resultDiv");
+  // resultDiv.textContent = string(username);
+
   return (
     <div className="header">
       <div className="headlogo">
+      {checkLoginStatus}
           <Link to={"/"}>
               <img   src="logo.svg" alt ="logo"/>
           </Link>

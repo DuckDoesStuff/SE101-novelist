@@ -12,7 +12,7 @@
 }
 .SignUpCard {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  width: 582px;
+  width: auto;
   height: auto; /* Adjust this as needed */
   background-color: white;
   border-radius: 22px;
@@ -66,20 +66,21 @@
   height: 38px;
 }
 
-.btn {
+.Signbtn {
   font-weight: bold;
   color: aliceblue;
   border-radius: 6px;
   font-size: 15px;
-  width: 264px;
+  width: 300px;
   height: 43px;
   background-color: var(--background-01);
   transition: background-color 0.3s;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 155px; 
+  margin-top: 20px;
+
 }
 
-.btn:hover {
+.Signbtn:hover {
   background-color: var(--hover);
   cursor: pointer;
 }

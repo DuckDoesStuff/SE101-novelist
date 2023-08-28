@@ -1,8 +1,8 @@
 // Backend api
 import {ref, push, set, child, get} from 'firebase/database';
 import { uploadBytesResumable, ref as sRef, getDownloadURL } from 'firebase/storage';
-import {database, storage} from './FirebaseConfig';
-
+import {auth, database, storage} from './FirebaseConfig';
+// import { auth } from './FirebaseConfig';
 export const emptyChapter = () => {
 	return {
 		id: "",
@@ -126,3 +126,4 @@ export const test = () => {
 		// Cry
 	})
 }
+

@@ -1,7 +1,6 @@
 import React from "react";
 import './UserInfo.css';
 import Button from '../../Button/Button';
-import avatar from '../../NovelViewCard/avatar.jpg'
 
 const UserInfo = () => {
     const hidden = {
@@ -14,7 +13,7 @@ const UserInfo = () => {
     return (
         <div className="UserInfoContainer">
             <div className="UserInfoNameContainer">
-                <img src={avatar} alt='avatar'></img>
+                <img src="ava.jpg" alt='avatar'></img>
                 <div className="UserInfoName">
                     <p className="FullName">
                         Author name

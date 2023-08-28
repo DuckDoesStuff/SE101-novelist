@@ -134,28 +134,28 @@ const SettingZone = (props) => {
   // const [messageApi, notificationHolder] = message.useMessage();
 
   const submitAuth = () => {
-    var message = "", type = "error", duration = 2;
-    if(!Name)
-      message = "You need to fill out the Name";
-    else if(!Bio)
-      message = "You need to fill out the Bio";
-    else if(!img.preview)
-      message = "You need to upload an image";
-    else if(genre.length < 1)
-      message = "You need to select at least one genre";
-    // else if (chapterID.length === undefined || chapterID.length < 1)
-    //   message = "You need to have at least one chapter";
-    else {
-      message = "Uploading Auth";
-      type = "loading";
-    }
+    var message = "", type = "loading", duration = 2;
+    // if(!Name)
+    //   message = "You need to fill out the Name";
+    // else if(!Bio)
+    //   message = "You need to fill out the Bio";
+    // else if(!img.preview)
+    //   message = "You need to upload an image";
+    // else if(genre.length < 1)
+    //   message = "You need to select at least one genre";
+    // // else if (chapterID.length === undefined || chapterID.length < 1)
+    // //   message = "You need to have at least one chapter";
+    // else {
+    //   message = "Uploading Auth";
+    //   type = "loading";
+    // }
     uploadMessage(message, type, duration);
 
     if(type === "loading") {
       var newAuth = emptyAuth();
       newAuth.id = authID;
       newAuth.Name = Name;
-      newAuth.normalized_Name = Name.toLowerCase().replace(/ /g, "-");
+      newAuth.normalized_Name = Name;
       newAuth.Bio = Bio;
       newAuth.genre = genre;
       newAuth.image_path = imagePath;

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./UserNav.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,15 +9,41 @@ import {
   faGear,
 } from "@fortawesome/free-solid-svg-icons";
 import {auth} from "../../backend-api/FirebaseConfig"
+import { getUser } from "../../backend-api/API";
 
 const UserNav = () => {
+  const [name, setName] = useState("");
+  
+
+
+  useEffect(() => {
+    const fetchUser = () => {
+      getUser(auth.currentUser.uid)
+        .then((data) => {
+          if(data.name=="")
+          {
+            setName("Lan Hồ Điệp")
+          }
+          else{
+            setName(data.name); 
+          }
+          setTimeout(() => {
+          }, 1000);
+        });
+    };
+
+    if (auth.currentUser.uid !== null) {
+      fetchUser(auth.currentUser.uid);
+    }
+  }, [auth.currentUser.uid]);
+
   return (
     <div>
     <div className="UserNavContainerStyle">
       <Link to="/profile">
         <div  className ="func user" >
           <img src="image.jpg" className="authorIcon">
-          </img><p>{auth.currentUser.uid}</p>
+          </img><p>{name}</p>
         </div>
       </Link>
 

@@ -3,14 +3,22 @@ import { Table, message } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import './ViewCard.css';
 import Button from '../Button/Button';
-import { getNovel, getChapter, emptyNovel, emptyChapter } from "../../backend-api/API"
+import { getNovel, getChapter, emptyNovel, emptyChapter, getUser, changeNovelLike } from "../../backend-api/API"
+import { auth } from '../../backend-api/FirebaseConfig';
 
 
 const ViewCard = (props) => {
     const [novel, setNovel] = useState(null);
     const [chapter, setChapter] = useState(null);
     const [chaptersOfNovel, setChaptersOfNovel] = useState([]);
+    const [author, setAuthor] = useState(null);
     const [isFetched, setIsFetched] = useState(false);
+
+    const [isLike, setLike] = useState(false);
+
+    const handleLikeClick = () => {
+        setLike(!isLike)
+    }
 
     useEffect(() => {
         const fetchData = async (novel_id) => {
@@ -40,24 +48,30 @@ const ViewCard = (props) => {
                 )
                 setChaptersOfNovel(chapters);
             }
-        }
+        };
 
         if(novel) {
             fetchChapters(novel.chapter_id)
             .then(() => {
-                setIsFetched(true);
+                getUser(novel.author_id)
+                .then((authorData) => {
+                    setAuthor(authorData);
+                    setIsFetched(true);
+                })
             })
         }
     }, [novel])
 
-    const author =         
-    {
-        id: "1",
-        username: "Lan Ho Diep 123 hahahahaaha",
-        followers: 100,
-        novels: 10,
-        ava: "ava.jpg",
-    }
+
+
+    // const author =         
+    // {
+    //     id: "1",
+    //     username: "Lan Ho Diep 123 hahahahaaha",
+    //     followers: 100,
+    //     novels: 10,
+    //     ava: "ava.jpg",
+    // }
     
     const columns = [
         {
@@ -89,6 +103,12 @@ const ViewCard = (props) => {
         }
     }
 
+    const handleLikeNovel = () => {
+        if(auth.currentUser) {
+            changeNovelLike(novel.id, novel.like + 1);
+        }
+    }
+
     if (!isFetched) {
         console.log(chaptersOfNovel)
         return <div className='loading'> <img src="/loading.svg"/> </div>;
@@ -100,11 +120,13 @@ const ViewCard = (props) => {
             <div className='ViewCardInteract'>
                 <img src={novel.thumbnail} alt='test image'></img>
                 <div className='ViewCardButton'>
-                    <Button onClick={handleClickRead}>Read</Button>
-                    <div className='ViewCardButtonInteract'>
-                        <Button><i class="fa-regular fa-heart"></i>Like</Button>
-                        <Button><i class="fa-regular fa-flag"></i>Report</Button>
-                    </div>
+                    <Button onClick={handleClickRead}><i class="fa-solid fa-book-open"></i>Read</Button>
+                    {isLike ? (
+                        <Button onClick={handleLikeClick}><i class="fa-solid fa-heart"></i>Liked</Button>
+                    ) : (
+                        <Button onClick={handleLikeClick}><i class="fa-regular fa-heart"></i>Like</Button>
+                    )}
+                    
                 </div>
             </div>
 
@@ -113,7 +135,7 @@ const ViewCard = (props) => {
                     <p className='title'>{novel.title}</p>
                     <div className='author'>    
                         <img src={author.ava} alt='avatar'></img>
-                        <p>{author.username}</p>
+                        <p>{author.name}</p>
                     </div>
                     <div className='GenreList'>
                         {novel.genre.map((val, id) => <p className='genre' key={id}>{val}</p>)}

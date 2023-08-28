@@ -192,8 +192,8 @@ const EditChapter = (props) => {
   }
 
   const voTriButton = () => {
-    console.log(chapterInfo)
-    console.log(props.chapterID)
+    console.log(chapterInfo, "chapterInfo")
+    console.log(props.novelID, "novelID")
     // chapterInfo.map((chapter) => {
     //   if(chapter.id !== "" && chapter.content !== "" && chapter.title !== "") {
     //     pushChapter(chapter, chapter.id)

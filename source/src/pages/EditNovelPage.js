@@ -14,8 +14,14 @@ import { Auth, getAuth } from "firebase/auth";
 import "../styles/EditNovelPage.css";
 
 const EditNovelPage = (props) => {
-  const { id = genNovelKey() } = useParams();
-  const novelID = id;
+  const { id: urlID } = useParams();
+  const [novelID, setNovelID] = useState(urlID || genNovelKey())
+  useEffect(() => {
+    if(!urlID){
+      setNovelID(genNovelKey())
+    }
+  }, [urlID])
+
   // useEffect(() => {
   //   if(props.novelID !== undefined)
   //     setNovelID(props.novelID);
@@ -187,8 +193,8 @@ const EditNovelPage = (props) => {
   }
 
   const testFunction = () => {
-    console.log(chapterID)
-    console.log(novelID)
+    console.log(chapterID, "chapterID editnovel");
+    console.log(novelID, "noveID editnovel");
     // setSubmitChapter(true);
   }
 

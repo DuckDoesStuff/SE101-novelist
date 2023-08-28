@@ -9,6 +9,7 @@
   import { auth } from "../../backend-api/FirebaseConfig";
   import { useTheme } from '../ThemeProvider';
   import { searchNovel } from '../../backend-api/API.js';
+  import { searchNovelByGenre } from "../../backend-api/API.js";
   import "./Header.css"; // Import the CSS file
 
   const Header = () => {
@@ -57,6 +58,16 @@
         }
       }
     };
+    const handleGenreClick = async (genre) => {
+      if (genre.trim() !== '') {
+        try {
+          const results = await searchNovelByGenre(genre);
+          navigate(`/search?query=${encodeURIComponent(genre)}`);
+        } catch (error) {
+          console.error('Error searching novels by genre:', error);
+        }
+      }
+    };
     useEffect(() => {
       const handleScroll = () => {
         if (window.scrollY > 0) {
@@ -82,8 +93,6 @@
       }
     };
 
-
-
     const toggleUserNav = () => {
       setShowUserNav(!showUserNav);
       setShowGenres(false);
@@ -93,6 +102,8 @@
       setShowGenres(!showGenres);
       setShowUserNav(false);
     };
+    
+    
   // const checkLoginStatus = () => {
   //   auth.onAuthStateChanged((user) => {
   //     if (user) {
@@ -121,7 +132,7 @@
             className={`headbtn ${showGenres?'clicked':''}` }
             onClick={toggleGenres}>Genres <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
           </button>
-          {showGenres && <GenreList />}
+          {showGenres && <GenreList onClick={handleGenreClick}/>}
         <div style={{ position: "relative" }}>
             <FontAwesomeIcon
             icon={faSearch}

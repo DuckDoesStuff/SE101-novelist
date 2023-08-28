@@ -66,9 +66,9 @@ export const changeChapterView = (id, view) => {
     });
 };
 
-export const changeNovelAuth = (id,user) => {
+export const changeNovelAuth = (id, user) => {
     const novelRef = doc(fstore, "novels/", id);
-	// console.log(auth.currentUser.uid);
+    // console.log(auth.currentUser.uid);
     return new Promise((resolve, reject) => {
         updateDoc(novelRef, { author_id: user })
             .then(() => {
@@ -231,8 +231,8 @@ export const genNovelKey = () => {
 };
 
 export const genAuthKey = () => {
-	return doc(collection(fstore, 'userinfos')).id
-}
+    return doc(collection(fstore, "userinfos")).id;
+};
 
 export const emptyChapter = () => {
     return {
@@ -260,25 +260,25 @@ export const emptyNovel = () => {
         status: "",
         like: 0,
         view: 0,
-		author_id: "",
+        author_id: "",
     };
 };
 
 export const emptyAuth = () => {
-	return {
-		id: "",
-		name: "",
-		bio: "",
-		ava:"",
-		image_path: "",
-		comment_section: "",
-		published: [],
-		library: [],
-		status: "",
-		follower: [],
-		following: [],
-	}
-}
+    return {
+        id: "",
+        name: "",
+        bio: "",
+        ava: "",
+        image_path: "",
+        comment_section: "",
+        published: [],
+        library: [],
+        status: "",
+        follower: [],
+        following: [],
+    };
+};
 
 // Parse in a chapter object and a key (if you want to set a custom key)
 export const pushChapter = async (chapter, key = null) => {
@@ -302,14 +302,14 @@ export const pushNovel = async (novelData, key = null) => {
     }
 };
 
-export const pushAuth = async (AuthData, key=null) => {
-	if(key) {
-		const AuthRef = doc(fstore, 'userinfos', key)
-		await setDoc(AuthRef, AuthData, {merge: true});
-	}else {
-		const AuthRef = collection(fstore, 'userinfos')
-		await addDoc(AuthRef, AuthData);
-	}
+export const pushAuth = async (AuthData, key = null) => {
+    if (key) {
+        const AuthRef = doc(fstore, "userinfos", key);
+        await setDoc(AuthRef, AuthData, { merge: true });
+    } else {
+        const AuthRef = collection(fstore, "userinfos");
+        await addDoc(AuthRef, AuthData);
+    }
 };
 
 // Parse in a chapter id and it will return a promise which contains the chapter data
@@ -371,28 +371,32 @@ export const getNovel = (id) => {
 };
 
 export const getUser = (id) => {
-	return new Promise((resolve, reject) => {
-		if (id === null) {
-			resolve(emptyAuth())
-			return;
-		}
-		console.log(id)
-		const AuthRef = doc(fstore, 'userinfos', id);
-		console.log(AuthRef)
-		getDoc(AuthRef)
-		.then((doc) => {
-			if (doc.exists()) {
-				const data = doc.data();
-				resolve(data)
-			} else {
-				resolve(emptyAuth())
-			}
-		})
-		.catch((error) => {
-			console.error("An error occured while fetching Auth: ", error, id)
-			reject(error)
-		})
-	})
+    return new Promise((resolve, reject) => {
+        if (id === null) {
+            resolve(emptyAuth());
+            return;
+        }
+        console.log(id);
+        const AuthRef = doc(fstore, "userinfos", id);
+        console.log(AuthRef);
+        getDoc(AuthRef)
+            .then((doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    resolve(data);
+                } else {
+                    resolve(emptyAuth());
+                }
+            })
+            .catch((error) => {
+                console.error(
+                    "An error occured while fetching Auth: ",
+                    error,
+                    id
+                );
+                reject(error);
+            });
+    });
 };
 
 // Parse in a File object and it will return a promise which contains the downloadURL and filePath
@@ -451,3 +455,23 @@ export const getAllNovels = () => {
             });
     });
 };
+
+export const searchNovelByGenre = (genre) => {
+    const novelRef = collection(fstore, "novels");
+    const searchQuery = query(novelRef, where("genre", "array-contains", genre));
+  
+    return new Promise((resolve, reject) => {
+      getDocs(searchQuery)
+        .then((docs) => {
+          const matchingNovels = [];
+          docs.forEach((doc) => {
+            matchingNovels.push(doc.data());
+          });
+          resolve(matchingNovels);
+        })
+        .catch((error) => {
+          console.error("An error occurred while searching for novels by genre: ", error);
+          reject(error);
+        });
+    });
+  };

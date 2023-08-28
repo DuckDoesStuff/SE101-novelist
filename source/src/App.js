@@ -174,7 +174,7 @@ function App() {
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
-      <Route path="userprofile" element={<UserProfilePage />} />
+      <Route path="profile" element={<UserProfilePage />} />
       
       <Route path="" element={<HomePage />} />
       <Route path="homepage" element={<HomePage />} />

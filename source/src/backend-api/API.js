@@ -230,6 +230,10 @@ export const genNovelKey = () => {
     return doc(collection(fstore, "novels")).id;
 };
 
+export const genAuthKey = () => {
+	return doc(collection(fstore, 'userinfos')).id
+}
+
 export const emptyChapter = () => {
     return {
         id: "",
@@ -260,6 +264,22 @@ export const emptyNovel = () => {
     };
 };
 
+export const emptyAuth = () => {
+	return {
+		id: "",
+		name: "",
+		bio: "",
+		description: "",
+		image_path: "",
+		comment_section: "",
+		published: [],
+		library: [],
+		status: "",
+		follower: [],
+		following: [],
+	}
+}
+
 // Parse in a chapter object and a key (if you want to set a custom key)
 export const pushChapter = async (chapter, key = null) => {
     if (key) {
@@ -280,6 +300,16 @@ export const pushNovel = async (novelData, key = null) => {
         const novelRef = collection(fstore, "novels");
         await addDoc(novelRef, novelData);
     }
+};
+
+export const pushAuth = async (AuthData, key=null) => {
+	if(key) {
+		const AuthRef = doc(fstore, 'userinfos', key)
+		await setDoc(AuthRef, AuthData, {merge: true});
+	}else {
+		const AuthRef = collection(fstore, 'userinfos')
+		await addDoc(AuthRef, AuthData);
+	}
 };
 
 // Parse in a chapter id and it will return a promise which contains the chapter data
@@ -339,6 +369,31 @@ export const getNovel = (id) => {
             });
     });
 };
+
+export const getUser = (id) => {
+	return new Promise((resolve, reject) => {
+		if (id === null) {
+			resolve(emptyAuth())
+			return;
+		}
+		console.log(id)
+		const AuthRef = doc(fstore, 'userinfos', id);
+		console.log(AuthRef)
+		getDoc(AuthRef)
+		.then((doc) => {
+			if (doc.exists()) {
+				const data = doc.data();
+				resolve(data)
+			} else {
+				resolve(emptyAuth())
+			}
+		})
+		.catch((error) => {
+			console.error("An error occured while fetching Auth: ", error, id)
+			reject(error)
+		})
+	})
+}
 
 // Parse in a File object and it will return a promise which contains the downloadURL and filePath
 export const uploadImage = (selectedFile) => {

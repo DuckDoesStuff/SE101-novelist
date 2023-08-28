@@ -127,17 +127,20 @@ const EditChapter = (props) => {
     }
 
     const handleClickDelete = () => {
-      deleteChapter(props.id, props.novelID)
-      .then(() => {
+      if(props.title === "Untitled") {
         setChapterInfo(chapterInfo.filter((chapter) => chapter.id !== props.id));
         props.setChapterID(props.chapterID.filter((id) => id !== props.id));
-        if(props.title === "Untitled") {
-          setUntitledChapter(untitledChapter - 1);
-        }
-        uploadMessage("Chapter deleted", "success", 2);
-
-
-      })
+        setUntitledChapter(untitledChapter - 1);
+      }else {
+        deleteChapter(props.id, props.novelID)
+        .then(() => {
+          setChapterInfo(chapterInfo.filter((chapter) => chapter.id !== props.id));
+          props.setChapterID(props.chapterID.filter((id) => id !== props.id));
+  
+          uploadMessage("Chapter deleted", "success", 2);
+  
+  
+        })}
     }
 
 		return (

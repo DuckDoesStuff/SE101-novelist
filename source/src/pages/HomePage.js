@@ -1,8 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header/Header.js';
 import { auth } from '../backend-api/FirebaseConfig.js';
+import "../styles/HomePage.css"
 import Carousel from '../components/Carousel/Carousel.js';
 
 import { getAllNovels } from '../backend-api/API.js';
@@ -152,21 +152,29 @@ const test = (novel) => {
     }
 });
 
-const [novels, setNovels] = useState([]);
+  const [novels, setNovels] = useState([]);
+  const [isFetched, setIsFetched] = useState(false);
 
-useEffect(() => {
-  // Gọi hàm từ module để lấy tất cả truyện
-  const fetchAllNovels = async () => {
-    try {
-      const allNovels = await getAllNovels();
-      setNovels(allNovels);
-    } catch (error) {
-      console.error('Error fetching all novels:', error);
-    }
-  };
+  useEffect(() => {
+    // Gọi hàm từ module để lấy tất cả truyện
+    const fetchAllNovels = async () => {
+      try {
+        const allNovels = await getAllNovels();
+        setNovels(allNovels);
+      } catch (error) {
+        console.error('Error fetching all novels:', error);
+      }
+    };
 
-  fetchAllNovels();
-}, []);
+    fetchAllNovels()
+    .then(() => {
+      setIsFetched(true);
+    })
+  }, []);
+
+  if(!isFetched){
+    return <div className='loading'><img src='loading.svg'/></div>
+  }
 
   return (
     // <div //data-theme={isDark ? 'dark' : 'light'}>

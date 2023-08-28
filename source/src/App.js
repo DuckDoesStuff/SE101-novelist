@@ -170,14 +170,15 @@ function App() {
       <Route path="signup" element={<SignUpPage />} />
       <Route path="signin" element={<SignInPage />} />
       <Route path="forgot" element={<ForgotPasswordPage />} />
-      <Route path="homepage" element={<HomePage />} />
-      <Route path="setting" element={<SettingPage />} />
       <Route path="userprofile" element={<UserProfilePage />} />
       
       <Route path="" element={<HomePage />} />
       <Route path="homepage" element={<HomePage />} />
       <Route path="setting" element={<SettingPage />} />
       <Route path="novel/:id" element={<NovelViewPage />} />
+      <Route path="editnovel" element={<EditNovelPage />} />
+      <Route path="editnovel/:id" element={<EditNovelPage />} />
+      <Route path="readnovel/:id" element={<ReadNovelPage />} />
 
     </Routes>
 	</div>

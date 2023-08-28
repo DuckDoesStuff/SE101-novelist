@@ -17,3 +17,8 @@
 	margin-right: 160px;
 	gap:30px;
 }
+
+.loading {
+	display:flex;
+	flex-direction: column;
+}

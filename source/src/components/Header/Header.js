@@ -80,7 +80,7 @@
       <div className={`header ${showScrolledHeader ? "scrolled" : ""}`}>
         <div className="headlogo">
             <Link to={"/"}>
-                <img   src="logo.svg" alt ="logo"/>
+                <img src="/logo.svg" alt ="logo"/>
             </Link>
         </div>
           <button 

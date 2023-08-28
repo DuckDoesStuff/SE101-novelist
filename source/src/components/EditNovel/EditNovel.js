@@ -12,7 +12,7 @@ const EditNovel = (props) => {
 
       <div className="edit-novel-input">
         <div>
-        <p className="text">Novel title</p>
+        <p className="edit-novel-text">Novel title</p>
         <input
           type="text"
           className="input-box"
@@ -24,7 +24,7 @@ const EditNovel = (props) => {
         </div>
 
         <div>
-        <p className="text">Genre</p>
+        <p className="edit-novel-text">Genre</p>
           <div className="genre-list">
             {props.buttons.map((buttonName) => (
               <Button id={buttonName} 
@@ -37,7 +37,7 @@ const EditNovel = (props) => {
         </div>
         
         <div>
-        <p className="text">Description</p>
+        <p className="edit-novel-text">Description</p>
         <textarea
           type="text"
           className="input-box"

@@ -2,23 +2,26 @@ import React, { useState, useEffect } from "react";
 import EditNovel from "../components/EditNovel/EditNovel";
 import EditChapter from "../components/EditChapter/EditChapter";
 import Button from "../components/Button/Button";
+import Header from "../components/Header/Header";
 
 import { message } from "antd";
 import { uploadImage, pushNovel, emptyNovel, getNovel, genNovelKey, deleteNovel } from "../backend-api/API";
 import { auth, storage } from '../backend-api/FirebaseConfig';
 import { deleteObject, ref } from "firebase/storage";
+import { useParams } from "react-router-dom";
 // import { auth } from "../backend-api/FirebaseConfig";
 import { Auth, getAuth } from "firebase/auth";
 import "../styles/EditNovelPage.css";
 
 const EditNovelPage = (props) => {
-  const [novelID, setNovelID] = useState(null);
-  useEffect(() => {
-    if(props.novelID !== null)
-      setNovelID(props.novelID);
-    else
-      setNovelID(genNovelKey());
-  }, [props.novelID])
+  const { id = genNovelKey() } = useParams();
+  const novelID = id;
+  // useEffect(() => {
+  //   if(props.novelID !== undefined)
+  //     setNovelID(props.novelID);
+  //   else
+  //     setNovelID(genNovelKey());
+  // }, [props.novelID])
 
   const [selectedFile, setSelectedFile] = useState("");
   const [title, setTitle] = useState("");
@@ -40,8 +43,8 @@ const EditNovelPage = (props) => {
 
   useEffect(() => {
     // Fetch novel data from backend
-    const fetchNovel = (novelID) => {
-      getNovel(novelID)
+    const fetchNovel = async (novelID) => {
+      await getNovel(novelID)
       .then((data) => {
         setTitle(data.title);
         setDescription(data.description);
@@ -53,14 +56,14 @@ const EditNovelPage = (props) => {
         
         // console.log("chapter_id", data.chapter_id)
         // console.log("chapterID", chapterID)
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       })
     }
 
     fetchNovel(novelID)
-  }, [novelID])
+    .then(() => {
+      setLoading(false);
+    })
+  }, [])
 
   const uploadMessage = (content, type, duration) => {
     messageApi.destroy();
@@ -189,9 +192,19 @@ const EditNovelPage = (props) => {
     // setSubmitChapter(true);
   }
 
+  if(loading) {
+    return (
+      <div>
+        <Header />
+        <img src="/loading.svg" className="loading"/>
+      </div>
+    )
+  }
+
   const buttons = ["Mystery", "Thriller", "Romantic", "Adventure", "Danmei", "Sci-fi", "Horror", "Action"];
   return (
     <div className="edit-novel-page">
+      <Header />
       {notificationHolder}
 
       <div className="button-group">

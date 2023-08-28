@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import styles from "../styles/ReadNovelPage.module.css";
 import TopAuthor from "../components/TopAuthor/TopAuthor";
 import TopNovel from "../components/TopNovel/TopNovel";
 import ReadFrame from "../components/ReadFrame/ReadFrame";
 import CommentForm from "../components/Comment/CommentForm";
-import Button from "../components/Button/Button"
+import { Link } from "react-router-dom";
 
-import { getNovel, getChapter, emptyNovel, emptyChapter } from "../backend-api/API"
+import { getNovel, getChapter } from "../backend-api/API"
 
-const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
+const ReadNovelPage = ({ novels, authors, changeTheme }) => {
+    const { id } = useParams();
+    const chapterID = id;
+
     const [novel, setNovel] = useState(null);
     const [chapter, setChapter] = useState(null);
     const [isFetched, setIsFetched] = useState(false);
@@ -31,12 +35,10 @@ const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
     useEffect(() => {
         const fetchChapters = async (chapter_id) => {
             if(chapter_id !== null) {
-                console.log(chapter_id, "chapter_id")
                 const chapters = await Promise.all(
                 chapter_id.map(async (chapterID) => {
                     try {
                         const chapterData = await getChapter(chapterID);
-                        console.log("chapterData", chapterData)
                         return chapterData;
                     } catch (error) {
                         console.error(`Error fetching chapter ${chapterID}:`, error);
@@ -57,7 +59,12 @@ const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
     }, [novel]);
 
     if (!isFetched) {
-        return <div> Loading... </div>;
+        return (
+            <div>
+                <Header/>
+                <img src={"/loading.svg"} alt="loading" className="loading" />
+            </div>
+        )
     }
 
     // const novel = novels.find((novel) => novel.id === chapter.novelId);
@@ -76,10 +83,14 @@ const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
         setComments(updatedComments);
     };
 
-
     const toggleChapters = () => {
         setShowChapters(!showChapters);
     };
+
+    const handleChooseChapter = (id) => {
+        const chapter = chaptersOfNovel.find((chapter) => chapter.id === id);
+        setChapter(chapter);
+    }
 
     const voTri = () => {
         console.log(novel);
@@ -92,7 +103,7 @@ const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
                 <Header changeTheme={changeTheme} />
             </div>
 
-            <Button onClick={voTri}>Vo Tri</Button>
+            {/* <Button onClick={voTri}>Vo Tri</Button> */}
 
             <div className={styles["read-header"]}>
                 <div className={styles["novel-header"]}>
@@ -128,7 +139,11 @@ const ReadNovelPage = ({ chapterID, novels, authors, changeTheme }) => {
                                 <h3>Chapters</h3>
                                 <ul>
                                     {chaptersOfNovel.map((chapter) => (
-                                        <li key={chapter.id}>{chapter.title}</li>
+                                        <Link to={`/readnovel/${chapter.id}`} key={chapter.id}>
+                                        <li onClick={() => handleChooseChapter(chapter.id)} 
+                                            key={chapter.id}>{chapter.title}
+                                        </li>
+                                        </Link>
                                     ))}
                                 </ul>
                             </div>

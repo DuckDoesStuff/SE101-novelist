@@ -18,6 +18,7 @@
 
 .ViewCardInteract img {
     width: 172px;
+    height: 258px;
 }
 
 .ViewCardButton {
@@ -86,6 +87,7 @@
 
 .author img {
     height: 36px;
+    width: 36px;
     border-radius: 50%;
 }
 
@@ -113,7 +115,7 @@
 }
 
 .script {
-    max-height: 160px;
+    max-height: 180px;
     font-size: 14px;
     color: var(--background-01);
     margin: 0;

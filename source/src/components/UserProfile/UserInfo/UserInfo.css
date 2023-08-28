@@ -1,0 +1,67 @@
+.UserInfoContainer {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.UserInfoNameContainer {
+    width: 100%;
+    display: flex;
+    justify-content: stretch;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.UserInfoNameContainer img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.UserInfoName {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+}
+
+.UserInfoName .FullName {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--background-01);
+}
+
+.UserInfoName .FullName i:hover {
+    color: var(--background-02);
+    cursor: pointer;
+}
+
+.UserInfoName .UserName {
+    font-size: 18px;
+    color: var(--background-01);
+}
+
+.UserInfoStatics {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    color: var(--background-01);
+    font-weight: 500;
+}
+
+.statics:hover {
+    color: var(--background-02);
+    cursor: pointer;
+}
+
+.UserInfoBio {
+    color: var(--background-01);
+    font-size: 14px;
+}

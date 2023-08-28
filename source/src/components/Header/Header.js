@@ -14,7 +14,7 @@ function Header() {
 
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
 
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);

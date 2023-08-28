@@ -1,41 +1,165 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Input, Space, Table } from 'antd';
+import { Button, Input, Space, Table, Modal, Form } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import './Management.css';
 import { getAllNovels } from '../../backend-api/API.js';
 
+const EditNotif = (props) => {
+	const layout = {
+		labelCol: { span: 8 },
+		wrapperCol: { span: 16 },
+	};
+
+	const validateMessages = {
+		required: "${label} không được để trống!",
+	};
+
+	const stateNotif = {
+		description: "",
+		day: 0,
+		month: 0,
+		year: 0,
+	};
+
+	const stateModal = {
+		ModalText: "Content of the modal",
+		visible: false,
+		confirmLoading: false,
+	};
+
+	const [inputs, setInputs] = useState(stateNotif);
+	const [Modals, setModals] = useState(stateModal);
+
+	const { description, day, month, year } = inputs;
+	const { ModalText, visible, confirmLoading } = Modals;
+
+	const [form] = Form.useForm();
+
+	useEffect(() => {
+		setInputs({
+			...inputs,
+			description: props.Description,
+			day: props.Day,
+			month: props.Month,
+			year: props.Year,
+		});
+	}, [visible]);
+
+	const showModal = () => {
+		setModals({
+			visible: true,
+		});
+	};
+	
+	const handleCancel = () => {
+		setModals({
+			visible: false,
+		});
+	// form.resetFields();
+	};
+	
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setInputs((inputs) => ({ ...inputs, [name]: value }));
+	//console.log(inputs);
+	};
+
+	const handleSubmit = () => {
+		setModals({
+			visible: false,
+		});
+	};
+
+	return (
+		<>
+			<Button type="default" onClick={showModal} size="small">
+        		Edit
+      		</Button>
+			<Modal
+				title="Edit mantainance notification"
+				visible={visible}
+				onOk={form.submit}
+				confirmLoading={confirmLoading}
+				onCancel={handleCancel}
+				onExit={props.reload}
+      		>
+				<Form
+					{...layout}
+					form={form}
+					name="nest-messages"
+					onFinish={handleSubmit}
+					validateMessages={validateMessages}
+				>
+					<Form.Item label="Description" rules={[{ required: true }]}>
+						<Input 
+							name="description" 
+							value={description} 
+							onChange={handleChange} 
+						/>
+					</Form.Item>
+
+					<Form.Item label="Day" rules={[{ required: true }]}>
+						<Input
+							name="day"
+							value={day}
+							onChange={handleChange}
+						/>
+					</Form.Item>
+
+					<Form.Item label="Month" rules={[{ required: true }]}>
+						<Input
+							name="month"
+							value={month}
+							onChange={handleChange}
+						/>
+					</Form.Item>
+
+					<Form.Item label="Year" rules={[{ required: true }]}>
+						<Input
+							name="year"
+							value={year}
+							onChange={handleChange}
+						/>
+					</Form.Item>
+				</Form>
+      		</Modal>
+		</>
+	)
+}
+
 const NovelManagement = () => {
-	const [isNovelSelected, setNovel] = useState(true);
+	const [isHomepageSelected, setHomepage] = useState(true);
+	const [isNovelSelected, setNovel] = useState(false);
 	const [isUserSelected, setUser] = useState(false);
-	const [isThemeSelected, setTheme] = useState(false);
 	const [isNotifSelected, setNotif] = useState(false);
 
+	const handleHomepageClick = () => {
+		setHomepage(true);
+		setNovel(false);
+		setUser(false);
+		setNotif(false);
+	};
+
+
 	const handleNovelClick = () => {
+		setHomepage(false);
 		setNovel(true);
 		setUser(false);
-		setTheme(false);
 		setNotif(false);
 	};
 
 	const handleUserClick = () => {
+		setHomepage(false);
 		setNovel(false);
 		setUser(true);
-		setTheme(false);
-		setNotif(false);
-	};
-
-	const handleThemeClick = () => {
-		setNovel(false);
-		setUser(false);
-		setTheme(true);
 		setNotif(false);
 	};
 
 	const handleNotifClick = () => {
+		setHomepage(false);
 		setNovel(false);
 		setUser(false);
-		setTheme(false);
 		setNotif(true);
 	};
 
@@ -166,7 +290,7 @@ const NovelManagement = () => {
 			title: 'ID',
             dataIndex: 'id',
             key: 'id',
-			width: '20%'
+			width: '20%',
         },
 		{
 			title: 'Title',
@@ -262,21 +386,67 @@ const NovelManagement = () => {
 			title: 'ID',
             dataIndex: 'author_id',
             key: 'author_id',
+			width: '20%'
         },
 		{
 			title: 'Name',
             dataIndex: 'name',
             key: 'name',
+			width: '40%',
+			...getColumnSearchProps('name'),
         },
 		{
 			title: 'Published novels',
             dataIndex: 'novels',
             key: 'novels',
+			width: '20%',
         },
 		{
 			title: 'Followers',
             dataIndex: 'followers',
             key: 'followers',
+			width: '20%',
+        }
+	]
+
+	const notif_columns = [
+        {
+			title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+			width: '50%',
+        },
+		{
+			title: 'Day',
+            dataIndex: 'day',
+            key: 'day',
+			width: '10%',
+        },
+		{
+			title: 'Month',
+            dataIndex: 'month',
+            key: 'month',
+			width: '10%',
+        },
+		{
+			title: 'Year',
+            dataIndex: 'year',
+            key: 'year',
+			width: '10%',
+        },
+		{
+			title: 'Action',
+            key: 'action',
+			render: (text, record) => (
+				<Space size="middle">
+					<EditNotif
+						Description={record.description}
+						Day={record.day}
+						Month={record.month}
+						Year={record.year}
+					/>
+				</Space>
+			),
         }
 	]
 
@@ -284,10 +454,25 @@ const NovelManagement = () => {
 		console.log('params', pagination, filters, sorter, extra);
 	};
 
+	const notif = [
+		{
+			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque blandit enim egestas interdum fermentum. Vivamus in lectus suscipit, hendrerit eros sit amet, fringilla lectus. Fusce eget ante rhoncus neque accumsan aliquet. Morbi sodales vel ex non congue.",
+			day: 28,
+			month: 8,
+			year: 2023,
+		}
+	]
+
 	return (
 		<div className="Container">
 			<div className="SidebarContainer">
 				<div className="SidebarItems">
+					<div 
+						className={`SidebarItem ${isHomepageSelected ? "active" : ""}`}
+						onClick={handleHomepageClick}
+					>
+						Homepage
+					</div>
 					<div 
 						className={`SidebarItem ${isNovelSelected ? "active" : ""}`}
 						onClick={handleNovelClick}
@@ -301,12 +486,6 @@ const NovelManagement = () => {
 						Users
 					</div>
 					<div 
-						className={`SidebarItem ${isThemeSelected ? "active" : ""}`}
-						onClick={handleThemeClick}
-					>
-						Themes
-					</div>
-					<div 
 						className={`SidebarItem ${isNotifSelected ? "active" : ""}`}
 						onClick={handleNotifClick}
 					>
@@ -314,6 +493,22 @@ const NovelManagement = () => {
 					</div>
 				</div>
         	</div>
+			{isHomepageSelected && (
+				<div className="ManagementContainer">
+					<h3>Statistics</h3>
+					<div className="StatisticsContainer">
+						<div className="Statitic">
+							<p className="Title">Total number of novels</p>
+							<p className="Number">{novels.length}</p>
+						</div>
+						<div className="Statitic">
+							<p className="Title">Total number of users</p>
+							{/* <p className="Number">{users.length}</p> */}
+							<p className="Number">1000</p>
+						</div>
+					</div>
+				</div>
+			)}
 			{isNovelSelected && (
 				<div className="ManagementContainer">
 					<h3>Novels</h3>
@@ -324,7 +519,7 @@ const NovelManagement = () => {
                     	pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
 				</div>
 			)}
-			{isUserSelected && (
+			{/* {isUserSelected && (
 				<div className="ManagementContainer">
 					<h3>Users</h3>
 					<Table 
@@ -332,6 +527,15 @@ const NovelManagement = () => {
 						dataSource={novels} 
 						onChange={onChange}
 						pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
+				</div>
+			)} */}
+			{isNotifSelected && (
+				<div className="ManagementContainer">
+					<h3>Maintenance notification</h3>
+					<Table 
+						columns={notif_columns}
+                    	dataSource={notif}
+						pagination={false}/>
 				</div>
 			)}
         </div>

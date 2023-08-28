@@ -53,6 +53,37 @@
     margin: 0;
 }
 
+.StatisticsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+}
+
+.Statitic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--background-01);
+    border-radius: 8px;
+}
+
+.Statitic .Title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--background-01);
+    padding: 4px;
+    border-bottom: 1px solid var(--background-01);
+}
+
+.Statitic .Number {
+    font-size: 64px;
+    font-weight: 600;
+    color: var(--background-01);
+    padding: 4px;
+}
+
 .ManagementContainer .ant-spin-container {
     height: auto;
     width: 960px;

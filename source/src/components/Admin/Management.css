@@ -1,29 +1,14 @@
 .Container {
     display: flex;
-    flex-direction: row;
-    gap: 8px;
-    padding: 8px;
+    height: 100vh;
 }
 
 .SidebarContainer {
-    width: 240px;
-    height: fit-content;
-    display: flex;
+    width: 180px;
+    height: 100%;
+    background-color: var(--background-02);
     flex-direction: column;
-    gap: 8px;
-    padding: 8px 0;
-    align-items: center;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--background-01);
-}
-
-.SidebarContainer h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--background-01);
-    margin: 0;
+    display: flex;
 }
 
 .SidebarItems {
@@ -36,29 +21,28 @@
 }
 
 .SidebarItem {
-    font-size: 16px;
-    color: black;
-    padding: 8px;
+    color: var(--text);
+    font-size: 18px;
+    padding: 16px;
+    font-weight: 500;
+    transition: background-color 0.5s ease;
 }
 
 .SidebarItem.active {
-    color: var(--background-01);
-    font-weight: 600;
+    background-color: var(--background-01)
 }
 
 .SidebarItem:hover {
-    background-color: var(--background-01);
-    color: white;
     cursor: pointer;
 }
 
 .ManagementContainer {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     gap: 8px;
-    border-color: var(--background-01);
+    padding: 12px;
 }
 
 .ManagementContainer h3 {
@@ -66,6 +50,14 @@
     font-weight: 700;
     color: var(--background-01);
     margin: 0;
+}
+
+.ManagementContainer .ant-spin-container {
+    height: auto;
+    width: 960px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .MyTable {

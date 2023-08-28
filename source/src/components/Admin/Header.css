@@ -16,7 +16,12 @@
 }
 
 .btnContainerAdmin {
+    display: flex;
     font-size: 12px;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
     color: var(--text);
     background-color: var(--background-02);
     padding: 8px;

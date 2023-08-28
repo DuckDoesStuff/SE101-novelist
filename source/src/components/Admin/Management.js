@@ -67,6 +67,11 @@ const NovelManagement = () => {
 
     const novel_columns = [
         {
+			title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+        },
+		{
 			title: 'Title',
             dataIndex: 'title',
             key: 'title',
@@ -104,113 +109,74 @@ const NovelManagement = () => {
         }
     ]
 
+	const author_columns = [
+        {
+			title: 'ID',
+            dataIndex: 'author_id',
+            key: 'author_id',
+        },
+		{
+			title: 'Name',
+            dataIndex: 'username',
+            key: 'username',
+        },
+		{
+			title: 'Published novels',
+            dataIndex: 'novels',
+            key: 'novels',
+        },
+		{
+			title: 'Followers',
+            dataIndex: 'followers',
+            key: 'followers',
+        }
+	]
+
 	return (
 		<div className="Container">
 			<div className="SidebarContainer">
-				<h3>Novelist</h3>
-				<ul className="SidebarItems">
-					<li 
+				<div className="SidebarItems">
+					<div 
 						className={`SidebarItem ${isGenreSelected ? "active" : ""}`}
 						onClick={handleGenreClick}
 					>
 						Genres
-					</li>
-					<li 
+					</div>
+					<div 
 						className={`SidebarItem ${isNovelSelected ? "active" : ""}`}
 						onClick={handleNovelClick}
 					>
 						Novels
-					</li>
-					<li 
+					</div>
+					<div 
 						className={`SidebarItem ${isUserSelected ? "active" : ""}`}
 						onClick={handleUserClick}
 					>
 						Users
-					</li>
-					<li 
+					</div>
+					<div 
 						className={`SidebarItem ${isThemeSelected ? "active" : ""}`}
 						onClick={handleThemeClick}
 					>
 						Themes
-					</li>
-					<li 
+					</div>
+					<div 
 						className={`SidebarItem ${isNotifSelected ? "active" : ""}`}
 						onClick={handleNotifClick}
 					>
 						Maintenance notification
-					</li>
-				</ul>
+					</div>
+				</div>
         	</div>
 			{isNovelSelected && (
 				<div className="ManagementContainer">
-					<h3>Novel Management</h3>
+					<h3>Novels</h3>
 					<Table 
 						columns={novel_columns}
                     	dataSource={novels} 
-                    	pagination={{className: "pagination", defaultPageSize: 50}}/>
+                    	pagination={{className: "pagination", defaultPageSize: 10, showSizeChanger:true}}/>
 				</div>
 			)}
-			{/* {isNovelSelected && (
-				<div className="ManagementContainer">
-				<h3>Novel Management</h3>
-				<div className="MyTable">
-					<table>
-						<tr className="RowTitle">
-							<th>Name</th>
-							<th>Author</th>
-							<th>Genre</th>
-							<th>View</th>
-						</tr>
-
-						{novel.map((val, key) => {
-                            let genre = "";
-                            for (let i = 0; i < val.genre.length; i++) {
-                                genre += val.genre[i]
-                                if (i < val.genre.length - 1) {
-                                    genre += ",";
-                                }
-                            }
-                            return (
-                                <tr key={key}>
-                                    <td>{val.title}</td>
-                                    <td>{val.author}</td>
-                                    <td>{genre}</td>
-                                    <td>{val.view}</td>
-                                </tr>
-                            )
-                        })}
-                    </table>
-                </div>
-	            </div>
-				)
-			}
-			{isUserSelected && (
-				<div className="ManagementContainer">
-				<h3>User Management</h3>
-				<div className="MyTable">
-					<table>
-						<tr className="RowTitle">
-							<th>ID</th>
-							<th>Username</th>
-							<th>Followers</th>
-							<th>Novels</th>
-						</tr>
-
-						{author.map((val, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td>{val.id}</td>
-                                    <td>{val.username}</td>
-                                    <td>{val.followers}</td>
-                                    <td>{val.novels}</td>
-                                </tr>
-                            )
-                        })}
-                    </table>
-                </div>
-	            </div>
-				)
-			} */}
         </div>
     );
 };

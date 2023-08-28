@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 import "./SignInZone.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faLock} from "@fortawesome/free-solid-svg-icons";
-import {useAuth} from "../AuthContext"
 import { message } from "antd";
 import { auth } from "../../backend-api/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function SignInZone() {
     const [isChecked, setIsChecked] = useState(false);
-    const { setIsSignedIn } = useAuth();
     const [messageApi, notificationHolder] = message.useMessage();
     
     const [email, setEmail] = useState("");
@@ -40,7 +38,6 @@ function SignInZone() {
         signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
             localStorage.setItem("user", JSON.stringify(user));
-            setIsSignedIn(true);
             setTimeout(nothing(), 100000);
             window.location.href = "/homepage";
         })

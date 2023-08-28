@@ -4,7 +4,7 @@ import SettingZone from "../components/SettingZone/SettingZone.js";
 function SignUpPage() {
   return (
     <div >
-        <SettingZone/>
+        <SettingZone AuthID={null}/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 .SettingZone{
     display: flex;
-    height: 100%;
+    height: 100vh;
 }
 .SettingNav{
     width: 250px;

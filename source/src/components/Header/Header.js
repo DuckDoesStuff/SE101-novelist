@@ -8,14 +8,27 @@
   import { getAuth } from "firebase/auth";
   import { auth } from "../../backend-api/FirebaseConfig";
   import { useTheme } from '../ThemeProvider';
-  import {useAuth} from "../AuthContext.js"
-  import "./Header.css"; // Import the CSS file
+    import "./Header.css"; // Import the CSS file
 
   const Header = () => {
     const [showScrolledHeader, setShowScrolledHeader] = useState(false);
-
-    const { isSignedIn} = useAuth();
-
+    const [isSignedIn, setIsSignedIn] = useState(false);  
+    const handleSignIn = () => {
+      setIsSignedIn(true);
+    };
+    const handleSignOut = () => {
+      setIsSignedIn(false);
+    };
+    const checkLoginStatus = () => {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          var  temp = setIsSignedIn();
+          return true;
+        } else {
+          return false;
+        }
+      })
+    }
     const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
     const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
 
@@ -95,7 +108,7 @@
               />
         </div>
         <div className="btnContainer">
-          {isSignedIn ? (
+          {checkLoginStatus ? (
             <div>
               <button 
                 className={`headbtn ${showUserNav?'clicked':''}` }

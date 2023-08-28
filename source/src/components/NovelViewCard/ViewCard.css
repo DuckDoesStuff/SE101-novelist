@@ -64,7 +64,7 @@
 .title {
     font-size: 20px;
     font-weight: 600;
-    color: var(--background-01);
+    color: var(--text-name);
     margin: 0;
 }
 
@@ -95,7 +95,7 @@
 .author p {
     font-size: 16px;
     font-weight: 600;
-    color: var(--background-01);
+    color: var(--text-name);
     margin: 0;
 }
 
@@ -120,7 +120,7 @@
     font-weight: 500;
     max-height: 180px;
     font-size: 16px;
-    color: var(--background-01);
+    color: var(--text-name);
     margin: 0;
     overflow: scroll;
     overflow-x: hidden;
@@ -146,7 +146,7 @@
     display: flex;
     flex-direction: row;
     gap: 12px;
-    color: var(--background-01);
+    color: var(--text-name);
     font-size: 16px;
 }
 
@@ -207,17 +207,18 @@
 .Chapter {
     font-size: 14px;
     padding: 4px;
-    color: var(--background-01);
+    color: var(--text-name);
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    background-color: var(--background);
 }
 
 .Chapter:hover {
     color: var(--text);
-    background-color: var(--background-01);
+    background-color: var(--background-02);
     cursor: pointer;
 }
 

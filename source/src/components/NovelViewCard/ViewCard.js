@@ -16,10 +16,15 @@ const ViewCard = (props) => {
     const [user, setUser] = useState(null);
 
     const [isLike, setLike] = useState(false);
+    const navigate = useNavigate();
 
     const handleLikeClick = () => {
-        setLike(!isLike)
-        updateUserLibrary(auth.currentUser.uid, novel);
+        if(auth.currentUser) {
+            setLike(!isLike)
+            updateUserLibrary(auth.currentUser.uid, novel);
+        }else {
+            navigate("/signin")
+        }
     }
 
     useEffect(() => {
@@ -31,13 +36,15 @@ const ViewCard = (props) => {
         fetchData(props.novelID)
         .then(() => {
             console.log("Loaded novel", props.novelID)
-            getUser(auth.currentUser.uid)
-            .then((userData) => {
-                setUser(userData);
-                if(userData.library.includes(props.novelID)) {
-                    setLike(true);
-                }
-            })
+            if(auth.currentUser) {
+                getUser(auth.currentUser.uid)
+                .then((userData) => {
+                    setUser(userData);
+                    if(userData.library.includes(props.novelID)) {
+                        setLike(true);
+                    }
+                })
+            }
         })
     }, []);
 
@@ -102,7 +109,6 @@ const ViewCard = (props) => {
         }
         })
     }
-    const navigate = useNavigate();
     const handleClickRead = () => {
         if(chaptersOfNovel[0] !== undefined) {
             // window.location.href = "/readnovel/" + chaptersOfNovel[0].id;

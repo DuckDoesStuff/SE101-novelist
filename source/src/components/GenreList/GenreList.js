@@ -9,9 +9,6 @@ const GenreList = (onClick) => {
       <button className="genreListStyle">Mystery</button>
       <button className="genreListStyle">Horror</button>
       <button className="genreListStyle">Thriller</button>
-      <button className="genreListStyle">Detective</button>
-      <button className="genreListStyle">Slice of life</button>
-      <button className="genreListStyle">School</button>
     </div>
   );
 };

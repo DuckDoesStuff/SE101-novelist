@@ -207,7 +207,7 @@ const EditNovelPage = (props) => {
     )
   }
 
-  const buttons = ["Mystery", "Thriller", "Romantic", "Adventure", "Danmei", "Sci-fi", "Horror", "Action"];
+  const buttons = ["Mystery", "Thriller", "Romantic", "Adventure", "Action"];
   return (
     <div className="edit-novel-page">
       <Header />

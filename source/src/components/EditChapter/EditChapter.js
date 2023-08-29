@@ -205,7 +205,7 @@ const EditChapter = (props) => {
 	<div className='edit-chapter'>
     <h2>Chapters</h2>
     <Button children='New chapter' onClick={handleNewChapter}/>
-    <Button children='Vo tri' onClick={voTriButton}/>
+    {/* <Button children='Vo tri' onClick={voTriButton}/> */}
     {chapterInfo.length === 0 ? <p className="message-text">No chapter yet</p> : 
     <>
       {chapterInfo.map((chapter, index) => (

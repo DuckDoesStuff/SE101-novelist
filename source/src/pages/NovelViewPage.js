@@ -5,7 +5,6 @@ import Carousel from '../components/Carousel/Carousel.js';
 import Footer from '../components/Footer/Footer.js';
 import { getAllNovels, getNovel } from '../backend-api/API.js';
 import { useParams } from "react-router-dom";
-import Footer from '../components/Footer/Footer.js';
 
 function NovelViewPage() {
     const container = {

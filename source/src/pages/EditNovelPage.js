@@ -221,7 +221,7 @@ const EditNovelPage = (props) => {
       <div className="button-group">
         <Button children="Submit" onClick={submitNovel}/>
         <Button children="Cancel" onClick={cancelNovel}/>
-        <Button children="Test" onClick={testFunction}/>
+        {/* <Button children="Test" onClick={testFunction}/> */}
       </div>
 
       <EditNovel  handleDrop={handleDrop}

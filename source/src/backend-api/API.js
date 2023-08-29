@@ -376,9 +376,7 @@ export const getUser = (id) => {
             resolve(emptyAuth());
             return;
         }
-        console.log(id);
         const AuthRef = doc(fstore, "userinfos", id);
-        console.log(AuthRef);
         getDoc(AuthRef)
             .then((doc) => {
                 if (doc.exists()) {
@@ -402,17 +400,20 @@ export const getUser = (id) => {
 export const updateUserLibrary = (id, novel) => {
     getUser(id)
     .then((user) => {
-        console.log(user.library, "library");
         if(user.library.includes(novel.id)) {
-            user.library.arrayRemove(novel.id)
-            const AuthRef = doc(fstore, 'userinfos', user.id);
-            updateDoc(AuthRef, { library: user.library})
-            changeNovelLike(novel.id, novel.like - 1);
-        }else {
+            const index = user.library.indexOf(novel.id);
+            user.library.splice(index, 1);
+            updateDoc(doc(fstore, "userinfos", id), {library: user.library})
+            .then(() => {
+                changeNovelLike(novel.id, novel.like - 1)
+            })
+        } else {
+            console.log("pushing to library", novel.id)
             user.library.push(novel.id);
-            const AuthRef = doc(fstore, 'userinfos', user.id);
-            updateDoc(AuthRef, {library: user.library})
-            changeNovelLike(novel.id, novel.like + 1);
+            updateDoc(doc(fstore, "userinfos", id), {library: user.library})
+            .then(() => {
+                changeNovelLike(novel.id, novel.like + 1)
+            })
         }
     })
 }

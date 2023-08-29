@@ -14,6 +14,7 @@ import { getUser } from "../../backend-api/API";
 const UserNav = () => {
   const [name, setName] = useState("");
   const [Ava,setAva] = useState("");
+  const [id,setId] = useState("");
   useEffect(() => {
     const fetchUser = () => {
       if(auth.currentUser.uid)
@@ -21,6 +22,7 @@ const UserNav = () => {
       getUser(auth.currentUser.uid).then((data) => {
       setAva(data.ava);
       setName(data.name);
+      setId(data.id);
           
         
         setTimeout(() => {}, 1000);
@@ -36,7 +38,7 @@ const UserNav = () => {
   return (
     <div>
       <div className="UserNavContainerStyle">
-        <Link to="/profile">
+        <Link to={`/profile/${id}`}>
           <div className="func user">
             <img src={Ava ? Ava : "author1.jpg"}
             alt="Avatar" className="authorIcon"></img>

@@ -2,63 +2,77 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import './NovelTab.css'
 import NovelCard from "../../NovelCard/NovelCard";
-import { getAllNovels } from '../../../backend-api/API.js';
+import { getAllNovels, getNovel } from '../../../backend-api/API.js';
   
 
 
-const NovelTab = () => {
+const NovelTab = ({user}) => {
+    const [published, setPublished] = useState([]);
+    const [library, setLibrary] = useState([]);
+    const [isFetched, setIsFetched] = useState(false);
+
     const testItem = () => {
         console.log("ok");
     }
 
-	const [novels, setNovels] = useState([]);
-
 	useEffect(() => {
-	const fetchAllNovels = async () => {
-		try {
-		const allNovels = await getAllNovels();
-		setNovels(allNovels);
-		} catch (error) {
-		console.error('Error fetching all novels:', error);
-		}
-	};
+        const fetchAllNovels = async () => {
+            try {
+                const publishedNovels = await Promise.all(
+                    user.published.map(async (novelId) => {
+                        const novelData = await getNovel(novelId);
+                        return novelData
+                    })
+                );
+                setPublished(publishedNovels);
 
-	fetchAllNovels();
+
+                const libraryNovels = await Promise.all(
+                    user.library.map(async (novelId) => {
+                        const novelData = await getNovel(novelId);
+                        return novelData
+                    })
+                );
+                setLibrary(libraryNovels);
+            } catch (error) {
+                console.error('Error fetching all novels:', error);
+            }
+        };
+
+        fetchAllNovels()
+        .then(() => {
+            setIsFetched(true);
+        });
 	}, []);
 
-    const author = [
-        {
-            id: "1",
-            username: "Lan Ho Diep 123 hahahahaaha",
-            followers: 100,
-            novels: 10,
-            ava: "ava.jpg",
-        },
-        {
-            id: "2",
-            username: "Lan Ho Diep 123",
-            followers: 100,
-            novels: 10,
-            ava: "ava.jpg",
-        },
-        {
-            id: "3",
-            username: "Nhung",
-            followers: 100,
-            novels: 10,
-            ava: "ava.jpg",
-        },
-    ];
-    const onChange = (key) => {
-        console.log(key);
-    };
+    if(!isFetched) {
+        return (
+            <div className="loading">
+                <img src="/loading.svg"/>
+            </div>
+        );
+    }
 
-    const TabItem = () => {
+    const PublishedItem = () => {
         return (
             <div className="NovelListContainer">
-                {novels.map((val, key) =>
+                {published.map((val, key) =>
                     <NovelCard
-                        user = {author["1"]}
+                        key={key}
+                        novel={val}
+                        onClick={() => testItem()}
+                    />
+                )}
+            </div>
+        )
+    }
+
+    const LibraryItem = () => {
+        return (
+            <div className="NovelListContainer">
+                {library.map((val, key) =>
+                    <NovelCard
+                        key={key}
                         novel={val}
                         onClick={() => testItem()}
                     />
@@ -71,17 +85,17 @@ const NovelTab = () => {
         {
             key: '1',
             label: 'Library',
-            children: <TabItem/>,
+            children: <LibraryItem/>,
         },
         {
             key: '2',
             label: 'Published',
-            children: <TabItem/>,
+            children: <PublishedItem/>,
         }
     ];
 
     return (
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+        <Tabs defaultActiveKey="1" items={items}/>
     );
 };
 

@@ -6,12 +6,13 @@ import Header from "../components/Header/Header";
 
 import { message } from "antd";
 import { uploadImage, pushNovel, emptyNovel, getNovel, genNovelKey, deleteNovel } from "../backend-api/API";
-import { auth, storage } from '../backend-api/FirebaseConfig';
+import { auth, fstore, storage } from '../backend-api/FirebaseConfig';
 import { deleteObject, ref } from "firebase/storage";
 import { useParams } from "react-router-dom";
 // import { auth } from "../backend-api/FirebaseConfig";
 import { Auth, getAuth } from "firebase/auth";
 import "../styles/EditNovelPage.css";
+import { arrayUnion, doc, updateDoc } from "@firebase/firestore";
 
 const EditNovelPage = (props) => {
   const { id: urlID } = useParams();
@@ -178,6 +179,10 @@ const EditNovelPage = (props) => {
       } else {
         uploadMessage("Successfully uploaded", "success", duration);
       }
+      //update novelid into published list of user
+      updateDoc(doc(fstore, "userinfos", auth.currentUser.uid), {
+        published: arrayUnion(novelID)
+      })
       setSubmitChapter(true);
     }
   };

@@ -3,7 +3,7 @@ import { Table, message } from 'antd';
 import { Link, useNavigate } from "react-router-dom";
 import './ViewCard.css';
 import Button from '../Button/Button';
-import { getNovel, getChapter, emptyNovel, emptyChapter, getUser, changeNovelLike } from "../../backend-api/API"
+import { getNovel, getChapter, emptyNovel, emptyChapter, getUser, updateUserLibrary } from "../../backend-api/API"
 import { auth } from '../../backend-api/FirebaseConfig';
 
 
@@ -13,11 +13,13 @@ const ViewCard = (props) => {
     const [chaptersOfNovel, setChaptersOfNovel] = useState([]);
     const [author, setAuthor] = useState(null);
     const [isFetched, setIsFetched] = useState(false);
+    const [user, setUser] = useState(null);
 
     const [isLike, setLike] = useState(false);
 
     const handleLikeClick = () => {
         setLike(!isLike)
+        updateUserLibrary(auth.currentUser.uid, novel);
     }
 
     useEffect(() => {
@@ -29,6 +31,13 @@ const ViewCard = (props) => {
         fetchData(props.novelID)
         .then(() => {
             console.log("Loaded novel", props.novelID)
+            getUser(auth.currentUser.uid)
+            .then((userData) => {
+                setUser(userData);
+                if(userData.library.includes(props.novelID)) {
+                    setLike(true);
+                }
+            })
         })
     }, []);
 
@@ -103,14 +112,7 @@ const ViewCard = (props) => {
         }
     }
 
-    const handleLikeNovel = () => {
-        if(auth.currentUser) {
-            changeNovelLike(novel.id, novel.like + 1);
-        }
-    }
-
     if (!isFetched) {
-        console.log(chaptersOfNovel)
         return <div className='loading'> <img src="/loading.svg"/> </div>;
     }
 
@@ -133,10 +135,12 @@ const ViewCard = (props) => {
             <div className='ViewCardInfoContainer'>
                 <div className='ViewCardInfoList'>
                     <p className='title'>{novel.title}</p>
+                    <Link to={`/profile/${author.id}`} className='author'>
                     <div className='author'>    
                         <img src={author.ava} alt='avatar'></img>
                         <p>{author.name}</p>
                     </div>
+                    </Link>
                     <div className='GenreList'>
                         {novel.genre.map((val, id) => <p className='genre' key={id}>{val}</p>)}
                     </div>

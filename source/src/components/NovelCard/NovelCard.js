@@ -32,7 +32,7 @@ const NovelCard = ({ novel }) => {
     if (!isFetched) {
         return (
             <div className="loading">
-                <img src="loading.svg" />
+                <img src="/loading.svg" />
             </div>
         );
     }

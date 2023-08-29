@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header/Header.js";
 import ViewCard from "../components/NovelViewCard/ViewCard";
 import { useParams } from "react-router-dom";
+import Footer from '../components/Footer/Footer.js';
 
 function NovelViewPage() {
     const { id } = useParams();
@@ -20,6 +21,7 @@ function NovelViewPage() {
             <div style={container}>
                 <ViewCard novelID={id}/>
             </div>
+            <Footer/>
         </div>
     );
 }

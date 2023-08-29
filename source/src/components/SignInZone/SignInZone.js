@@ -60,7 +60,7 @@ function SignInZone() {
     return (
       <div className="SignInZone" >
         {notificationHolder}
-        <img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img>
+        <Link to ="/"><img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img></Link>
         <div className="SignInCard">
             <p className="titleBar">Sign in</p>
             <p className="text">Account </p>

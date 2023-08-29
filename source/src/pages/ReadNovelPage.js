@@ -7,6 +7,7 @@ import TopNovel from "../components/TopNovel/TopNovel";
 import ReadFrame from "../components/ReadFrame/ReadFrame";
 import CommentForm from "../components/Comment/CommentForm";
 import { Link } from "react-router-dom";
+import Footer from '../components/Footer/Footer.js';
 
 import { getNovel, getChapter } from "../backend-api/API"
 

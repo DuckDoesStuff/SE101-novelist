@@ -90,7 +90,7 @@
 
     const handleSearchInputKeyPress = (event) => {
       if (event.key === "Enter") {
-        handleSearchByGenre(event.key);
+        handleSearch();
       }
     };
 

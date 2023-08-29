@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header.js';
+import Footer from '../components/Footer/Footer.js'
 import UserInfo from "../components/UserProfile/UserInfo/UserInfo";
 import NovelTab from "../components/UserProfile/NovelTab/NovelTab";
 import { useParams } from 'react-router-dom';
@@ -13,7 +14,8 @@ function UserProfilePage() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        color: 'var(--text-name)',
     };
     const [isFetched, setIsFetched] = useState(false);
     const [user, setUser] = useState(null);
@@ -51,6 +53,7 @@ function UserProfilePage() {
                 <UserInfo user={user}/>
                 <NovelTab user={user}/>
             </div>
+            <Footer/>
         </div>
     );
 };

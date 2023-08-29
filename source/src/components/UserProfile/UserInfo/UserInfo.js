@@ -40,6 +40,8 @@ const UserInfo = ({user}) => {
             !user.follower.includes(auth.currentUser.uid))) {
             setFollow(false)
             }
+        if(!auth.currentUser)
+            setFollow(false)
     }, [])
 
     const hidden = {

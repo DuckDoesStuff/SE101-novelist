@@ -6,7 +6,7 @@
 }
 
 .ant-tabs-tab-btn {
-    color: var(--background-01) !important;
+    color: var(--text-name) !important;
     font-weight: 600;
     font-size: 16px;
 }

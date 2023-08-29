@@ -48,7 +48,7 @@ function NovelViewPage() {
                 <ViewCard novelID={id}/>
                 <Carousel novel={novels} onClick={test} title={"Maybe you also like"} />
             </div>
-          <Footer />
+            <Footer/>
         </div>
     );
 }

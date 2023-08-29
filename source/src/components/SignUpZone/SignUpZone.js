@@ -66,7 +66,7 @@ function SignUpZone() {
     return (
       <div className="SignUpZone" >
         {notificationHolder}
-        <img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img>
+       <Link to ="/"><img className="Greenlogo" src="/Greenlogo.svg" alt="Logo" ></img></Link> 
         <div className="SignUpCard">
             <p className="titleBar">Sign up</p>
             <p className="text">Account </p>

@@ -10,11 +10,13 @@
   import { useTheme } from '../ThemeProvider';
   import { searchNovel } from '../../backend-api/API.js';
   import { searchNovelByGenre } from "../../backend-api/API.js";
+  import { getAllNovels } from "../../backend-api/API.js";
   import "./Header.css"; // Import the CSS file
 
   const Header = () => {
     const [showScrolledHeader, setShowScrolledHeader] = useState(false);
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const [selectedGenre, setSelectedGenre] = useState("");
     
     const handleSignIn = () => {
       setIsSignedIn(true);
@@ -44,6 +46,7 @@
     }, [])
     const [showGenres, setShowGenres] = useState(false); // Define showGenres state here
     const [showUserNav, setShowUserNav] = useState(false); // Define showGenres state here
+    const [selectedGenres, setSelectedGenres] = useState([]);
 
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState("");
@@ -58,14 +61,12 @@
         }
       }
     };
-    const handleGenreClick = async (genre) => {
-      if (genre.trim() !== '') {
-        try {
-          const results = await searchNovelByGenre(genre);
-          navigate(`/search?query=${encodeURIComponent(genre)}`);
-        } catch (error) {
-          console.error('Error searching novels by genre:', error);
-        }
+    const handleSearchByGenre = async (genre) => {
+      try {
+        setSelectedGenre(genre);
+        navigate(`/search?genre=${encodeURIComponent(genre)}`);
+      } catch (error) {
+        console.error('Lỗi khi tìm kiếm theo thể loại:', error);
       }
     };
     useEffect(() => {
@@ -132,9 +133,9 @@
             className={`headbtn ${showGenres?'clicked':''}` }
             onClick={toggleGenres}>Genres <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
           </button>
-          {showGenres && <GenreList onClick={handleGenreClick}/>}
+          {showGenres && <GenreList onClick={handleSearchByGenre}></GenreList>}
         <div style={{ position: "relative" }}>
-            <FontAwesomeIcon
+            <FontAwesomeIcon  
             icon={faSearch}
             className="searchIcon"
             />

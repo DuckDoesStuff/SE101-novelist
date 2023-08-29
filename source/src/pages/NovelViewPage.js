@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header/Header.js";
 import ViewCard from "../components/NovelViewCard/ViewCard";
 import Carousel from '../components/Carousel/Carousel.js';
+import Footer from '../components/Footer/Footer.js';
 import { getAllNovels, getNovel } from '../backend-api/API.js';
 import { useParams } from "react-router-dom";
 
@@ -40,21 +41,14 @@ function NovelViewPage() {
         })
     }, []);
 
-    // const currentNovel = getNovel(id)
-
-    // function suggestFunction(novel) {
-    //     return novel.genre.some(val => currentNovel.genre.includes(val)) 
-    // }
-
-    // const suggestNovels = novels.filter(suggestFunction)
-
     return (
         <div className="novel-view-page">
             <Header />
             <div style={container}>
                 <ViewCard novelID={id}/>
-                {/* <Carousel novel={suggestNovels} onClick={test} title={"Maybe you also like"} /> */}
+                <Carousel novel={novels} onClick={test} title={"Maybe you also like"} />
             </div>
+          <Footer />
         </div>
     );
 }

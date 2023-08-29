@@ -214,6 +214,7 @@ const ReadNovelPage = () => {
                     <TopAuthor author={authors} />
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 };

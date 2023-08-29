@@ -55,7 +55,7 @@ const Footer = () => {
                 <div className={styles["logo-fit"]}>
                     <div className={styles["logo-hcmus"]}>
                         <img
-                            src="hcmus-logo-white.png"
+                            src="/hcmus-logo-white.png"
                             className={styles["logo-hcmus"]}
                         ></img>
                     </div>

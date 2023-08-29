@@ -154,7 +154,7 @@ const ViewCard = (props) => {
                 </div>
                 <div className='NovelReact'>
                     <div className='react'><i class="fa-solid fa-heart"></i>{novel.like}</div>
-                    <div className='react'><i class="fa-solid fa-comment"></i>{novel.comment}</div>
+                    {/* <div className='react'><i class="fa-solid fa-comment"></i>{novel.comment}</div> */}
                 </div>
             </div>
 

@@ -3,7 +3,7 @@
 
 **Course: Introduction to Software Engineering**
 
-Novelists is a 
+Novelist is a web application that provides a platform for readers and authors to read and share their novels. It includes a variety of features to enhance the user experience for both writers and readers.
 
 ## Features 
 
